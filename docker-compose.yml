@@ -1,0 +1,9 @@
+version: "3.7"
+services:
+  builder:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./src/ApiFilter/Parser:/parser
+      - ./grammar:/grammar
