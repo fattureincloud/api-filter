@@ -46,7 +46,7 @@ The **value** can be one of:
 - String: 'value'
 - Booleam: true, false
 - Int: 46
-- Double: 1234
+- Double: 12.34
 
 It is possible to use the following operators:
 - Negation: not, NOT
