@@ -18,7 +18,7 @@ To parse a filter string, you can use the *FattureInCloud\ApiFilter\FilterFactor
 ``` php
 use FattureInCloud\ApiFilter\FilterFactory
 
-$str = "id = 5"
+$str = "id = 5";
 $factory = new FilterFactory();
 
 $filter = $factory->initFilter($str);
