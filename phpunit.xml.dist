@@ -11,7 +11,7 @@
     </report>
   </coverage>
   <testsuites>
-    <testsuite name=":vendor Test Suite">
+    <testsuite name="fattureincloud Test Suite">
       <directory>tests</directory>
     </testsuite>
   </testsuites>

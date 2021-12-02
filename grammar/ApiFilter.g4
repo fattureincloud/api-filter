@@ -15,10 +15,10 @@ expression:
 
 condition: FIELD op value;
 op: EQ | GT | GTE | LT | LTE | NEQ | LIKE;
-value: (BOOL | STRING | integer | double);
+value: (BOOL | STRING | integer | decimal);
 
 integer: INT;
-double: INT DOT INT;
+decimal: INT DOT INT;
 
 /*
  * Lexer Rules
@@ -46,7 +46,7 @@ DOT: '.';
 
 INT: (DIGIT)+;
 
-FIELD: LOWERCASE (( LOWERCASE | '_' | '.')+ LOWERCASE)?;
+FIELD: LOWERCASE (( LOWERCASE | '_' | '.')* LOWERCASE)?;
 
 fragment LOWERCASE: [a-z];
 fragment UPPERCASE: [A-Z];

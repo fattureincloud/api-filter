@@ -109,11 +109,11 @@ interface ApiFilterVisitor extends ParseTreeVisitor
 	public function visitInteger(Context\IntegerContext $context);
 
 	/**
-	 * Visit a parse tree produced by {@see ApiFilterParser::double()}.
+	 * Visit a parse tree produced by {@see ApiFilterParser::decimal()}.
 	 *
-	 * @param Context\DoubleContext $context The parse tree.
+	 * @param Context\DecimalContext $context The parse tree.
 	 *
 	 * @return mixed The visitor result.
 	 */
-	public function visitDouble(Context\DoubleContext $context);
+	public function visitDecimal(Context\DecimalContext $context);
 }

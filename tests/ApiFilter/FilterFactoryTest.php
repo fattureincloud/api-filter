@@ -154,10 +154,46 @@ class FilterFactoryTest extends TestCase
         $filter5 = $this->factory->initFilter("person_name.first = true");
         $expected5 = new Filter(new Condition("person_name.first", Operator::EQ, true));
         $this->assertEquals($expected5, $filter5);
+    }
 
-        $filter6 = $this->factory->initFilter("x = true");
-        $expected6 = new Filter(new Condition("x", Operator::EQ, true));
-        $this->assertEquals($expected6, $filter6);
+    /**
+     * Test field name with length 1
+     */
+    public function testOneLenField()
+    {
+        $filter = $this->factory->initFilter("x = 1");
+        $expected = new Filter(new Condition("x", Operator::EQ, 1));
+        $this->assertEquals($expected, $filter);
+    }
+
+    /**
+     * Test field name with length 2
+     */
+    public function testTwoLenField()
+    {
+        $filter = $this->factory->initFilter("id = 2");
+        $expected = new Filter(new Condition("id", Operator::EQ, 2));
+        $this->assertEquals($expected, $filter);
+    }
+
+    /**
+     * Test long field name
+     */
+    public function testLongField()
+    {
+        $fieldName = "ilkobranoneunserpentemaunpensierofrequentechediventaindecentequandovedotequandovedotequandovedotequandovedote";
+        $filter = $this->factory->initFilter($fieldName . " = 109");
+        $expected = new Filter(new Condition($fieldName, Operator::EQ, 109));
+        $this->assertEquals($expected, $filter);
+    }
+
+    /**
+     * Test field with unexpected character
+     */
+    public function testUnexpectedCharacterField()
+    {
+        $this->expectException(ParseCancellationException::class);
+        $this->factory->initFilter("s.cooper@fattureincloud.it = 1");
     }
 
     /**
@@ -165,7 +201,6 @@ class FilterFactoryTest extends TestCase
      */
     public function testMissingFieldName()
     {
-
         $this->expectException(ParseCancellationException::class);
         $this->factory->initFilter(" = true");
     }

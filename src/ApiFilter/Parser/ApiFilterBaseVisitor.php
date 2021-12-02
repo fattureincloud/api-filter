@@ -130,7 +130,7 @@ class ApiFilterBaseVisitor extends AbstractParseTreeVisitor implements ApiFilter
 	 * The default implementation returns the result of calling
 	 * {@see self::visitChildren()} on `context`.
 	 */
-	public function visitDouble(Context\DoubleContext $context)
+	public function visitDecimal(Context\DecimalContext $context)
 	{
 	    return $this->visitChildren($context);
 	}
