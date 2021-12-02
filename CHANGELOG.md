@@ -1,0 +1,12 @@
+# Changelog
+
+All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+
+### [1.0.1](https://github.com/fattureincloud/api-filter/compare/v1.0.0...v1.0.1) (2021-12-02)
+
+
+### Bug Fixes
+
+* accepts fieldnames of size 2 ([f4be484](https://github.com/fattureincloud/api-filter/commit/f4be484b536d350313e402ae2151f92c9ccbda65))
+* accepts fieldnames of size 2 ([b91898a](https://github.com/fattureincloud/api-filter/commit/b91898a566581db740f5823ef74c40b3958c500d))
+* removed stringable interface for PHP 7 ([e4fcf83](https://github.com/fattureincloud/api-filter/commit/e4fcf83c5369aaa1746e7a0ea0d631a6fb5d700d))
