@@ -12,7 +12,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        php: [7.2, 7.3, 7.4, 8.0, 8.1]
+        php: [7.4, 8.0]
 
     steps:
       - id: checkout
@@ -49,11 +49,3 @@ jobs:
       - id: php-unit-tests
         name: Run test suite
         run: composer test
-
-      - id: psalm-validation
-        name: Psalm Validation
-        run: |
-          composer require --dev vimeo/psalm
-          ./vendor/bin/psalm --init
-          ./vendor/bin/psalm
-          ./vendor/bin/psalm --taint-analysis
