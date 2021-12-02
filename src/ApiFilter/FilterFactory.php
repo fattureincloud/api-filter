@@ -19,7 +19,7 @@ use FattureInCloud\ApiFilter\Parser\ApiFilterVisitor;
 use FattureInCloud\ApiFilter\Parser\Context\FilterContext;
 use FattureInCloud\ApiFilter\Parser\Context\ConditionExpContext;
 use FattureInCloud\ApiFilter\Parser\Context\IntegerContext;
-use FattureInCloud\ApiFilter\Parser\Context\DoubleContext;
+use FattureInCloud\ApiFilter\Parser\Context\DecimalContext;
 use FattureInCloud\ApiFilter\Parser\Context\ParenthesisExpContext;
 use FattureInCloud\ApiFilter\Parser\Context\NegationExpContext;
 use FattureInCloud\ApiFilter\Parser\Context\ConjunctionExpContext;
@@ -94,8 +94,8 @@ final class FilterFactory extends AbstractParseTreeVisitor implements ApiFilterV
             $value = filter_var($context->BOOL()->getText(), FILTER_VALIDATE_BOOLEAN);
         } elseif ($context->integer()) {
             $value = $this->visit($context->integer());
-        } elseif ($context->double()) {
-            $value = $this->visit($context->double());
+        } elseif ($context->decimal()) {
+            $value = $this->visit($context->decimal());
         }
         return $value;
     }
@@ -105,7 +105,7 @@ final class FilterFactory extends AbstractParseTreeVisitor implements ApiFilterV
         return intval($context->getText());
     }
 
-    public function visitDouble(DoubleContext $context)
+    public function visitDecimal(DecimalContext $context)
     {
         return floatval($context->getText());
     }

@@ -2,9 +2,7 @@
 
 namespace FattureInCloud\ApiFilter\Filter;
 
-use Stringable;
-
-class Filter implements Stringable
+class Filter
 {
     private $expression;
 

@@ -28,13 +28,13 @@ namespace FattureInCloud\ApiFilter\Parser {
                CLOSE_PAR = 14, DOT = 15, INT = 16, FIELD = 17, WS = 18;
 
 		public const RULE_filter = 0, RULE_expression = 1, RULE_condition = 2, 
-               RULE_op = 3, RULE_value = 4, RULE_integer = 5, RULE_double = 6;
+               RULE_op = 3, RULE_value = 4, RULE_integer = 5, RULE_decimal = 6;
 
 		/**
 		 * @var array<string>
 		 */
 		public const RULE_NAMES = [
-			'filter', 'expression', 'condition', 'op', 'value', 'integer', 'double'
+			'filter', 'expression', 'condition', 'op', 'value', 'integer', 'decimal'
 		];
 
 		/**
@@ -403,7 +403,7 @@ namespace FattureInCloud\ApiFilter\Parser {
 
 		        	case 4:
 		        	    $this->setState(47);
-		        	    $this->double();
+		        	    $this->decimal();
 		        	break;
 		        }
 		    } catch (RecognitionException $exception) {
@@ -444,11 +444,11 @@ namespace FattureInCloud\ApiFilter\Parser {
 		/**
 		 * @throws RecognitionException
 		 */
-		public function double() : Context\DoubleContext
+		public function decimal() : Context\DecimalContext
 		{
-		    $localContext = new Context\DoubleContext($this->ctx, $this->getState());
+		    $localContext = new Context\DecimalContext($this->ctx, $this->getState());
 
-		    $this->enterRule($localContext, 12, self::RULE_double);
+		    $this->enterRule($localContext, 12, self::RULE_decimal);
 
 		    try {
 		        $this->enterOuterAlt($localContext, 1);
@@ -835,9 +835,9 @@ namespace FattureInCloud\ApiFilter\Parser\Context {
 	    	return $this->getTypedRuleContext(IntegerContext::class, 0);
 	    }
 
-	    public function double() : ?DoubleContext
+	    public function decimal() : ?DecimalContext
 	    {
-	    	return $this->getTypedRuleContext(DoubleContext::class, 0);
+	    	return $this->getTypedRuleContext(DecimalContext::class, 0);
 	    }
 
 		public function accept(ParseTreeVisitor $visitor)
@@ -877,7 +877,7 @@ namespace FattureInCloud\ApiFilter\Parser\Context {
 		}
 	} 
 
-	class DoubleContext extends ParserRuleContext
+	class DecimalContext extends ParserRuleContext
 	{
 		public function __construct(?ParserRuleContext $parent, ?int $invokingState = null)
 		{
@@ -886,7 +886,7 @@ namespace FattureInCloud\ApiFilter\Parser\Context {
 
 		public function getRuleIndex() : int
 		{
-		    return ApiFilterParser::RULE_double;
+		    return ApiFilterParser::RULE_decimal;
 	    }
 
 	    /**
@@ -909,7 +909,7 @@ namespace FattureInCloud\ApiFilter\Parser\Context {
 		public function accept(ParseTreeVisitor $visitor)
 		{
 			if ($visitor instanceof ApiFilterVisitor) {
-			    return $visitor->visitDouble($this);
+			    return $visitor->visitDecimal($this);
 		    }
 
 			return $visitor->visitChildren($this);
