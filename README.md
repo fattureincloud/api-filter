@@ -34,30 +34,33 @@ field op value
 The **field** is a lowercase string, with dots and underscores.
 
 The **op** is one of the following (unquoted):
-- Equal: '='
-- Greater than: '>'
-- Greater than or equal to: '>='
-- Less than: '<'
-- Less than or equal to: '<='
-- Not equal: '<>', '!='
-- Like: 'like', 'LIKE'
+- _Equal_: '='
+- _Greater than_: '>'
+- _Greater than or equal to_: '>='
+- _Less than_: '<'
+- _Less than or equal to_: '<='
+- _Not equal_: '<>', '!='
+- _Like_: 'like', 'LIKE'
 
 The **value** can be one of:
-- String: 'value'
-- Booleam: true, false
-- Int: 46
-- Double: 12.34
+- _String_: 'value'
+- _Booleam_: true, false
+- _Int_: 46
+- _Double_: 12.34
+
+Additionally, it is possible to check if field has a value or not, using NULL:
+- _Null field_: 'IS NULL', 'is null', '= null', '= NULL'
+- _Not Null field_: 'IS NOT NULL', 'is not null', '<> null', '!= null', '<> NULL', '!= NULL'
 
 It is possible to use the following operators:
-- Negation: not, NOT
-- Conjunction: and, AND
-- Disjunction: or, OR
+- _Conjunction_: 'and', 'AND'
+- _Disjunction_: 'or', 'OR'
 
 Parenthesis can be used to compose complex expressions.
 
 For example:
 ```
-city = 'Bergamo' and (age < 30 or (dev = true and not (name = 'Giorgio')))
+city = 'Bergamo' and (age < 30 or (dev = true and (name = 'Giorgio' and name is not null)))
 ```
 
 ## Testing

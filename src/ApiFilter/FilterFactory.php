@@ -14,7 +14,6 @@ use FattureInCloud\ApiFilter\Filter\EmptyField;
 use FattureInCloud\ApiFilter\Filter\Expression;
 use FattureInCloud\ApiFilter\Filter\FilledField;
 use FattureInCloud\ApiFilter\Filter\Filter;
-use FattureInCloud\ApiFilter\Filter\Negation;
 use FattureInCloud\ApiFilter\Filter\Operator;
 use FattureInCloud\ApiFilter\Parser\ApiFilterLexer;
 use FattureInCloud\ApiFilter\Parser\ApiFilterParser;
@@ -25,7 +24,6 @@ use FattureInCloud\ApiFilter\Parser\Context\ConditionExpContext;
 use FattureInCloud\ApiFilter\Parser\Context\IntegerContext;
 use FattureInCloud\ApiFilter\Parser\Context\DecimalContext;
 use FattureInCloud\ApiFilter\Parser\Context\ParenthesisExpContext;
-use FattureInCloud\ApiFilter\Parser\Context\NegationExpContext;
 use FattureInCloud\ApiFilter\Parser\Context\ConjunctionExpContext;
 use FattureInCloud\ApiFilter\Parser\Context\DisjunctionExpContext;
 use FattureInCloud\ApiFilter\Parser\Context\ValueContext;
@@ -59,11 +57,6 @@ final class FilterFactory extends AbstractParseTreeVisitor implements ApiFilterV
     public function visitParenthesisExp(ParenthesisExpContext $context): Expression
     {
         return $this->visit($context->expression());
-    }
-
-    public function visitNegationExp(NegationExpContext $context): Negation
-    {
-        return new Negation($this->visit($context->expression()));
     }
 
     public function visitConjunctionExp(ConjunctionExpContext $context): Conjunction

@@ -23,16 +23,6 @@ interface ApiFilterVisitor extends ParseTreeVisitor
 	public function visitFilter(Context\FilterContext $context);
 
 	/**
-	 * Visit a parse tree produced by the `negationExp` labeled alternative
-	 * in {@see ApiFilterParser::expression()}.
-	 *
-	 * @param Context\NegationExpContext $context The parse tree.
-	 *
-	 * @return mixed The visitor result.
-	 */
-	public function visitNegationExp(Context\NegationExpContext $context);
-
-	/**
 	 * Visit a parse tree produced by the `conjunctionExp` labeled alternative
 	 * in {@see ApiFilterParser::expression()}.
 	 *

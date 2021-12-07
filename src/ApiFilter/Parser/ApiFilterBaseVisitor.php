@@ -31,17 +31,6 @@ class ApiFilterBaseVisitor extends AbstractParseTreeVisitor implements ApiFilter
 	 * The default implementation returns the result of calling
 	 * {@see self::visitChildren()} on `context`.
 	 */
-	public function visitNegationExp(Context\NegationExpContext $context)
-	{
-	    return $this->visitChildren($context);
-	}
-
-	/**
-	 * {@inheritdoc}
-	 *
-	 * The default implementation returns the result of calling
-	 * {@see self::visitChildren()} on `context`.
-	 */
 	public function visitConjunctionExp(Context\ConjunctionExpContext $context)
 	{
 	    return $this->visitChildren($context);

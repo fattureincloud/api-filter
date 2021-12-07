@@ -10,7 +10,6 @@ use FattureInCloud\ApiFilter\Filter\Disjunction;
 use FattureInCloud\ApiFilter\Filter\EmptyField;
 use FattureInCloud\ApiFilter\Filter\FilledField;
 use FattureInCloud\ApiFilter\Filter\Filter;
-use FattureInCloud\ApiFilter\Filter\Negation;
 use FattureInCloud\ApiFilter\Filter\Operator;
 use PHPUnit\Framework\TestCase;
 use Antlr\Antlr4\Runtime\Error\Exceptions\ParseCancellationException;
@@ -519,31 +518,6 @@ class FilterFactoryTest extends TestCase
     }
 
     /**
-     * Test negation
-     */
-    public function testNegation()
-    {
-        $filter1 = $this->factory->initFilter("not name = 'Guillaume'");
-        $expected1 = new Filter(new Negation(new Comparison("name", Operator::EQ, "Guillaume")));
-        $this->assertEquals($expected1, $filter1);
-
-        $filter2 = $this->factory->initFilter("NOT name = 'Guillaume'");
-        $expected2 = new Filter(new Negation(new Comparison("name", Operator::EQ, "Guillaume")));
-        $this->assertEquals($expected2, $filter2);
-
-        $filter3 = $this->factory->initFilter("not (name = 'Guillaume')");
-        $expected3 = new Filter(new Negation(new Comparison("name", Operator::EQ, "Guillaume")));
-        $this->assertEquals($expected3, $filter3);
-
-        $filter4 = $this->factory->initFilter("(not name = 'Guillaume')");
-        $expected4 = new Filter(new Negation(new Comparison("name", Operator::EQ, "Guillaume")));
-        $this->assertEquals($expected4, $filter4);
-
-        $this->expectException(ParseCancellationException::class);
-        $this->factory->initFilter("not = 'Guillaume'");
-    }
-
-    /**
      * Test conjunction
      */
     public function testConjunction()
@@ -692,74 +666,62 @@ class FilterFactoryTest extends TestCase
      */
     public function testComplexExpressions()
     {
-        $filter1 = $this->factory->initFilter("name = 'Guillaume' and (not city = 'Bergamo' or company <> 'FIC')");
+        $filter1 = $this->factory->initFilter("name = 'Guillaume' and (city = 'Bergamo' or company <> 'FIC')");
         $expected1 = new Filter(
             new Conjunction(
                 new Comparison("name", Operator::EQ, "Guillaume"),
                 new Disjunction(
-                    new Negation(
-                        new Comparison("city", Operator::EQ, "Bergamo")
-                    ),
+                    new Comparison("city", Operator::EQ, "Bergamo"),
                     new Comparison("company", Operator::NEQ, "FIC")
                 )
             )
         );
         $this->assertEquals($expected1, $filter1);
 
-        $filter2 = $this->factory->initFilter("name = 'Guillaume' and not (city = 'Bergamo' or company <> 'FIC')");
+        $filter2 = $this->factory->initFilter("name = 'Guillaume' and (city = 'Bergamo' or company is not null)");
         $expected2 = new Filter(
             new Conjunction(
                 new Comparison("name", Operator::EQ, "Guillaume"),
-                new Negation(
-                    new Disjunction(
-                        new Comparison("city", Operator::EQ, "Bergamo"),
-                        new Comparison("company", Operator::NEQ, "FIC")
-                    )
+                new Disjunction(
+                    new Comparison("city", Operator::EQ, "Bergamo"),
+                    new FilledField("company")
                 )
             )
         );
         $this->assertEquals($expected2, $filter2);
 
-        $filter3 = $this->factory->initFilter("(name = 'Guillaume' and not city = 'Bergamo' or company <> 'FIC')");
+        $filter3 = $this->factory->initFilter("(name = 'Guillaume' and city = 'Bergamo' or company <> 'FIC')");
         $expected3 = new Filter(
             new Disjunction(
                 new Conjunction(
                     new Comparison("name", Operator::EQ, "Guillaume"),
-                    new Negation(
-                        new Comparison("city", Operator::EQ, "Bergamo")
-                    )
+                    new Comparison("city", Operator::EQ, "Bergamo")
                 ),
                 new Comparison("company", Operator::NEQ, "FIC")
             )
         );
         $this->assertEquals($expected3, $filter3);
 
-        $filter4 = $this->factory->initFilter("(name = 'Guillaume' and not city = 'Bergamo') or company <> 'FIC'");
+        $filter4 = $this->factory->initFilter("(name = 'Guillaume' and city = 'Bergamo') or company <> 'FIC'");
         $expected4 = new Filter(
             new Disjunction(
                 new Conjunction(
                     new Comparison("name", Operator::EQ, "Guillaume"),
-                    new Negation(
-                        new Comparison("city", Operator::EQ, "Bergamo")
-                    )
+                    new Comparison("city", Operator::EQ, "Bergamo")
                 ),
                 new Comparison("company", Operator::NEQ, "FIC")
             )
         );
         $this->assertEquals($expected4, $filter4);
 
-        $filter5 = $this->factory->initFilter("not (name = 'Guillaume' and not city = 'Bergamo') or company <> 'FIC'");
+        $filter5 = $this->factory->initFilter("(name = 'Guillaume' and city = 'Bergamo') or company is null");
         $expected5 = new Filter(
             new Disjunction(
-                new Negation(
-                    new Conjunction(
-                        new Comparison("name", Operator::EQ, "Guillaume"),
-                        new Negation(
-                            new Comparison("city", Operator::EQ, "Bergamo")
-                        )
-                    )
+                new Conjunction(
+                    new Comparison("name", Operator::EQ, "Guillaume"),
+                    new Comparison("city", Operator::EQ, "Bergamo")
                 ),
-                new Comparison("company", Operator::NEQ, "FIC")
+                new EmptyField("company")
             )
         );
         $this->assertEquals($expected5, $filter5);

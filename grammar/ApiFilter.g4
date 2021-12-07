@@ -9,7 +9,6 @@ filter: expression EOF;
 expression:
 	condition						# conditionExp
 	| OPEN_PAR expression CLOSE_PAR	# parenthesisExp
-	| NOT expression				# negationExp
 	| expression AND expression		# conjunctionExp
 	| expression OR expression		# disjunctionExp;
 
