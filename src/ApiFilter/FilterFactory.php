@@ -6,16 +6,20 @@ use Antlr\Antlr4\Runtime\CommonTokenStream;
 use Antlr\Antlr4\Runtime\Error\BailErrorStrategy;
 use Antlr\Antlr4\Runtime\InputStream;
 use Antlr\Antlr4\Runtime\Tree\AbstractParseTreeVisitor;
+use FattureInCloud\ApiFilter\Filter\Comparison;
 use FattureInCloud\ApiFilter\Filter\Condition;
 use FattureInCloud\ApiFilter\Filter\Conjunction;
 use FattureInCloud\ApiFilter\Filter\Disjunction;
+use FattureInCloud\ApiFilter\Filter\EmptyField;
 use FattureInCloud\ApiFilter\Filter\Expression;
+use FattureInCloud\ApiFilter\Filter\FilledField;
 use FattureInCloud\ApiFilter\Filter\Filter;
 use FattureInCloud\ApiFilter\Filter\Negation;
 use FattureInCloud\ApiFilter\Filter\Operator;
 use FattureInCloud\ApiFilter\Parser\ApiFilterLexer;
 use FattureInCloud\ApiFilter\Parser\ApiFilterParser;
 use FattureInCloud\ApiFilter\Parser\ApiFilterVisitor;
+use FattureInCloud\ApiFilter\Parser\Context;
 use FattureInCloud\ApiFilter\Parser\Context\FilterContext;
 use FattureInCloud\ApiFilter\Parser\Context\ConditionExpContext;
 use FattureInCloud\ApiFilter\Parser\Context\IntegerContext;
@@ -24,7 +28,6 @@ use FattureInCloud\ApiFilter\Parser\Context\ParenthesisExpContext;
 use FattureInCloud\ApiFilter\Parser\Context\NegationExpContext;
 use FattureInCloud\ApiFilter\Parser\Context\ConjunctionExpContext;
 use FattureInCloud\ApiFilter\Parser\Context\DisjunctionExpContext;
-use FattureInCloud\ApiFilter\Parser\Context\ConditionContext;
 use FattureInCloud\ApiFilter\Parser\Context\ValueContext;
 use FattureInCloud\ApiFilter\Parser\Context\OpContext;
 
@@ -77,12 +80,17 @@ final class FilterFactory extends AbstractParseTreeVisitor implements ApiFilterV
         return new Disjunction($left, $right);
     }
 
-    public function visitCondition(ConditionContext $context): Condition
+    public function visitComparisonCondition(Context\ComparisonConditionContext $context): Comparison
+    {
+        return $this->visit($context->comparison());
+    }
+
+    public function visitComparison(Context\ComparisonContext $context): Comparison
     {
         $field = $context->FIELD()->getText();
         $op = $this->visit($context->op());
         $value = $this->visit($context->value());
-        return new Condition($field, $op, $value);
+        return new Comparison($field, $op, $value);
     }
 
     public function visitValue(ValueContext $context)
@@ -129,5 +137,27 @@ final class FilterFactory extends AbstractParseTreeVisitor implements ApiFilterV
             $operator = Operator::LIKE;
         }
         return $operator;
+    }
+
+    public function visitEmptyCondition(Context\EmptyConditionContext $context): EmptyField
+    {
+        return $this->visit($context->emptyfield());
+    }
+
+    public function visitEmptyfield(Context\EmptyfieldContext $context): EmptyField
+    {
+        $field = $context->FIELD()->getText();
+        return new EmptyField($field);
+    }
+
+    public function visitFilledCondition(Context\FilledConditionContext $context): FilledField
+    {
+        return $this->visit($context->filledfield());
+    }
+
+    public function visitFilledfield(Context\FilledfieldContext $context): FilledField
+    {
+        $field = $context->FIELD()->getText();
+        return new FilledField($field);
     }
 }

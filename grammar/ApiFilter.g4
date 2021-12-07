@@ -13,7 +13,15 @@ expression:
 	| expression AND expression		# conjunctionExp
 	| expression OR expression		# disjunctionExp;
 
-condition: FIELD op value;
+condition:
+	comparison	# comparisonCondition
+	| emptyfield		# emptyCondition
+	| filledfield	# filledCondition;
+
+comparison: FIELD op value;
+emptyfield: FIELD (EQ | IS) NULL;
+filledfield: FIELD (NEQ | IS NOT) NULL;
+
 op: EQ | GT | GTE | LT | LTE | NEQ | LIKE;
 value: (BOOL | STRING | integer | decimal);
 
@@ -38,6 +46,9 @@ STRING: '\'' ( ~'\'' | '\'\'')+ '\'';
 AND: ('and' | 'AND');
 OR: ('or' | 'OR');
 NOT: ('not' | 'NOT');
+
+IS: ('is' | 'IS');
+NULL: ('null' | 'NULL');
 
 OPEN_PAR: '(';
 CLOSE_PAR: ')';

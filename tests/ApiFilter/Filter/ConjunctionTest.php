@@ -38,20 +38,20 @@ class ConjunctionTest extends TestCase
     /**
      * Test conditions
      */
-    public function testConditions()
+    public function testComparisons()
     {
-        $left = new Condition("city", Operator::EQ, "Bergamo");
-        $right = new Condition("age", Operator::LT, 30);
+        $left = new Comparison("city", Operator::EQ, "Bergamo");
+        $right = new Comparison("age", Operator::LT, 30);
         $conjunction = new Conjunction($left, $right);
         $this->assertEquals($left, $conjunction->getLeft());
         $this->assertEquals($right, $conjunction->getRight());
 
-        $left2 = new Condition("state", Operator::NEQ, "USA");
+        $left2 = new Comparison("state", Operator::NEQ, "USA");
         $conjunction->setLeft($left2);
         $this->assertEquals($left2, $conjunction->getLeft());
         $this->assertEquals($right, $conjunction->getRight());
 
-        $right2 = new Condition("is_single", Operator::EQ, true);
+        $right2 = new Comparison("is_single", Operator::EQ, true);
         $conjunction->setRight($right2);
         $this->assertEquals($left2, $conjunction->getLeft());
         $this->assertEquals($right2, $conjunction->getRight());
@@ -62,8 +62,8 @@ class ConjunctionTest extends TestCase
      */
     public function testToString()
     {
-        $left = new Condition("city", Operator::EQ, "Bergamo");
-        $right = new Condition("age", Operator::LT, 30);
+        $left = new Comparison("city", Operator::EQ, "Bergamo");
+        $right = new Comparison("age", Operator::LT, 30);
         $conjunction = new Conjunction($left, $right);
         $this->assertEquals("CONJUNCTION{ city = Bergamo, age < 30 }", (string)$conjunction);
     }

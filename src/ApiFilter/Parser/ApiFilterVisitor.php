@@ -73,13 +73,61 @@ interface ApiFilterVisitor extends ParseTreeVisitor
 	public function visitParenthesisExp(Context\ParenthesisExpContext $context);
 
 	/**
-	 * Visit a parse tree produced by {@see ApiFilterParser::condition()}.
+	 * Visit a parse tree produced by the `comparisonCondition` labeled alternative
+	 * in {@see ApiFilterParser::condition()}.
 	 *
-	 * @param Context\ConditionContext $context The parse tree.
+	 * @param Context\ComparisonConditionContext $context The parse tree.
 	 *
 	 * @return mixed The visitor result.
 	 */
-	public function visitCondition(Context\ConditionContext $context);
+	public function visitComparisonCondition(Context\ComparisonConditionContext $context);
+
+	/**
+	 * Visit a parse tree produced by the `emptyCondition` labeled alternative
+	 * in {@see ApiFilterParser::condition()}.
+	 *
+	 * @param Context\EmptyConditionContext $context The parse tree.
+	 *
+	 * @return mixed The visitor result.
+	 */
+	public function visitEmptyCondition(Context\EmptyConditionContext $context);
+
+	/**
+	 * Visit a parse tree produced by the `filledCondition` labeled alternative
+	 * in {@see ApiFilterParser::condition()}.
+	 *
+	 * @param Context\FilledConditionContext $context The parse tree.
+	 *
+	 * @return mixed The visitor result.
+	 */
+	public function visitFilledCondition(Context\FilledConditionContext $context);
+
+	/**
+	 * Visit a parse tree produced by {@see ApiFilterParser::comparison()}.
+	 *
+	 * @param Context\ComparisonContext $context The parse tree.
+	 *
+	 * @return mixed The visitor result.
+	 */
+	public function visitComparison(Context\ComparisonContext $context);
+
+	/**
+	 * Visit a parse tree produced by {@see ApiFilterParser::emptyfield()}.
+	 *
+	 * @param Context\EmptyfieldContext $context The parse tree.
+	 *
+	 * @return mixed The visitor result.
+	 */
+	public function visitEmptyfield(Context\EmptyfieldContext $context);
+
+	/**
+	 * Visit a parse tree produced by {@see ApiFilterParser::filledfield()}.
+	 *
+	 * @param Context\FilledfieldContext $context The parse tree.
+	 *
+	 * @return mixed The visitor result.
+	 */
+	public function visitFilledfield(Context\FilledfieldContext $context);
 
 	/**
 	 * Visit a parse tree produced by {@see ApiFilterParser::op()}.

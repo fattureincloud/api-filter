@@ -4,7 +4,7 @@ namespace FattureInCloud\ApiFilter\Filter;
 
 use PHPUnit\Framework\TestCase;
 
-class NegationTest extends TestCase
+class FilledFieldTest extends TestCase
 {
     /**
      * Setup before running any test cases
@@ -35,17 +35,15 @@ class NegationTest extends TestCase
     }
 
     /**
-     * Test negated
+     * Test field
      */
-    public function testNegated()
+    public function testField()
     {
-        $condition = new Comparison("city", Operator::EQ, "Bergamo");
-        $negation = new Negation($condition);
-        $this->assertEquals($condition, $negation->getNegated());
+        $filled = new FilledField("name");
+        $this->assertEquals("name", $filled->getField());
 
-        $condition2 = new Comparison("name", Operator::NEQ, "Penny");
-        $negation->setNegated($condition2);
-        $this->assertEquals($condition2, $negation->getNegated());
+        $filled->setField("city");
+        $this->assertEquals("city", $filled->getField());
     }
 
     /**
@@ -53,8 +51,7 @@ class NegationTest extends TestCase
      */
     public function testToString()
     {
-        $condition = new Comparison("city", Operator::EQ, "Bergamo");
-        $negation = new Negation($condition);
-        $this->assertEquals("NEGATION{ city = Bergamo }", (string)$negation);
+        $filled = new FilledField("city");
+        $this->assertEquals("city <> NULL", (string)$filled);
     }
 }
