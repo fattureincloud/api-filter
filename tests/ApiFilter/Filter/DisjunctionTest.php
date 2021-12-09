@@ -38,20 +38,20 @@ class DisjunctionTest extends TestCase
     /**
      * Test conditions
      */
-    public function testComparisons()
+    public function testConditions()
     {
-        $left = new Comparison("city", ComparisonOperator::EQ, "Bergamo");
-        $right = new Comparison("age", ComparisonOperator::LT, 30);
+        $left = new Condition("city", Operator::EQ, "Bergamo");
+        $right = new Condition("age", Operator::LT, 30);
         $disjunction = new Disjunction($left, $right);
         $this->assertEquals($left, $disjunction->getLeft());
         $this->assertEquals($right, $disjunction->getRight());
 
-        $left2 = new Comparison("state", ComparisonOperator::NEQ, "USA");
+        $left2 = new Condition("state", Operator::NEQ, "USA");
         $disjunction->setLeft($left2);
         $this->assertEquals($left2, $disjunction->getLeft());
         $this->assertEquals($right, $disjunction->getRight());
 
-        $right2 = new Comparison("is_single", ComparisonOperator::EQ, true);
+        $right2 = new Condition("is_single", Operator::EQ, true);
         $disjunction->setRight($right2);
         $this->assertEquals($left2, $disjunction->getLeft());
         $this->assertEquals($right2, $disjunction->getRight());
@@ -62,8 +62,8 @@ class DisjunctionTest extends TestCase
      */
     public function testToString()
     {
-        $left = new Comparison("city", ComparisonOperator::EQ, "Bergamo");
-        $right = new Comparison("age", ComparisonOperator::LT, 30);
+        $left = new Condition("city", Operator::EQ, "Bergamo");
+        $right = new Condition("age", Operator::LT, 30);
         $disjunction = new Disjunction($left, $right);
         $this->assertEquals("DISJUNCTION{ city = Bergamo, age < 30 }", (string)$disjunction);
     }

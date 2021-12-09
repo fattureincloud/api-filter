@@ -39,11 +39,11 @@ class FilterTest extends TestCase
      */
     public function testExpression()
     {
-        $condition = new Comparison("city", ComparisonOperator::EQ, "Bergamo");
+        $condition = new Condition("city", Operator::EQ, "Bergamo");
         $filter = new Filter($condition);
         $this->assertEquals($condition, $filter->getExpression());
 
-        $condition2 = new Comparison("vacation", ComparisonOperator::EQ, "Martinica");
+        $condition2 = new Condition("vacation", Operator::EQ, "Martinica");
         $filter->setExpression($condition2);
         $this->assertEquals($condition2, $filter->getExpression());
     }
@@ -53,7 +53,7 @@ class FilterTest extends TestCase
      */
     public function testToString()
     {
-        $condition = new Comparison("city", ComparisonOperator::EQ, "Bergamo");
+        $condition = new Condition("city", Operator::EQ, "Bergamo");
         $filter = new Filter($condition);
         $this->assertEquals("FILTER{ city = Bergamo }", (string)$filter);
     }
