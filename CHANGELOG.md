@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.0.3](https://github.com/fattureincloud/api-filter/compare/v1.0.2...v1.0.3) (2021-12-09)
+
+
+### Features
+
+* simplified filter model ([17bc44d](https://github.com/fattureincloud/api-filter/commit/17bc44d918e3033ddc2218769d4eb03328077fe1))
+
 ### [1.0.2](https://github.com/fattureincloud/api-filter/compare/v1.0.1...v1.0.2) (2021-12-09)
 
 
