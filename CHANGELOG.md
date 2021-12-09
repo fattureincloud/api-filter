@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.0.2](https://github.com/fattureincloud/api-filter/compare/v1.0.1...v1.0.2) (2021-12-09)
+
+
+### Features
+
+* added null and not null conditions ([693c8d6](https://github.com/fattureincloud/api-filter/commit/693c8d6b048c4dda5117228056c00ff5a904d91f))
+* added string patterns ([30794dd](https://github.com/fattureincloud/api-filter/commit/30794dd24eef6841bd69c5ab682de89fd86269ff))
+* removed negation expressions ([04025eb](https://github.com/fattureincloud/api-filter/commit/04025ebb03e45ac7eb5a4b67ec6c61822dd85657))
+
 ### [1.0.1](https://github.com/fattureincloud/api-filter/compare/v1.0.0...v1.0.1) (2021-12-02)
 
 
