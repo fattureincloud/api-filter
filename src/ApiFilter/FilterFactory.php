@@ -6,6 +6,7 @@ use Antlr\Antlr4\Runtime\CommonTokenStream;
 use Antlr\Antlr4\Runtime\Error\BailErrorStrategy;
 use Antlr\Antlr4\Runtime\InputStream;
 use Antlr\Antlr4\Runtime\Tree\AbstractParseTreeVisitor;
+use FattureInCloud\ApiFilter\Filter\PatternOperator;
 use FattureInCloud\ApiFilter\Filter\Comparison;
 use FattureInCloud\ApiFilter\Filter\Condition;
 use FattureInCloud\ApiFilter\Filter\Conjunction;
@@ -14,7 +15,8 @@ use FattureInCloud\ApiFilter\Filter\EmptyField;
 use FattureInCloud\ApiFilter\Filter\Expression;
 use FattureInCloud\ApiFilter\Filter\FilledField;
 use FattureInCloud\ApiFilter\Filter\Filter;
-use FattureInCloud\ApiFilter\Filter\Operator;
+use FattureInCloud\ApiFilter\Filter\ComparisonOperator;
+use FattureInCloud\ApiFilter\Filter\Pattern;
 use FattureInCloud\ApiFilter\Parser\ApiFilterLexer;
 use FattureInCloud\ApiFilter\Parser\ApiFilterParser;
 use FattureInCloud\ApiFilter\Parser\ApiFilterVisitor;
@@ -27,7 +29,7 @@ use FattureInCloud\ApiFilter\Parser\Context\ParenthesisExpContext;
 use FattureInCloud\ApiFilter\Parser\Context\ConjunctionExpContext;
 use FattureInCloud\ApiFilter\Parser\Context\DisjunctionExpContext;
 use FattureInCloud\ApiFilter\Parser\Context\ValueContext;
-use FattureInCloud\ApiFilter\Parser\Context\OpContext;
+use FattureInCloud\ApiFilter\Parser\Context\ComparisonopContext;
 
 final class FilterFactory extends AbstractParseTreeVisitor implements ApiFilterVisitor
 {
@@ -52,6 +54,11 @@ final class FilterFactory extends AbstractParseTreeVisitor implements ApiFilterV
     public function visitConditionExp(ConditionExpContext $context): Condition
     {
         return $this->visit($context->condition());
+    }
+
+    public function visitPatternExp(Context\PatternExpContext $context)
+    {
+        return $this->visit($context->pattern());
     }
 
     public function visitParenthesisExp(ParenthesisExpContext $context): Expression
@@ -81,7 +88,7 @@ final class FilterFactory extends AbstractParseTreeVisitor implements ApiFilterV
     public function visitComparison(Context\ComparisonContext $context): Comparison
     {
         $field = $context->FIELD()->getText();
-        $op = $this->visit($context->op());
+        $op = $this->visit($context->comparisonop());
         $value = $this->visit($context->value());
         return new Comparison($field, $op, $value);
     }
@@ -111,23 +118,21 @@ final class FilterFactory extends AbstractParseTreeVisitor implements ApiFilterV
         return floatval($context->getText());
     }
 
-    public function visitOp(OpContext $context)
+    public function visitComparisonop(ComparisonopContext $context)
     {
         $operator = null;
         if ($context->EQ()) {
-            $operator = Operator::EQ;
+            $operator = ComparisonOperator::EQ;
         } elseif ($context->GT()) {
-            $operator = Operator::GT;
+            $operator = ComparisonOperator::GT;
         } elseif ($context->GTE()) {
-            $operator = Operator::GTE;
+            $operator = ComparisonOperator::GTE;
         } elseif ($context->LT()) {
-            $operator = Operator::LT;
+            $operator = ComparisonOperator::LT;
         } elseif ($context->LTE()) {
-            $operator = Operator::LTE;
+            $operator = ComparisonOperator::LTE;
         } elseif ($context->NEQ()) {
-            $operator = Operator::NEQ;
-        } elseif ($context->LIKE()) {
-            $operator = Operator::LIKE;
+            $operator = ComparisonOperator::NEQ;
         }
         return $operator;
     }
@@ -152,5 +157,28 @@ final class FilterFactory extends AbstractParseTreeVisitor implements ApiFilterV
     {
         $field = $context->FIELD()->getText();
         return new FilledField($field);
+    }
+
+    public function visitPattern(Context\PatternContext $context)
+    {
+        $field = $context->FIELD()->getText();
+        $op = $this->visit($context->patternop());
+        $value = substr($context->STRING()->getText(), 1, -1);
+        return new Pattern($field, $op, $value);
+    }
+
+    public function visitPatternop(Context\PatternopContext $context)
+    {
+        $op = null;
+        if ($context->LIKE()) {
+            $op = PatternOperator::LIKE;
+        } elseif ($context->CONTAINS()) {
+            $op = PatternOperator::CONTAINS;
+        } elseif ($context->STARTSWITH()) {
+            $op = PatternOperator::STARTS_WITH;
+        } elseif ($context->ENDSWITH()) {
+            $op = PatternOperator::ENDS_WITH;
+        }
+        return $op;
     }
 }

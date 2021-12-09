@@ -8,21 +8,25 @@ filter: expression EOF;
 
 expression:
 	condition						# conditionExp
+	| pattern						# patternExp
 	| OPEN_PAR expression CLOSE_PAR	# parenthesisExp
 	| expression AND expression		# conjunctionExp
 	| expression OR expression		# disjunctionExp;
 
 condition:
-	comparison	# comparisonCondition
-	| emptyfield		# emptyCondition
+	comparison		# comparisonCondition
+	| emptyfield	# emptyCondition
 	| filledfield	# filledCondition;
 
-comparison: FIELD op value;
+comparison: FIELD comparisonop value;
 emptyfield: FIELD (EQ | IS) NULL;
 filledfield: FIELD (NEQ | IS NOT) NULL;
 
-op: EQ | GT | GTE | LT | LTE | NEQ | LIKE;
+comparisonop: EQ | GT | GTE | LT | LTE | NEQ;
 value: (BOOL | STRING | integer | decimal);
+
+pattern: FIELD patternop STRING;
+patternop: LIKE | CONTAINS | STARTSWITH | ENDSWITH;
 
 integer: INT;
 decimal: INT DOT INT;
@@ -37,26 +41,35 @@ GTE: '>=';
 LT: '<';
 LTE: '<=';
 NEQ: ('<>' | '!=');
+
 LIKE: ('like' | 'LIKE');
+CONTAINS: ('contains' | 'CONTAINS');
+STARTSWITH: STARTS ' '* WITH;
+ENDSWITH: ENDS ' '* WITH;
+
+STARTS: ('starts' | 'STARTS');
+ENDS: ('ends' | 'ENDS');
+WITH: ('with' | 'WITH');
 
 BOOL: ('true' | 'false');
 STRING: '\'' ( ~'\'' | '\'\'')+ '\'';
 
 AND: ('and' | 'AND');
 OR: ('or' | 'OR');
-NOT: ('not' | 'NOT');
 
 IS: ('is' | 'IS');
 NULL: ('null' | 'NULL');
+NOT: ('not' | 'NOT');
 
 OPEN_PAR: '(';
 CLOSE_PAR: ')';
 
-DOT: '.';
-
 INT: (DIGIT)+;
 
-FIELD: LOWERCASE (( LOWERCASE | '_' | '.')* LOWERCASE)?;
+DOT: '.';
+
+FIELD: LOWERCASE (( LOWERCASE | '_' | DOT)* LOWERCASE)?;
+
 
 fragment LOWERCASE: [a-z];
 fragment UPPERCASE: [A-Z];

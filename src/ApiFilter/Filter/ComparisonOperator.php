@@ -2,7 +2,7 @@
 
 namespace FattureInCloud\ApiFilter\Filter;
 
-abstract class Operator
+abstract class ComparisonOperator
 {
     const EQ = "=";
     const GT = ">";
@@ -10,5 +10,4 @@ abstract class Operator
     const LT = "<";
     const LTE = "<=";
     const NEQ = "<>";
-    const LIKE = "like";
 }

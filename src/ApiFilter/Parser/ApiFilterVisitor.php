@@ -23,6 +23,16 @@ interface ApiFilterVisitor extends ParseTreeVisitor
 	public function visitFilter(Context\FilterContext $context);
 
 	/**
+	 * Visit a parse tree produced by the `patternExp` labeled alternative
+	 * in {@see ApiFilterParser::expression()}.
+	 *
+	 * @param Context\PatternExpContext $context The parse tree.
+	 *
+	 * @return mixed The visitor result.
+	 */
+	public function visitPatternExp(Context\PatternExpContext $context);
+
+	/**
 	 * Visit a parse tree produced by the `conjunctionExp` labeled alternative
 	 * in {@see ApiFilterParser::expression()}.
 	 *
@@ -120,13 +130,13 @@ interface ApiFilterVisitor extends ParseTreeVisitor
 	public function visitFilledfield(Context\FilledfieldContext $context);
 
 	/**
-	 * Visit a parse tree produced by {@see ApiFilterParser::op()}.
+	 * Visit a parse tree produced by {@see ApiFilterParser::comparisonop()}.
 	 *
-	 * @param Context\OpContext $context The parse tree.
+	 * @param Context\ComparisonopContext $context The parse tree.
 	 *
 	 * @return mixed The visitor result.
 	 */
-	public function visitOp(Context\OpContext $context);
+	public function visitComparisonop(Context\ComparisonopContext $context);
 
 	/**
 	 * Visit a parse tree produced by {@see ApiFilterParser::value()}.
@@ -136,6 +146,24 @@ interface ApiFilterVisitor extends ParseTreeVisitor
 	 * @return mixed The visitor result.
 	 */
 	public function visitValue(Context\ValueContext $context);
+
+	/**
+	 * Visit a parse tree produced by {@see ApiFilterParser::pattern()}.
+	 *
+	 * @param Context\PatternContext $context The parse tree.
+	 *
+	 * @return mixed The visitor result.
+	 */
+	public function visitPattern(Context\PatternContext $context);
+
+	/**
+	 * Visit a parse tree produced by {@see ApiFilterParser::patternop()}.
+	 *
+	 * @param Context\PatternopContext $context The parse tree.
+	 *
+	 * @return mixed The visitor result.
+	 */
+	public function visitPatternop(Context\PatternopContext $context);
 
 	/**
 	 * Visit a parse tree produced by {@see ApiFilterParser::integer()}.

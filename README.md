@@ -40,13 +40,18 @@ The **op** is one of the following (unquoted):
 - _Less than_: '<'
 - _Less than or equal to_: '<='
 - _Not equal_: '<>', '!='
-- _Like_: 'like', 'LIKE'
 
 The **value** can be one of:
 - _String_: 'value'
 - _Booleam_: true, false
 - _Int_: 46
 - _Double_: 12.34
+
+It is also possible to **match a String against a Pattern** using one of those operators:
+- _Like_: 'like', 'LIKE'
+- _Contains_: 'contains', 'CONTAINS'
+- _Starts With_: 'starts with', 'STARTS WITH'
+- _Ends With_: 'ends with', 'ENDS WITH'
 
 Additionally, it is possible to check if field has a value or not, using NULL:
 - _Null field_: 'IS NULL', 'is null', '= null', '= NULL'
@@ -60,7 +65,7 @@ Parenthesis can be used to compose complex expressions.
 
 For example:
 ```
-city = 'Bergamo' and (age < 30 or (dev = true and (name = 'Giorgio' and name is not null)))
+city = 'Bergamo' and (age < 30 or (dev = true and (name = 'Giorgio' and surname is not null) or employer starts with 'Fatture'))
 ```
 
 ## Testing

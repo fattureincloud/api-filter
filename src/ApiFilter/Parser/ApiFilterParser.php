@@ -24,20 +24,22 @@ namespace FattureInCloud\ApiFilter\Parser {
 	final class ApiFilterParser extends Parser
 	{
 		public const EQ = 1, GT = 2, GTE = 3, LT = 4, LTE = 5, NEQ = 6, LIKE = 7, 
-               BOOL = 8, STRING = 9, AND = 10, OR = 11, NOT = 12, IS = 13, 
-               NULL = 14, OPEN_PAR = 15, CLOSE_PAR = 16, DOT = 17, INT = 18, 
-               FIELD = 19, WS = 20;
+               CONTAINS = 8, STARTSWITH = 9, ENDSWITH = 10, STARTS = 11, 
+               ENDS = 12, WITH = 13, BOOL = 14, STRING = 15, AND = 16, OR = 17, 
+               IS = 18, NULL = 19, NOT = 20, OPEN_PAR = 21, CLOSE_PAR = 22, 
+               INT = 23, DOT = 24, FIELD = 25, WS = 26;
 
 		public const RULE_filter = 0, RULE_expression = 1, RULE_condition = 2, 
                RULE_comparison = 3, RULE_emptyfield = 4, RULE_filledfield = 5, 
-               RULE_op = 6, RULE_value = 7, RULE_integer = 8, RULE_decimal = 9;
+               RULE_comparisonop = 6, RULE_value = 7, RULE_pattern = 8, 
+               RULE_patternop = 9, RULE_integer = 10, RULE_decimal = 11;
 
 		/**
 		 * @var array<string>
 		 */
 		public const RULE_NAMES = [
 			'filter', 'expression', 'condition', 'comparison', 'emptyfield', 'filledfield', 
-			'op', 'value', 'integer', 'decimal'
+			'comparisonop', 'value', 'pattern', 'patternop', 'integer', 'decimal'
 		];
 
 		/**
@@ -45,16 +47,18 @@ namespace FattureInCloud\ApiFilter\Parser {
 		 */
 		private const LITERAL_NAMES = [
 		    null, "'='", "'>'", "'>='", "'<'", "'<='", null, null, null, null, 
-		    null, null, null, null, null, "'('", "')'", "'.'"
+		    null, null, null, null, null, null, null, null, null, null, null, 
+		    "'('", "')'", null, "'.'"
 		];
 
 		/**
 		 * @var array<string>
 		 */
 		private const SYMBOLIC_NAMES = [
-		    null, "EQ", "GT", "GTE", "LT", "LTE", "NEQ", "LIKE", "BOOL", "STRING", 
-		    "AND", "OR", "NOT", "IS", "NULL", "OPEN_PAR", "CLOSE_PAR", "DOT", 
-		    "INT", "FIELD", "WS"
+		    null, "EQ", "GT", "GTE", "LT", "LTE", "NEQ", "LIKE", "CONTAINS", "STARTSWITH", 
+		    "ENDSWITH", "STARTS", "ENDS", "WITH", "BOOL", "STRING", "AND", "OR", 
+		    "IS", "NULL", "NOT", "OPEN_PAR", "CLOSE_PAR", "INT", "DOT", "FIELD", 
+		    "WS"
 		];
 
 		/**
@@ -62,58 +66,65 @@ namespace FattureInCloud\ApiFilter\Parser {
 		 */
 		private const SERIALIZED_ATN =
 			"\u{3}\u{608B}\u{A72A}\u{8133}\u{B9ED}\u{417C}\u{3BE7}\u{7786}\u{5964}" .
-		    "\u{3}\u{16}\u{50}\u{4}\u{2}\u{9}\u{2}\u{4}\u{3}\u{9}\u{3}\u{4}\u{4}" .
+		    "\u{3}\u{1C}\u{5B}\u{4}\u{2}\u{9}\u{2}\u{4}\u{3}\u{9}\u{3}\u{4}\u{4}" .
 		    "\u{9}\u{4}\u{4}\u{5}\u{9}\u{5}\u{4}\u{6}\u{9}\u{6}\u{4}\u{7}\u{9}" .
 		    "\u{7}\u{4}\u{8}\u{9}\u{8}\u{4}\u{9}\u{9}\u{9}\u{4}\u{A}\u{9}\u{A}" .
-		    "\u{4}\u{B}\u{9}\u{B}\u{3}\u{2}\u{3}\u{2}\u{3}\u{2}\u{3}\u{3}\u{3}" .
-		    "\u{3}\u{3}\u{3}\u{3}\u{3}\u{3}\u{3}\u{3}\u{3}\u{5}\u{3}\u{20}\u{A}" .
-		    "\u{3}\u{3}\u{3}\u{3}\u{3}\u{3}\u{3}\u{3}\u{3}\u{3}\u{3}\u{3}\u{3}" .
-		    "\u{7}\u{3}\u{28}\u{A}\u{3}\u{C}\u{3}\u{E}\u{3}\u{2B}\u{B}\u{3}\u{3}" .
-		    "\u{4}\u{3}\u{4}\u{3}\u{4}\u{5}\u{4}\u{30}\u{A}\u{4}\u{3}\u{5}\u{3}" .
-		    "\u{5}\u{3}\u{5}\u{3}\u{5}\u{3}\u{6}\u{3}\u{6}\u{3}\u{6}\u{3}\u{6}" .
-		    "\u{3}\u{7}\u{3}\u{7}\u{3}\u{7}\u{3}\u{7}\u{5}\u{7}\u{3E}\u{A}\u{7}" .
-		    "\u{3}\u{7}\u{3}\u{7}\u{3}\u{8}\u{3}\u{8}\u{3}\u{9}\u{3}\u{9}\u{3}" .
-		    "\u{9}\u{3}\u{9}\u{5}\u{9}\u{48}\u{A}\u{9}\u{3}\u{A}\u{3}\u{A}\u{3}" .
-		    "\u{B}\u{3}\u{B}\u{3}\u{B}\u{3}\u{B}\u{3}\u{B}\u{2}\u{3}\u{4}\u{C}" .
-		    "\u{2}\u{4}\u{6}\u{8}\u{A}\u{C}\u{E}\u{10}\u{12}\u{14}\u{2}\u{4}\u{4}" .
-		    "\u{2}\u{3}\u{3}\u{F}\u{F}\u{3}\u{2}\u{3}\u{9}\u{2}\u{4E}\u{2}\u{16}" .
-		    "\u{3}\u{2}\u{2}\u{2}\u{4}\u{1F}\u{3}\u{2}\u{2}\u{2}\u{6}\u{2F}\u{3}" .
-		    "\u{2}\u{2}\u{2}\u{8}\u{31}\u{3}\u{2}\u{2}\u{2}\u{A}\u{35}\u{3}\u{2}" .
-		    "\u{2}\u{2}\u{C}\u{39}\u{3}\u{2}\u{2}\u{2}\u{E}\u{41}\u{3}\u{2}\u{2}" .
-		    "\u{2}\u{10}\u{47}\u{3}\u{2}\u{2}\u{2}\u{12}\u{49}\u{3}\u{2}\u{2}\u{2}" .
-		    "\u{14}\u{4B}\u{3}\u{2}\u{2}\u{2}\u{16}\u{17}\u{5}\u{4}\u{3}\u{2}\u{17}" .
-		    "\u{18}\u{7}\u{2}\u{2}\u{3}\u{18}\u{3}\u{3}\u{2}\u{2}\u{2}\u{19}\u{1A}" .
-		    "\u{8}\u{3}\u{1}\u{2}\u{1A}\u{20}\u{5}\u{6}\u{4}\u{2}\u{1B}\u{1C}\u{7}" .
-		    "\u{11}\u{2}\u{2}\u{1C}\u{1D}\u{5}\u{4}\u{3}\u{2}\u{1D}\u{1E}\u{7}" .
-		    "\u{12}\u{2}\u{2}\u{1E}\u{20}\u{3}\u{2}\u{2}\u{2}\u{1F}\u{19}\u{3}" .
-		    "\u{2}\u{2}\u{2}\u{1F}\u{1B}\u{3}\u{2}\u{2}\u{2}\u{20}\u{29}\u{3}\u{2}" .
-		    "\u{2}\u{2}\u{21}\u{22}\u{C}\u{4}\u{2}\u{2}\u{22}\u{23}\u{7}\u{C}\u{2}" .
-		    "\u{2}\u{23}\u{28}\u{5}\u{4}\u{3}\u{5}\u{24}\u{25}\u{C}\u{3}\u{2}\u{2}" .
-		    "\u{25}\u{26}\u{7}\u{D}\u{2}\u{2}\u{26}\u{28}\u{5}\u{4}\u{3}\u{4}\u{27}" .
-		    "\u{21}\u{3}\u{2}\u{2}\u{2}\u{27}\u{24}\u{3}\u{2}\u{2}\u{2}\u{28}\u{2B}" .
-		    "\u{3}\u{2}\u{2}\u{2}\u{29}\u{27}\u{3}\u{2}\u{2}\u{2}\u{29}\u{2A}\u{3}" .
-		    "\u{2}\u{2}\u{2}\u{2A}\u{5}\u{3}\u{2}\u{2}\u{2}\u{2B}\u{29}\u{3}\u{2}" .
-		    "\u{2}\u{2}\u{2C}\u{30}\u{5}\u{8}\u{5}\u{2}\u{2D}\u{30}\u{5}\u{A}\u{6}" .
-		    "\u{2}\u{2E}\u{30}\u{5}\u{C}\u{7}\u{2}\u{2F}\u{2C}\u{3}\u{2}\u{2}\u{2}" .
-		    "\u{2F}\u{2D}\u{3}\u{2}\u{2}\u{2}\u{2F}\u{2E}\u{3}\u{2}\u{2}\u{2}\u{30}" .
-		    "\u{7}\u{3}\u{2}\u{2}\u{2}\u{31}\u{32}\u{7}\u{15}\u{2}\u{2}\u{32}\u{33}" .
-		    "\u{5}\u{E}\u{8}\u{2}\u{33}\u{34}\u{5}\u{10}\u{9}\u{2}\u{34}\u{9}\u{3}" .
-		    "\u{2}\u{2}\u{2}\u{35}\u{36}\u{7}\u{15}\u{2}\u{2}\u{36}\u{37}\u{9}" .
-		    "\u{2}\u{2}\u{2}\u{37}\u{38}\u{7}\u{10}\u{2}\u{2}\u{38}\u{B}\u{3}\u{2}" .
-		    "\u{2}\u{2}\u{39}\u{3D}\u{7}\u{15}\u{2}\u{2}\u{3A}\u{3E}\u{7}\u{8}" .
-		    "\u{2}\u{2}\u{3B}\u{3C}\u{7}\u{F}\u{2}\u{2}\u{3C}\u{3E}\u{7}\u{E}\u{2}" .
-		    "\u{2}\u{3D}\u{3A}\u{3}\u{2}\u{2}\u{2}\u{3D}\u{3B}\u{3}\u{2}\u{2}\u{2}" .
-		    "\u{3E}\u{3F}\u{3}\u{2}\u{2}\u{2}\u{3F}\u{40}\u{7}\u{10}\u{2}\u{2}" .
-		    "\u{40}\u{D}\u{3}\u{2}\u{2}\u{2}\u{41}\u{42}\u{9}\u{3}\u{2}\u{2}\u{42}" .
-		    "\u{F}\u{3}\u{2}\u{2}\u{2}\u{43}\u{48}\u{7}\u{A}\u{2}\u{2}\u{44}\u{48}" .
-		    "\u{7}\u{B}\u{2}\u{2}\u{45}\u{48}\u{5}\u{12}\u{A}\u{2}\u{46}\u{48}" .
-		    "\u{5}\u{14}\u{B}\u{2}\u{47}\u{43}\u{3}\u{2}\u{2}\u{2}\u{47}\u{44}" .
-		    "\u{3}\u{2}\u{2}\u{2}\u{47}\u{45}\u{3}\u{2}\u{2}\u{2}\u{47}\u{46}\u{3}" .
-		    "\u{2}\u{2}\u{2}\u{48}\u{11}\u{3}\u{2}\u{2}\u{2}\u{49}\u{4A}\u{7}\u{14}" .
-		    "\u{2}\u{2}\u{4A}\u{13}\u{3}\u{2}\u{2}\u{2}\u{4B}\u{4C}\u{7}\u{14}" .
-		    "\u{2}\u{2}\u{4C}\u{4D}\u{7}\u{13}\u{2}\u{2}\u{4D}\u{4E}\u{7}\u{14}" .
-		    "\u{2}\u{2}\u{4E}\u{15}\u{3}\u{2}\u{2}\u{2}\u{8}\u{1F}\u{27}\u{29}" .
-		    "\u{2F}\u{3D}\u{47}";
+		    "\u{4}\u{B}\u{9}\u{B}\u{4}\u{C}\u{9}\u{C}\u{4}\u{D}\u{9}\u{D}\u{3}" .
+		    "\u{2}\u{3}\u{2}\u{3}\u{2}\u{3}\u{3}\u{3}\u{3}\u{3}\u{3}\u{3}\u{3}" .
+		    "\u{3}\u{3}\u{3}\u{3}\u{3}\u{3}\u{5}\u{3}\u{25}\u{A}\u{3}\u{3}\u{3}" .
+		    "\u{3}\u{3}\u{3}\u{3}\u{3}\u{3}\u{3}\u{3}\u{3}\u{3}\u{7}\u{3}\u{2D}" .
+		    "\u{A}\u{3}\u{C}\u{3}\u{E}\u{3}\u{30}\u{B}\u{3}\u{3}\u{4}\u{3}\u{4}" .
+		    "\u{3}\u{4}\u{5}\u{4}\u{35}\u{A}\u{4}\u{3}\u{5}\u{3}\u{5}\u{3}\u{5}" .
+		    "\u{3}\u{5}\u{3}\u{6}\u{3}\u{6}\u{3}\u{6}\u{3}\u{6}\u{3}\u{7}\u{3}" .
+		    "\u{7}\u{3}\u{7}\u{3}\u{7}\u{5}\u{7}\u{43}\u{A}\u{7}\u{3}\u{7}\u{3}" .
+		    "\u{7}\u{3}\u{8}\u{3}\u{8}\u{3}\u{9}\u{3}\u{9}\u{3}\u{9}\u{3}\u{9}" .
+		    "\u{5}\u{9}\u{4D}\u{A}\u{9}\u{3}\u{A}\u{3}\u{A}\u{3}\u{A}\u{3}\u{A}" .
+		    "\u{3}\u{B}\u{3}\u{B}\u{3}\u{C}\u{3}\u{C}\u{3}\u{D}\u{3}\u{D}\u{3}" .
+		    "\u{D}\u{3}\u{D}\u{3}\u{D}\u{2}\u{3}\u{4}\u{E}\u{2}\u{4}\u{6}\u{8}" .
+		    "\u{A}\u{C}\u{E}\u{10}\u{12}\u{14}\u{16}\u{18}\u{2}\u{5}\u{4}\u{2}" .
+		    "\u{3}\u{3}\u{14}\u{14}\u{3}\u{2}\u{3}\u{8}\u{3}\u{2}\u{9}\u{C}\u{2}" .
+		    "\u{58}\u{2}\u{1A}\u{3}\u{2}\u{2}\u{2}\u{4}\u{24}\u{3}\u{2}\u{2}\u{2}" .
+		    "\u{6}\u{34}\u{3}\u{2}\u{2}\u{2}\u{8}\u{36}\u{3}\u{2}\u{2}\u{2}\u{A}" .
+		    "\u{3A}\u{3}\u{2}\u{2}\u{2}\u{C}\u{3E}\u{3}\u{2}\u{2}\u{2}\u{E}\u{46}" .
+		    "\u{3}\u{2}\u{2}\u{2}\u{10}\u{4C}\u{3}\u{2}\u{2}\u{2}\u{12}\u{4E}\u{3}" .
+		    "\u{2}\u{2}\u{2}\u{14}\u{52}\u{3}\u{2}\u{2}\u{2}\u{16}\u{54}\u{3}\u{2}" .
+		    "\u{2}\u{2}\u{18}\u{56}\u{3}\u{2}\u{2}\u{2}\u{1A}\u{1B}\u{5}\u{4}\u{3}" .
+		    "\u{2}\u{1B}\u{1C}\u{7}\u{2}\u{2}\u{3}\u{1C}\u{3}\u{3}\u{2}\u{2}\u{2}" .
+		    "\u{1D}\u{1E}\u{8}\u{3}\u{1}\u{2}\u{1E}\u{25}\u{5}\u{6}\u{4}\u{2}\u{1F}" .
+		    "\u{25}\u{5}\u{12}\u{A}\u{2}\u{20}\u{21}\u{7}\u{17}\u{2}\u{2}\u{21}" .
+		    "\u{22}\u{5}\u{4}\u{3}\u{2}\u{22}\u{23}\u{7}\u{18}\u{2}\u{2}\u{23}" .
+		    "\u{25}\u{3}\u{2}\u{2}\u{2}\u{24}\u{1D}\u{3}\u{2}\u{2}\u{2}\u{24}\u{1F}" .
+		    "\u{3}\u{2}\u{2}\u{2}\u{24}\u{20}\u{3}\u{2}\u{2}\u{2}\u{25}\u{2E}\u{3}" .
+		    "\u{2}\u{2}\u{2}\u{26}\u{27}\u{C}\u{4}\u{2}\u{2}\u{27}\u{28}\u{7}\u{12}" .
+		    "\u{2}\u{2}\u{28}\u{2D}\u{5}\u{4}\u{3}\u{5}\u{29}\u{2A}\u{C}\u{3}\u{2}" .
+		    "\u{2}\u{2A}\u{2B}\u{7}\u{13}\u{2}\u{2}\u{2B}\u{2D}\u{5}\u{4}\u{3}" .
+		    "\u{4}\u{2C}\u{26}\u{3}\u{2}\u{2}\u{2}\u{2C}\u{29}\u{3}\u{2}\u{2}\u{2}" .
+		    "\u{2D}\u{30}\u{3}\u{2}\u{2}\u{2}\u{2E}\u{2C}\u{3}\u{2}\u{2}\u{2}\u{2E}" .
+		    "\u{2F}\u{3}\u{2}\u{2}\u{2}\u{2F}\u{5}\u{3}\u{2}\u{2}\u{2}\u{30}\u{2E}" .
+		    "\u{3}\u{2}\u{2}\u{2}\u{31}\u{35}\u{5}\u{8}\u{5}\u{2}\u{32}\u{35}\u{5}" .
+		    "\u{A}\u{6}\u{2}\u{33}\u{35}\u{5}\u{C}\u{7}\u{2}\u{34}\u{31}\u{3}\u{2}" .
+		    "\u{2}\u{2}\u{34}\u{32}\u{3}\u{2}\u{2}\u{2}\u{34}\u{33}\u{3}\u{2}\u{2}" .
+		    "\u{2}\u{35}\u{7}\u{3}\u{2}\u{2}\u{2}\u{36}\u{37}\u{7}\u{1B}\u{2}\u{2}" .
+		    "\u{37}\u{38}\u{5}\u{E}\u{8}\u{2}\u{38}\u{39}\u{5}\u{10}\u{9}\u{2}" .
+		    "\u{39}\u{9}\u{3}\u{2}\u{2}\u{2}\u{3A}\u{3B}\u{7}\u{1B}\u{2}\u{2}\u{3B}" .
+		    "\u{3C}\u{9}\u{2}\u{2}\u{2}\u{3C}\u{3D}\u{7}\u{15}\u{2}\u{2}\u{3D}" .
+		    "\u{B}\u{3}\u{2}\u{2}\u{2}\u{3E}\u{42}\u{7}\u{1B}\u{2}\u{2}\u{3F}\u{43}" .
+		    "\u{7}\u{8}\u{2}\u{2}\u{40}\u{41}\u{7}\u{14}\u{2}\u{2}\u{41}\u{43}" .
+		    "\u{7}\u{16}\u{2}\u{2}\u{42}\u{3F}\u{3}\u{2}\u{2}\u{2}\u{42}\u{40}" .
+		    "\u{3}\u{2}\u{2}\u{2}\u{43}\u{44}\u{3}\u{2}\u{2}\u{2}\u{44}\u{45}\u{7}" .
+		    "\u{15}\u{2}\u{2}\u{45}\u{D}\u{3}\u{2}\u{2}\u{2}\u{46}\u{47}\u{9}\u{3}" .
+		    "\u{2}\u{2}\u{47}\u{F}\u{3}\u{2}\u{2}\u{2}\u{48}\u{4D}\u{7}\u{10}\u{2}" .
+		    "\u{2}\u{49}\u{4D}\u{7}\u{11}\u{2}\u{2}\u{4A}\u{4D}\u{5}\u{16}\u{C}" .
+		    "\u{2}\u{4B}\u{4D}\u{5}\u{18}\u{D}\u{2}\u{4C}\u{48}\u{3}\u{2}\u{2}" .
+		    "\u{2}\u{4C}\u{49}\u{3}\u{2}\u{2}\u{2}\u{4C}\u{4A}\u{3}\u{2}\u{2}\u{2}" .
+		    "\u{4C}\u{4B}\u{3}\u{2}\u{2}\u{2}\u{4D}\u{11}\u{3}\u{2}\u{2}\u{2}\u{4E}" .
+		    "\u{4F}\u{7}\u{1B}\u{2}\u{2}\u{4F}\u{50}\u{5}\u{14}\u{B}\u{2}\u{50}" .
+		    "\u{51}\u{7}\u{11}\u{2}\u{2}\u{51}\u{13}\u{3}\u{2}\u{2}\u{2}\u{52}" .
+		    "\u{53}\u{9}\u{4}\u{2}\u{2}\u{53}\u{15}\u{3}\u{2}\u{2}\u{2}\u{54}\u{55}" .
+		    "\u{7}\u{19}\u{2}\u{2}\u{55}\u{17}\u{3}\u{2}\u{2}\u{2}\u{56}\u{57}" .
+		    "\u{7}\u{19}\u{2}\u{2}\u{57}\u{58}\u{7}\u{1A}\u{2}\u{2}\u{58}\u{59}" .
+		    "\u{7}\u{19}\u{2}\u{2}\u{59}\u{19}\u{3}\u{2}\u{2}\u{2}\u{8}\u{24}\u{2C}" .
+		    "\u{2E}\u{34}\u{42}\u{4C}";
 
 		protected static $atn;
 		protected static $decisionToDFA;
@@ -186,9 +197,9 @@ namespace FattureInCloud\ApiFilter\Parser {
 
 		    try {
 		        $this->enterOuterAlt($localContext, 1);
-		        $this->setState(20);
+		        $this->setState(24);
 		        $this->recursiveExpression(0);
-		        $this->setState(21);
+		        $this->setState(25);
 		        $this->match(self::EOF);
 		    } catch (RecognitionException $exception) {
 		        $localContext->exception = $exception;
@@ -223,36 +234,41 @@ namespace FattureInCloud\ApiFilter\Parser {
 
 			try {
 				$this->enterOuterAlt($localContext, 1);
-				$this->setState(29);
+				$this->setState(34);
 				$this->errorHandler->sync($this);
 
-				switch ($this->input->LA(1)) {
-				    case self::FIELD:
-				    	$localContext = new Context\ConditionExpContext($localContext);
-				    	$this->ctx = $localContext;
-				    	$previousContext = $localContext;
+				switch ($this->getInterpreter()->adaptivePredict($this->input, 0, $this->ctx)) {
+					case 1:
+					    $localContext = new Context\ConditionExpContext($localContext);
+					    $this->ctx = $localContext;
+					    $previousContext = $localContext;
 
-				    	$this->setState(24);
-				    	$this->condition();
-				    	break;
+					    $this->setState(28);
+					    $this->condition();
+					break;
 
-				    case self::OPEN_PAR:
-				    	$localContext = new Context\ParenthesisExpContext($localContext);
-				    	$this->ctx = $localContext;
-				    	$previousContext = $localContext;
-				    	$this->setState(25);
-				    	$this->match(self::OPEN_PAR);
-				    	$this->setState(26);
-				    	$this->recursiveExpression(0);
-				    	$this->setState(27);
-				    	$this->match(self::CLOSE_PAR);
-				    	break;
+					case 2:
+					    $localContext = new Context\PatternExpContext($localContext);
+					    $this->ctx = $localContext;
+					    $previousContext = $localContext;
+					    $this->setState(29);
+					    $this->pattern();
+					break;
 
-				default:
-					throw new NoViableAltException($this);
+					case 3:
+					    $localContext = new Context\ParenthesisExpContext($localContext);
+					    $this->ctx = $localContext;
+					    $previousContext = $localContext;
+					    $this->setState(30);
+					    $this->match(self::OPEN_PAR);
+					    $this->setState(31);
+					    $this->recursiveExpression(0);
+					    $this->setState(32);
+					    $this->match(self::CLOSE_PAR);
+					break;
 				}
 				$this->ctx->stop = $this->input->LT(-1);
-				$this->setState(39);
+				$this->setState(44);
 				$this->errorHandler->sync($this);
 
 				$alt = $this->getInterpreter()->adaptivePredict($this->input, 2, $this->ctx);
@@ -264,41 +280,41 @@ namespace FattureInCloud\ApiFilter\Parser {
 						}
 
 						$previousContext = $localContext;
-						$this->setState(37);
+						$this->setState(42);
 						$this->errorHandler->sync($this);
 
 						switch ($this->getInterpreter()->adaptivePredict($this->input, 1, $this->ctx)) {
 							case 1:
 							    $localContext = new Context\ConjunctionExpContext(new Context\ExpressionContext($parentContext, $parentState));
 							    $this->pushNewRecursionContext($localContext, $startState, self::RULE_expression);
-							    $this->setState(31);
+							    $this->setState(36);
 
 							    if (!($this->precpred($this->ctx, 2))) {
 							        throw new FailedPredicateException($this, "\\\$this->precpred(\\\$this->ctx, 2)");
 							    }
-							    $this->setState(32);
+							    $this->setState(37);
 							    $this->match(self::AND);
-							    $this->setState(33);
+							    $this->setState(38);
 							    $this->recursiveExpression(3);
 							break;
 
 							case 2:
 							    $localContext = new Context\DisjunctionExpContext(new Context\ExpressionContext($parentContext, $parentState));
 							    $this->pushNewRecursionContext($localContext, $startState, self::RULE_expression);
-							    $this->setState(34);
+							    $this->setState(39);
 
 							    if (!($this->precpred($this->ctx, 1))) {
 							        throw new FailedPredicateException($this, "\\\$this->precpred(\\\$this->ctx, 1)");
 							    }
-							    $this->setState(35);
+							    $this->setState(40);
 							    $this->match(self::OR);
-							    $this->setState(36);
+							    $this->setState(41);
 							    $this->recursiveExpression(2);
 							break;
 						} 
 					}
 
-					$this->setState(41);
+					$this->setState(46);
 					$this->errorHandler->sync($this);
 
 					$alt = $this->getInterpreter()->adaptivePredict($this->input, 2, $this->ctx);
@@ -324,28 +340,28 @@ namespace FattureInCloud\ApiFilter\Parser {
 		    $this->enterRule($localContext, 4, self::RULE_condition);
 
 		    try {
-		        $this->setState(45);
+		        $this->setState(50);
 		        $this->errorHandler->sync($this);
 
 		        switch ($this->getInterpreter()->adaptivePredict($this->input, 3, $this->ctx)) {
 		        	case 1:
 		        	    $localContext = new Context\ComparisonConditionContext($localContext);
 		        	    $this->enterOuterAlt($localContext, 1);
-		        	    $this->setState(42);
+		        	    $this->setState(47);
 		        	    $this->comparison();
 		        	break;
 
 		        	case 2:
 		        	    $localContext = new Context\EmptyConditionContext($localContext);
 		        	    $this->enterOuterAlt($localContext, 2);
-		        	    $this->setState(43);
+		        	    $this->setState(48);
 		        	    $this->emptyfield();
 		        	break;
 
 		        	case 3:
 		        	    $localContext = new Context\FilledConditionContext($localContext);
 		        	    $this->enterOuterAlt($localContext, 3);
-		        	    $this->setState(44);
+		        	    $this->setState(49);
 		        	    $this->filledfield();
 		        	break;
 		        }
@@ -371,11 +387,11 @@ namespace FattureInCloud\ApiFilter\Parser {
 
 		    try {
 		        $this->enterOuterAlt($localContext, 1);
-		        $this->setState(47);
+		        $this->setState(52);
 		        $this->match(self::FIELD);
-		        $this->setState(48);
-		        $this->op();
-		        $this->setState(49);
+		        $this->setState(53);
+		        $this->comparisonop();
+		        $this->setState(54);
 		        $this->value();
 		    } catch (RecognitionException $exception) {
 		        $localContext->exception = $exception;
@@ -399,9 +415,9 @@ namespace FattureInCloud\ApiFilter\Parser {
 
 		    try {
 		        $this->enterOuterAlt($localContext, 1);
-		        $this->setState(51);
+		        $this->setState(56);
 		        $this->match(self::FIELD);
-		        $this->setState(52);
+		        $this->setState(57);
 
 		        $_la = $this->input->LA(1);
 
@@ -415,7 +431,7 @@ namespace FattureInCloud\ApiFilter\Parser {
 		        	$this->errorHandler->reportMatch($this);
 		        	$this->consume();
 		        }
-		        $this->setState(53);
+		        $this->setState(58);
 		        $this->match(self::NULL);
 		    } catch (RecognitionException $exception) {
 		        $localContext->exception = $exception;
@@ -439,28 +455,28 @@ namespace FattureInCloud\ApiFilter\Parser {
 
 		    try {
 		        $this->enterOuterAlt($localContext, 1);
-		        $this->setState(55);
+		        $this->setState(60);
 		        $this->match(self::FIELD);
-		        $this->setState(59);
+		        $this->setState(64);
 		        $this->errorHandler->sync($this);
 
 		        switch ($this->input->LA(1)) {
 		            case self::NEQ:
-		            	$this->setState(56);
+		            	$this->setState(61);
 		            	$this->match(self::NEQ);
 		            	break;
 
 		            case self::IS:
-		            	$this->setState(57);
+		            	$this->setState(62);
 		            	$this->match(self::IS);
-		            	$this->setState(58);
+		            	$this->setState(63);
 		            	$this->match(self::NOT);
 		            	break;
 
 		        default:
 		        	throw new NoViableAltException($this);
 		        }
-		        $this->setState(61);
+		        $this->setState(66);
 		        $this->match(self::NULL);
 		    } catch (RecognitionException $exception) {
 		        $localContext->exception = $exception;
@@ -476,19 +492,19 @@ namespace FattureInCloud\ApiFilter\Parser {
 		/**
 		 * @throws RecognitionException
 		 */
-		public function op() : Context\OpContext
+		public function comparisonop() : Context\ComparisonopContext
 		{
-		    $localContext = new Context\OpContext($this->ctx, $this->getState());
+		    $localContext = new Context\ComparisonopContext($this->ctx, $this->getState());
 
-		    $this->enterRule($localContext, 12, self::RULE_op);
+		    $this->enterRule($localContext, 12, self::RULE_comparisonop);
 
 		    try {
 		        $this->enterOuterAlt($localContext, 1);
-		        $this->setState(63);
+		        $this->setState(68);
 
 		        $_la = $this->input->LA(1);
 
-		        if (!(((($_la) & ~0x3f) === 0 && ((1 << $_la) & ((1 << self::EQ) | (1 << self::GT) | (1 << self::GTE) | (1 << self::LT) | (1 << self::LTE) | (1 << self::NEQ) | (1 << self::LIKE))) !== 0))) {
+		        if (!(((($_la) & ~0x3f) === 0 && ((1 << $_la) & ((1 << self::EQ) | (1 << self::GT) | (1 << self::GTE) | (1 << self::LT) | (1 << self::LTE) | (1 << self::NEQ))) !== 0))) {
 		        $this->errorHandler->recoverInline($this);
 		        } else {
 		        	if ($this->input->LA(1) === Token::EOF) {
@@ -520,29 +536,93 @@ namespace FattureInCloud\ApiFilter\Parser {
 
 		    try {
 		        $this->enterOuterAlt($localContext, 1);
-		        $this->setState(69);
+		        $this->setState(74);
 		        $this->errorHandler->sync($this);
 
 		        switch ($this->getInterpreter()->adaptivePredict($this->input, 5, $this->ctx)) {
 		        	case 1:
-		        	    $this->setState(65);
+		        	    $this->setState(70);
 		        	    $this->match(self::BOOL);
 		        	break;
 
 		        	case 2:
-		        	    $this->setState(66);
+		        	    $this->setState(71);
 		        	    $this->match(self::STRING);
 		        	break;
 
 		        	case 3:
-		        	    $this->setState(67);
+		        	    $this->setState(72);
 		        	    $this->integer();
 		        	break;
 
 		        	case 4:
-		        	    $this->setState(68);
+		        	    $this->setState(73);
 		        	    $this->decimal();
 		        	break;
+		        }
+		    } catch (RecognitionException $exception) {
+		        $localContext->exception = $exception;
+		        $this->errorHandler->reportError($this, $exception);
+		        $this->errorHandler->recover($this, $exception);
+		    } finally {
+		        $this->exitRule();
+		    }
+
+		    return $localContext;
+		}
+
+		/**
+		 * @throws RecognitionException
+		 */
+		public function pattern() : Context\PatternContext
+		{
+		    $localContext = new Context\PatternContext($this->ctx, $this->getState());
+
+		    $this->enterRule($localContext, 16, self::RULE_pattern);
+
+		    try {
+		        $this->enterOuterAlt($localContext, 1);
+		        $this->setState(76);
+		        $this->match(self::FIELD);
+		        $this->setState(77);
+		        $this->patternop();
+		        $this->setState(78);
+		        $this->match(self::STRING);
+		    } catch (RecognitionException $exception) {
+		        $localContext->exception = $exception;
+		        $this->errorHandler->reportError($this, $exception);
+		        $this->errorHandler->recover($this, $exception);
+		    } finally {
+		        $this->exitRule();
+		    }
+
+		    return $localContext;
+		}
+
+		/**
+		 * @throws RecognitionException
+		 */
+		public function patternop() : Context\PatternopContext
+		{
+		    $localContext = new Context\PatternopContext($this->ctx, $this->getState());
+
+		    $this->enterRule($localContext, 18, self::RULE_patternop);
+
+		    try {
+		        $this->enterOuterAlt($localContext, 1);
+		        $this->setState(80);
+
+		        $_la = $this->input->LA(1);
+
+		        if (!(((($_la) & ~0x3f) === 0 && ((1 << $_la) & ((1 << self::LIKE) | (1 << self::CONTAINS) | (1 << self::STARTSWITH) | (1 << self::ENDSWITH))) !== 0))) {
+		        $this->errorHandler->recoverInline($this);
+		        } else {
+		        	if ($this->input->LA(1) === Token::EOF) {
+		        	    $this->matchedEOF = true;
+		            }
+
+		        	$this->errorHandler->reportMatch($this);
+		        	$this->consume();
 		        }
 		    } catch (RecognitionException $exception) {
 		        $localContext->exception = $exception;
@@ -562,11 +642,11 @@ namespace FattureInCloud\ApiFilter\Parser {
 		{
 		    $localContext = new Context\IntegerContext($this->ctx, $this->getState());
 
-		    $this->enterRule($localContext, 16, self::RULE_integer);
+		    $this->enterRule($localContext, 20, self::RULE_integer);
 
 		    try {
 		        $this->enterOuterAlt($localContext, 1);
-		        $this->setState(71);
+		        $this->setState(82);
 		        $this->match(self::INT);
 		    } catch (RecognitionException $exception) {
 		        $localContext->exception = $exception;
@@ -586,15 +666,15 @@ namespace FattureInCloud\ApiFilter\Parser {
 		{
 		    $localContext = new Context\DecimalContext($this->ctx, $this->getState());
 
-		    $this->enterRule($localContext, 18, self::RULE_decimal);
+		    $this->enterRule($localContext, 22, self::RULE_decimal);
 
 		    try {
 		        $this->enterOuterAlt($localContext, 1);
-		        $this->setState(73);
+		        $this->setState(84);
 		        $this->match(self::INT);
-		        $this->setState(74);
+		        $this->setState(85);
 		        $this->match(self::DOT);
-		        $this->setState(75);
+		        $this->setState(86);
 		        $this->match(self::INT);
 		    } catch (RecognitionException $exception) {
 		        $localContext->exception = $exception;
@@ -690,6 +770,30 @@ namespace FattureInCloud\ApiFilter\Parser\Context {
 		{
 			parent::copyFrom($context);
 
+		}
+	}
+
+	class PatternExpContext extends ExpressionContext
+	{
+		public function __construct(ExpressionContext $context)
+		{
+		    parent::__construct($context);
+
+		    $this->copyFrom($context);
+	    }
+
+	    public function pattern() : ?PatternContext
+	    {
+	    	return $this->getTypedRuleContext(PatternContext::class, 0);
+	    }
+
+		public function accept(ParseTreeVisitor $visitor)
+		{
+			if ($visitor instanceof ApiFilterVisitor) {
+			    return $visitor->visitPatternExp($this);
+		    }
+
+			return $visitor->visitChildren($this);
 		}
 	}
 
@@ -931,9 +1035,9 @@ namespace FattureInCloud\ApiFilter\Parser\Context {
 	        return $this->getToken(ApiFilterParser::FIELD, 0);
 	    }
 
-	    public function op() : ?OpContext
+	    public function comparisonop() : ?ComparisonopContext
 	    {
-	    	return $this->getTypedRuleContext(OpContext::class, 0);
+	    	return $this->getTypedRuleContext(ComparisonopContext::class, 0);
 	    }
 
 	    public function value() : ?ValueContext
@@ -1040,7 +1144,7 @@ namespace FattureInCloud\ApiFilter\Parser\Context {
 		}
 	} 
 
-	class OpContext extends ParserRuleContext
+	class ComparisonopContext extends ParserRuleContext
 	{
 		public function __construct(?ParserRuleContext $parent, ?int $invokingState = null)
 		{
@@ -1049,7 +1153,7 @@ namespace FattureInCloud\ApiFilter\Parser\Context {
 
 		public function getRuleIndex() : int
 		{
-		    return ApiFilterParser::RULE_op;
+		    return ApiFilterParser::RULE_comparisonop;
 	    }
 
 	    public function EQ() : ?TerminalNode
@@ -1082,15 +1186,10 @@ namespace FattureInCloud\ApiFilter\Parser\Context {
 	        return $this->getToken(ApiFilterParser::NEQ, 0);
 	    }
 
-	    public function LIKE() : ?TerminalNode
-	    {
-	        return $this->getToken(ApiFilterParser::LIKE, 0);
-	    }
-
 		public function accept(ParseTreeVisitor $visitor)
 		{
 			if ($visitor instanceof ApiFilterVisitor) {
-			    return $visitor->visitOp($this);
+			    return $visitor->visitComparisonop($this);
 		    }
 
 			return $visitor->visitChildren($this);
@@ -1133,6 +1232,85 @@ namespace FattureInCloud\ApiFilter\Parser\Context {
 		{
 			if ($visitor instanceof ApiFilterVisitor) {
 			    return $visitor->visitValue($this);
+		    }
+
+			return $visitor->visitChildren($this);
+		}
+	} 
+
+	class PatternContext extends ParserRuleContext
+	{
+		public function __construct(?ParserRuleContext $parent, ?int $invokingState = null)
+		{
+			parent::__construct($parent, $invokingState);
+		}
+
+		public function getRuleIndex() : int
+		{
+		    return ApiFilterParser::RULE_pattern;
+	    }
+
+	    public function FIELD() : ?TerminalNode
+	    {
+	        return $this->getToken(ApiFilterParser::FIELD, 0);
+	    }
+
+	    public function patternop() : ?PatternopContext
+	    {
+	    	return $this->getTypedRuleContext(PatternopContext::class, 0);
+	    }
+
+	    public function STRING() : ?TerminalNode
+	    {
+	        return $this->getToken(ApiFilterParser::STRING, 0);
+	    }
+
+		public function accept(ParseTreeVisitor $visitor)
+		{
+			if ($visitor instanceof ApiFilterVisitor) {
+			    return $visitor->visitPattern($this);
+		    }
+
+			return $visitor->visitChildren($this);
+		}
+	} 
+
+	class PatternopContext extends ParserRuleContext
+	{
+		public function __construct(?ParserRuleContext $parent, ?int $invokingState = null)
+		{
+			parent::__construct($parent, $invokingState);
+		}
+
+		public function getRuleIndex() : int
+		{
+		    return ApiFilterParser::RULE_patternop;
+	    }
+
+	    public function LIKE() : ?TerminalNode
+	    {
+	        return $this->getToken(ApiFilterParser::LIKE, 0);
+	    }
+
+	    public function CONTAINS() : ?TerminalNode
+	    {
+	        return $this->getToken(ApiFilterParser::CONTAINS, 0);
+	    }
+
+	    public function STARTSWITH() : ?TerminalNode
+	    {
+	        return $this->getToken(ApiFilterParser::STARTSWITH, 0);
+	    }
+
+	    public function ENDSWITH() : ?TerminalNode
+	    {
+	        return $this->getToken(ApiFilterParser::ENDSWITH, 0);
+	    }
+
+		public function accept(ParseTreeVisitor $visitor)
+		{
+			if ($visitor instanceof ApiFilterVisitor) {
+			    return $visitor->visitPatternop($this);
 		    }
 
 			return $visitor->visitChildren($this);

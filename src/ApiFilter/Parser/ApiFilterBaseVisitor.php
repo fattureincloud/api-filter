@@ -31,6 +31,17 @@ class ApiFilterBaseVisitor extends AbstractParseTreeVisitor implements ApiFilter
 	 * The default implementation returns the result of calling
 	 * {@see self::visitChildren()} on `context`.
 	 */
+	public function visitPatternExp(Context\PatternExpContext $context)
+	{
+	    return $this->visitChildren($context);
+	}
+
+	/**
+	 * {@inheritdoc}
+	 *
+	 * The default implementation returns the result of calling
+	 * {@see self::visitChildren()} on `context`.
+	 */
 	public function visitConjunctionExp(Context\ConjunctionExpContext $context)
 	{
 	    return $this->visitChildren($context);
@@ -141,7 +152,7 @@ class ApiFilterBaseVisitor extends AbstractParseTreeVisitor implements ApiFilter
 	 * The default implementation returns the result of calling
 	 * {@see self::visitChildren()} on `context`.
 	 */
-	public function visitOp(Context\OpContext $context)
+	public function visitComparisonop(Context\ComparisonopContext $context)
 	{
 	    return $this->visitChildren($context);
 	}
@@ -153,6 +164,28 @@ class ApiFilterBaseVisitor extends AbstractParseTreeVisitor implements ApiFilter
 	 * {@see self::visitChildren()} on `context`.
 	 */
 	public function visitValue(Context\ValueContext $context)
+	{
+	    return $this->visitChildren($context);
+	}
+
+	/**
+	 * {@inheritdoc}
+	 *
+	 * The default implementation returns the result of calling
+	 * {@see self::visitChildren()} on `context`.
+	 */
+	public function visitPattern(Context\PatternContext $context)
+	{
+	    return $this->visitChildren($context);
+	}
+
+	/**
+	 * {@inheritdoc}
+	 *
+	 * The default implementation returns the result of calling
+	 * {@see self::visitChildren()} on `context`.
+	 */
+	public function visitPatternop(Context\PatternopContext $context)
 	{
 	    return $this->visitChildren($context);
 	}

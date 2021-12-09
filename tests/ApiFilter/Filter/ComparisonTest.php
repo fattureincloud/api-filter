@@ -39,7 +39,7 @@ class ComparisonTest extends TestCase
      */
     public function testValue()
     {
-        $comparison = new Comparison("city", Operator::EQ, "Bergamo");
+        $comparison = new Comparison("city", ComparisonOperator::EQ, "Bergamo");
         $this->assertEquals("Bergamo", $comparison->getValue());
 
         $comparison->setValue(5);
@@ -57,7 +57,7 @@ class ComparisonTest extends TestCase
      */
     public function testField()
     {
-        $comparison = new Comparison("name", Operator::EQ, "Bergamo");
+        $comparison = new Comparison("name", ComparisonOperator::EQ, "Bergamo");
         $this->assertEquals("name", $comparison->getField());
 
         $comparison->setField("city");
@@ -69,26 +69,23 @@ class ComparisonTest extends TestCase
      */
     public function testOperator()
     {
-        $comparison = new Comparison("city", Operator::EQ, "Bergamo");
-        $this->assertEquals(Operator::EQ, $comparison->getOp());
+        $comparison = new Comparison("city", ComparisonOperator::EQ, "Bergamo");
+        $this->assertEquals(ComparisonOperator::EQ, $comparison->getOp());
 
-        $comparison->setOp(Operator::GT);
-        $this->assertEquals(Operator::GT, $comparison->getOp());
+        $comparison->setOp(ComparisonOperator::GT);
+        $this->assertEquals(ComparisonOperator::GT, $comparison->getOp());
 
-        $comparison->setOp(Operator::GTE);
-        $this->assertEquals(Operator::GTE, $comparison->getOp());
+        $comparison->setOp(ComparisonOperator::GTE);
+        $this->assertEquals(ComparisonOperator::GTE, $comparison->getOp());
 
-        $comparison->setOp(Operator::LT);
-        $this->assertEquals(Operator::LT, $comparison->getOp());
+        $comparison->setOp(ComparisonOperator::LT);
+        $this->assertEquals(ComparisonOperator::LT, $comparison->getOp());
 
-        $comparison->setOp(Operator::LTE);
-        $this->assertEquals(Operator::LTE, $comparison->getOp());
+        $comparison->setOp(ComparisonOperator::LTE);
+        $this->assertEquals(ComparisonOperator::LTE, $comparison->getOp());
 
-        $comparison->setOp(Operator::NEQ);
-        $this->assertEquals(Operator::NEQ, $comparison->getOp());
-
-        $comparison->setOp(Operator::LIKE);
-        $this->assertEquals(Operator::LIKE, $comparison->getOp());
+        $comparison->setOp(ComparisonOperator::NEQ);
+        $this->assertEquals(ComparisonOperator::NEQ, $comparison->getOp());
     }
 
     /**
@@ -96,7 +93,7 @@ class ComparisonTest extends TestCase
      */
     public function testToString()
     {
-        $comparison = new Comparison("city", Operator::EQ, "Bergamo");
+        $comparison = new Comparison("city", ComparisonOperator::EQ, "Bergamo");
         $this->assertEquals("city = Bergamo", (string)$comparison);
     }
 }
