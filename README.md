@@ -12,6 +12,7 @@ Via Composer
 $ composer require fattureincloud/api-filter
 ```
 
+
 ## Usage
 To parse a filter string, you can use the *FattureInCloud\ApiFilter\FilterFactory* class:
 
