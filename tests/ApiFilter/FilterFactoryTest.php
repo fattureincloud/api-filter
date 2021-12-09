@@ -4,15 +4,11 @@ declare(strict_types=1);
 
 namespace FattureInCloud\ApiFilter;
 
-use FattureInCloud\ApiFilter\Filter\Comparison;
+use FattureInCloud\ApiFilter\Filter\Condition;
 use FattureInCloud\ApiFilter\Filter\Conjunction;
 use FattureInCloud\ApiFilter\Filter\Disjunction;
-use FattureInCloud\ApiFilter\Filter\EmptyField;
-use FattureInCloud\ApiFilter\Filter\FilledField;
 use FattureInCloud\ApiFilter\Filter\Filter;
-use FattureInCloud\ApiFilter\Filter\ComparisonOperator;
-use FattureInCloud\ApiFilter\Filter\Pattern;
-use FattureInCloud\ApiFilter\Filter\PatternOperator;
+use FattureInCloud\ApiFilter\Filter\Operator;
 use PHPUnit\Framework\TestCase;
 use Antlr\Antlr4\Runtime\Error\Exceptions\ParseCancellationException;
 
@@ -55,7 +51,7 @@ class FilterFactoryTest extends TestCase
     public function testEqualToOp()
     {
         $filter = $this->factory->initFilter("name = true");
-        $expected = new Filter(new Comparison("name", ComparisonOperator::EQ, true));
+        $expected = new Filter(new Condition("name", Operator::EQ, true));
         $this->assertEquals($expected, $filter);
     }
 
@@ -65,7 +61,7 @@ class FilterFactoryTest extends TestCase
     public function testGreaterThanOp()
     {
         $filter = $this->factory->initFilter("name > true");
-        $expected = new Filter(new Comparison("name", ComparisonOperator::GT, true));
+        $expected = new Filter(new Condition("name", Operator::GT, true));
         $this->assertEquals($expected, $filter);
     }
 
@@ -75,7 +71,7 @@ class FilterFactoryTest extends TestCase
     public function testGreaterThanOrEqualToOp()
     {
         $filter = $this->factory->initFilter("name >= true");
-        $expected = new Filter(new Comparison("name", ComparisonOperator::GTE, true));
+        $expected = new Filter(new Condition("name", Operator::GTE, true));
         $this->assertEquals($expected, $filter);
     }
 
@@ -85,7 +81,7 @@ class FilterFactoryTest extends TestCase
     public function testLowerThanOp()
     {
         $filter = $this->factory->initFilter("name < true");
-        $expected = new Filter(new Comparison("name", ComparisonOperator::LT, true));
+        $expected = new Filter(new Condition("name", Operator::LT, true));
         $this->assertEquals($expected, $filter);
     }
 
@@ -95,7 +91,7 @@ class FilterFactoryTest extends TestCase
     public function testLowerThanOrEqualToOp()
     {
         $filter = $this->factory->initFilter("name <= true");
-        $expected = new Filter(new Comparison("name", ComparisonOperator::LTE, true));
+        $expected = new Filter(new Condition("name", Operator::LTE, true));
         $this->assertEquals($expected, $filter);
     }
 
@@ -105,7 +101,7 @@ class FilterFactoryTest extends TestCase
     public function testNotEqualToOp()
     {
         $filter = $this->factory->initFilter("name <> true");
-        $expected = new Filter(new Comparison("name", ComparisonOperator::NEQ, true));
+        $expected = new Filter(new Condition("name", Operator::NEQ, true));
         $this->assertEquals($expected, $filter);
     }
 
@@ -115,7 +111,7 @@ class FilterFactoryTest extends TestCase
     public function testNotEqualToOpWithExclanation()
     {
         $filter = $this->factory->initFilter("name != true");
-        $expected = new Filter(new Comparison("name", ComparisonOperator::NEQ, true));
+        $expected = new Filter(new Condition("name", Operator::NEQ, true));
         $this->assertEquals($expected, $filter);
     }
 
@@ -125,11 +121,11 @@ class FilterFactoryTest extends TestCase
     public function testLikeOp()
     {
         $filter1 = $this->factory->initFilter("name like '%ergam%'");
-        $expected1 = new Filter(new Pattern("name", PatternOperator::LIKE, "%ergam%"));
+        $expected1 = new Filter(new Condition("name", Operator::LIKE, "%ergam%"));
         $this->assertEquals($expected1, $filter1);
 
         $filter2 = $this->factory->initFilter("name LIKE '%ergam%'");
-        $expected2 = new Filter(new Pattern("name", PatternOperator::LIKE, "%ergam%"));
+        $expected2 = new Filter(new Condition("name", Operator::LIKE, "%ergam%"));
         $this->assertEquals($expected2, $filter2);
     }
 
@@ -139,11 +135,11 @@ class FilterFactoryTest extends TestCase
     public function testContainsOp()
     {
         $filter1 = $this->factory->initFilter("name contains 'ergam'");
-        $expected1 = new Filter(new Pattern("name", PatternOperator::CONTAINS, "ergam"));
+        $expected1 = new Filter(new Condition("name", Operator::CONTAINS, "ergam"));
         $this->assertEquals($expected1, $filter1);
 
         $filter2 = $this->factory->initFilter("name CONTAINS 'ergam'");
-        $expected2 = new Filter(new Pattern("name", PatternOperator::CONTAINS, "ergam"));
+        $expected2 = new Filter(new Condition("name", Operator::CONTAINS, "ergam"));
         $this->assertEquals($expected2, $filter2);
     }
 
@@ -153,27 +149,27 @@ class FilterFactoryTest extends TestCase
     public function testStartsWithOp()
     {
         $filter1 = $this->factory->initFilter("name starts with 'Mariano'");
-        $expected1 = new Filter(new Pattern("name", PatternOperator::STARTS_WITH, "Mariano"));
+        $expected1 = new Filter(new Condition("name", Operator::STARTS_WITH, "Mariano"));
         $this->assertEquals($expected1, $filter1);
 
         $filter2 = $this->factory->initFilter("name STARTS WITH 'Mariano'");
-        $expected2 = new Filter(new Pattern("name", PatternOperator::STARTS_WITH, "Mariano"));
+        $expected2 = new Filter(new Condition("name", Operator::STARTS_WITH, "Mariano"));
         $this->assertEquals($expected2, $filter2);
 
         $filter3 = $this->factory->initFilter("name starts WITH 'Mariano'");
-        $expected3 = new Filter(new Pattern("name", PatternOperator::STARTS_WITH, "Mariano"));
+        $expected3 = new Filter(new Condition("name", Operator::STARTS_WITH, "Mariano"));
         $this->assertEquals($expected3, $filter3);
 
         $filter4 = $this->factory->initFilter("name STARTS with 'Mariano'");
-        $expected4 = new Filter(new Pattern("name", PatternOperator::STARTS_WITH, "Mariano"));
+        $expected4 = new Filter(new Condition("name", Operator::STARTS_WITH, "Mariano"));
         $this->assertEquals($expected4, $filter4);
 
         $filter5 = $this->factory->initFilter("name startswith 'Mariano'");
-        $expected5 = new Filter(new Pattern("name", PatternOperator::STARTS_WITH, "Mariano"));
+        $expected5 = new Filter(new Condition("name", Operator::STARTS_WITH, "Mariano"));
         $this->assertEquals($expected5, $filter5);
 
         $filter6 = $this->factory->initFilter("name STARTSWITH 'Mariano'");
-        $expected6 = new Filter(new Pattern("name", PatternOperator::STARTS_WITH, "Mariano"));
+        $expected6 = new Filter(new Condition("name", Operator::STARTS_WITH, "Mariano"));
         $this->assertEquals($expected6, $filter6);
     }
 
@@ -183,27 +179,27 @@ class FilterFactoryTest extends TestCase
     public function testEndsWithOp()
     {
         $filter1 = $this->factory->initFilter("name ends with 'al Brembo'");
-        $expected1 = new Filter(new Pattern("name", PatternOperator::ENDS_WITH, "al Brembo"));
+        $expected1 = new Filter(new Condition("name", Operator::ENDS_WITH, "al Brembo"));
         $this->assertEquals($expected1, $filter1);
 
         $filter2 = $this->factory->initFilter("name ENDS WITH 'al Brembo'");
-        $expected2 = new Filter(new Pattern("name", PatternOperator::ENDS_WITH, "al Brembo"));
+        $expected2 = new Filter(new Condition("name", Operator::ENDS_WITH, "al Brembo"));
         $this->assertEquals($expected2, $filter2);
 
         $filter3 = $this->factory->initFilter("name ends WITH 'al Brembo'");
-        $expected3 = new Filter(new Pattern("name", PatternOperator::ENDS_WITH, "al Brembo"));
+        $expected3 = new Filter(new Condition("name", Operator::ENDS_WITH, "al Brembo"));
         $this->assertEquals($expected3, $filter3);
 
         $filter4 = $this->factory->initFilter("name ENDS with 'al Brembo'");
-        $expected4 = new Filter(new Pattern("name", PatternOperator::ENDS_WITH, "al Brembo"));
+        $expected4 = new Filter(new Condition("name", Operator::ENDS_WITH, "al Brembo"));
         $this->assertEquals($expected4, $filter4);
 
         $filter5 = $this->factory->initFilter("name endswith 'al Brembo'");
-        $expected5 = new Filter(new Pattern("name", PatternOperator::ENDS_WITH, "al Brembo"));
+        $expected5 = new Filter(new Condition("name", Operator::ENDS_WITH, "al Brembo"));
         $this->assertEquals($expected5, $filter5);
 
         $filter6 = $this->factory->initFilter("name ENDSWITH 'al Brembo'");
-        $expected6 = new Filter(new Pattern("name", PatternOperator::ENDS_WITH, "al Brembo"));
+        $expected6 = new Filter(new Condition("name", Operator::ENDS_WITH, "al Brembo"));
         $this->assertEquals($expected6, $filter6);
     }
 
@@ -240,23 +236,23 @@ class FilterFactoryTest extends TestCase
     public function testFieldName()
     {
         $filter1 = $this->factory->initFilter("name = true");
-        $expected1 = new Filter(new Comparison("name", ComparisonOperator::EQ, true));
+        $expected1 = new Filter(new Condition("name", Operator::EQ, true));
         $this->assertEquals($expected1, $filter1);
 
         $filter2 = $this->factory->initFilter("field_name = true");
-        $expected2 = new Filter(new Comparison("field_name", ComparisonOperator::EQ, true));
+        $expected2 = new Filter(new Condition("field_name", Operator::EQ, true));
         $this->assertEquals($expected2, $filter2);
 
         $filter3 = $this->factory->initFilter("person.age = true");
-        $expected3 = new Filter(new Comparison("person.age", ComparisonOperator::EQ, true));
+        $expected3 = new Filter(new Condition("person.age", Operator::EQ, true));
         $this->assertEquals($expected3, $filter3);
 
         $filter4 = $this->factory->initFilter("person.last_name = true");
-        $expected4 = new Filter(new Comparison("person.last_name", ComparisonOperator::EQ, true));
+        $expected4 = new Filter(new Condition("person.last_name", Operator::EQ, true));
         $this->assertEquals($expected4, $filter4);
 
         $filter5 = $this->factory->initFilter("person_name.first = true");
-        $expected5 = new Filter(new Comparison("person_name.first", ComparisonOperator::EQ, true));
+        $expected5 = new Filter(new Condition("person_name.first", Operator::EQ, true));
         $this->assertEquals($expected5, $filter5);
     }
 
@@ -266,7 +262,7 @@ class FilterFactoryTest extends TestCase
     public function testOneLenField()
     {
         $filter = $this->factory->initFilter("x = 1");
-        $expected = new Filter(new Comparison("x", ComparisonOperator::EQ, 1));
+        $expected = new Filter(new Condition("x", Operator::EQ, 1));
         $this->assertEquals($expected, $filter);
     }
 
@@ -276,7 +272,7 @@ class FilterFactoryTest extends TestCase
     public function testTwoLenField()
     {
         $filter = $this->factory->initFilter("id = 2");
-        $expected = new Filter(new Comparison("id", ComparisonOperator::EQ, 2));
+        $expected = new Filter(new Condition("id", Operator::EQ, 2));
         $this->assertEquals($expected, $filter);
     }
 
@@ -287,7 +283,7 @@ class FilterFactoryTest extends TestCase
     {
         $fieldName = "ilkobranoneunserpentemaunpensierofrequentechediventaindecentequandovedotequandovedotequandovedotequandovedote";
         $filter = $this->factory->initFilter($fieldName . " = 109");
-        $expected = new Filter(new Comparison($fieldName, ComparisonOperator::EQ, 109));
+        $expected = new Filter(new Condition($fieldName, Operator::EQ, 109));
         $this->assertEquals($expected, $filter);
     }
 
@@ -324,11 +320,11 @@ class FilterFactoryTest extends TestCase
     public function testBooleanValue()
     {
         $filter1 = $this->factory->initFilter("name = true");
-        $expected1 = new Filter(new Comparison("name", ComparisonOperator::EQ, true));
+        $expected1 = new Filter(new Condition("name", Operator::EQ, true));
         $this->assertEquals($expected1, $filter1);
 
         $filter2 = $this->factory->initFilter("name = false");
-        $expected2 = new Filter(new Comparison("name", ComparisonOperator::EQ, false));
+        $expected2 = new Filter(new Condition("name", Operator::EQ, false));
         $this->assertEquals($expected2, $filter2);
     }
 
@@ -338,11 +334,11 @@ class FilterFactoryTest extends TestCase
     public function testNumberValue()
     {
         $filter1 = $this->factory->initFilter("name = 5000");
-        $expected1 = new Filter(new Comparison("name", ComparisonOperator::EQ, 5000));
+        $expected1 = new Filter(new Condition("name", Operator::EQ, 5000));
         $this->assertEquals($expected1, $filter1);
 
         $filter2 = $this->factory->initFilter("name = 5123.2555");
-        $expected2 = new Filter(new Comparison("name", ComparisonOperator::EQ, 5123.2555));
+        $expected2 = new Filter(new Condition("name", Operator::EQ, 5123.2555));
         $this->assertEquals($expected2, $filter2);
     }
 
@@ -379,51 +375,51 @@ class FilterFactoryTest extends TestCase
     public function testStringValue()
     {
         $filter1 = $this->factory->initFilter("name = 'Guillaume'");
-        $expected1 = new Filter(new Comparison("name", ComparisonOperator::EQ, "Guillaume"));
+        $expected1 = new Filter(new Condition("name", Operator::EQ, "Guillaume"));
         $this->assertEquals($expected1, $filter1);
 
         $filter2 = $this->factory->initFilter("name = '5123.2555'");
-        $expected2 = new Filter(new Comparison("name", ComparisonOperator::EQ, '5123.2555'));
+        $expected2 = new Filter(new Condition("name", Operator::EQ, '5123.2555'));
         $this->assertEquals($expected2, $filter2);
 
         $filter3 = $this->factory->initFilter("name = '     '");
-        $expected3 = new Filter(new Comparison("name", ComparisonOperator::EQ, '     '));
+        $expected3 = new Filter(new Condition("name", Operator::EQ, '     '));
         $this->assertEquals($expected3, $filter3);
 
         $filter4 = $this->factory->initFilter("name = '\"'");
-        $expected4 = new Filter(new Comparison("name", ComparisonOperator::EQ, '"'));
+        $expected4 = new Filter(new Condition("name", Operator::EQ, '"'));
         $this->assertEquals($expected4, $filter4);
 
         $filter5 = $this->factory->initFilter("name = 'true'");
-        $expected5 = new Filter(new Comparison("name", ComparisonOperator::EQ, 'true'));
+        $expected5 = new Filter(new Condition("name", Operator::EQ, 'true'));
         $this->assertEquals($expected5, $filter5);
 
         $filter6 = $this->factory->initFilter("name = 'false'");
-        $expected6 = new Filter(new Comparison("name", ComparisonOperator::EQ, 'false'));
+        $expected6 = new Filter(new Condition("name", Operator::EQ, 'false'));
         $this->assertEquals($expected6, $filter6);
 
         $filter7 = $this->factory->initFilter("name = 'null'");
-        $expected7 = new Filter(new Comparison("name", ComparisonOperator::EQ, 'null'));
+        $expected7 = new Filter(new Condition("name", Operator::EQ, 'null'));
         $this->assertEquals($expected7, $filter7);
 
         $filter8 = $this->factory->initFilter("name = 'NULL'");
-        $expected8 = new Filter(new Comparison("name", ComparisonOperator::EQ, 'NULL'));
+        $expected8 = new Filter(new Condition("name", Operator::EQ, 'NULL'));
         $this->assertEquals($expected8, $filter8);
 
         $filter9 = $this->factory->initFilter("name != 'null'");
-        $expected9 = new Filter(new Comparison("name", ComparisonOperator::NEQ, 'null'));
+        $expected9 = new Filter(new Condition("name", Operator::NEQ, 'null'));
         $this->assertEquals($expected9, $filter9);
 
         $filter10 = $this->factory->initFilter("name != 'NULL'");
-        $expected10 = new Filter(new Comparison("name", ComparisonOperator::NEQ, 'NULL'));
+        $expected10 = new Filter(new Condition("name", Operator::NEQ, 'NULL'));
         $this->assertEquals($expected10, $filter10);
 
         $filter11 = $this->factory->initFilter("name <> 'null'");
-        $expected11 = new Filter(new Comparison("name", ComparisonOperator::NEQ, 'null'));
+        $expected11 = new Filter(new Condition("name", Operator::NEQ, 'null'));
         $this->assertEquals($expected11, $filter11);
 
         $filter12 = $this->factory->initFilter("name <> 'NULL'");
-        $expected12 = new Filter(new Comparison("name", ComparisonOperator::NEQ, 'NULL'));
+        $expected12 = new Filter(new Condition("name", Operator::NEQ, 'NULL'));
         $this->assertEquals($expected12, $filter12);
     }
 
@@ -478,27 +474,27 @@ class FilterFactoryTest extends TestCase
     public function testNullField()
     {
         $filter1 = $this->factory->initFilter("name = NULL");
-        $expected1 = new Filter(new EmptyField("name"));
+        $expected1 = new Filter(new Condition("name", Operator::EQ, null));
         $this->assertEquals($expected1, $filter1);
 
         $filter2 = $this->factory->initFilter("address = null");
-        $expected2 = new Filter(new EmptyField("address"));
+        $expected2 = new Filter(new Condition("address", Operator::EQ, null));
         $this->assertEquals($expected2, $filter2);
 
         $filter3 = $this->factory->initFilter("surname is null");
-        $expected3 = new Filter(new EmptyField("surname"));
+        $expected3 = new Filter(new Condition("surname", Operator::EQ, null));
         $this->assertEquals($expected3, $filter3);
 
         $filter4 = $this->factory->initFilter("income is NULL");
-        $expected4 = new Filter(new EmptyField("income"));
+        $expected4 = new Filter(new Condition("income", Operator::EQ, null));
         $this->assertEquals($expected4, $filter4);
 
         $filter5 = $this->factory->initFilter("girlfriend IS NULL");
-        $expected5 = new Filter(new EmptyField("girlfriend"));
+        $expected5 = new Filter(new Condition("girlfriend", Operator::EQ, null));
         $this->assertEquals($expected5, $filter5);
 
         $filter6 = $this->factory->initFilter("car IS null");
-        $expected6 = new Filter(new EmptyField("car"));
+        $expected6 = new Filter(new Condition("car", Operator::EQ, null));
         $this->assertEquals($expected6, $filter6);
     }
 
@@ -526,51 +522,51 @@ class FilterFactoryTest extends TestCase
     public function testNotNullField()
     {
         $filter1 = $this->factory->initFilter("name != NULL");
-        $expected1 = new Filter(new FilledField("name"));
+        $expected1 = new Filter(new Condition("name", Operator::NEQ, null));
         $this->assertEquals($expected1, $filter1);
 
         $filter2 = $this->factory->initFilter("address != null");
-        $expected2 = new Filter(new FilledField("address"));
+        $expected2 = new Filter(new Condition("address", Operator::NEQ, null));
         $this->assertEquals($expected2, $filter2);
 
         $filter3 = $this->factory->initFilter("surname is not null");
-        $expected3 = new Filter(new FilledField("surname"));
+        $expected3 = new Filter(new Condition("surname", Operator::NEQ, null));
         $this->assertEquals($expected3, $filter3);
 
         $filter4 = $this->factory->initFilter("income is not NULL");
-        $expected4 = new Filter(new FilledField("income"));
+        $expected4 = new Filter(new Condition("income", Operator::NEQ, null));
         $this->assertEquals($expected4, $filter4);
 
         $filter5 = $this->factory->initFilter("girlfriend IS not NULL");
-        $expected5 = new Filter(new FilledField("girlfriend"));
+        $expected5 = new Filter(new Condition("girlfriend", Operator::NEQ, null));
         $this->assertEquals($expected5, $filter5);
 
         $filter6 = $this->factory->initFilter("car IS not null");
-        $expected6 = new Filter(new FilledField("car"));
+        $expected6 = new Filter(new Condition("car", Operator::NEQ, null));
         $this->assertEquals($expected6, $filter6);
 
         $filter7 = $this->factory->initFilter("football_team <> NULL");
-        $expected7 = new Filter(new FilledField("football_team"));
+        $expected7 = new Filter(new Condition("football_team", Operator::NEQ, null));
         $this->assertEquals($expected7, $filter7);
 
         $filter8 = $this->factory->initFilter("volleyball_team <> null");
-        $expected8 = new Filter(new FilledField("volleyball_team"));
+        $expected8 = new Filter(new Condition("volleyball_team", Operator::NEQ, null));
         $this->assertEquals($expected8, $filter8);
 
         $filter9 = $this->factory->initFilter("basketball_team is NOT null");
-        $expected9 = new Filter(new FilledField("basketball_team"));
+        $expected9 = new Filter(new Condition("basketball_team", Operator::NEQ, null));
         $this->assertEquals($expected9, $filter9);
 
         $filter10 = $this->factory->initFilter("favourite_singer is NOT NULL");
-        $expected10 = new Filter(new FilledField("favourite_singer"));
+        $expected10 = new Filter(new Condition("favourite_singer", Operator::NEQ, null));
         $this->assertEquals($expected10, $filter10);
 
         $filter11 = $this->factory->initFilter("banana IS NOT NULL");
-        $expected11 = new Filter(new FilledField("banana"));
+        $expected11 = new Filter(new Condition("banana", Operator::NEQ, null));
         $this->assertEquals($expected11, $filter11);
 
         $filter12 = $this->factory->initFilter("driving_license IS NOT null");
-        $expected12 = new Filter(new FilledField("driving_license"));
+        $expected12 = new Filter(new Condition("driving_license", Operator::NEQ, null));
         $this->assertEquals($expected12, $filter12);
     }
 
@@ -607,7 +603,7 @@ class FilterFactoryTest extends TestCase
     public function testParenthesis()
     {
         $filter = $this->factory->initFilter("(name = true)");
-        $expected = new Filter(new Comparison("name", ComparisonOperator::EQ, true));
+        $expected = new Filter(new Condition("name", Operator::EQ, true));
         $this->assertEquals($expected, $filter);
     }
 
@@ -637,8 +633,8 @@ class FilterFactoryTest extends TestCase
         $filter1 = $this->factory->initFilter("name = 'Guillaume' and company <> 'FIC'");
         $expected1 = new Filter(
             new Conjunction(
-                new Comparison("name", ComparisonOperator::EQ, "Guillaume"),
-                new Comparison("company", ComparisonOperator::NEQ, "FIC")
+                new Condition("name", Operator::EQ, "Guillaume"),
+                new Condition("company", Operator::NEQ, "FIC")
             )
         );
         $this->assertEquals($expected1, $filter1);
@@ -646,8 +642,8 @@ class FilterFactoryTest extends TestCase
         $filter2 = $this->factory->initFilter("name = 'Guillaume' AND company <> 'FIC'");
         $expected2 = new Filter(
             new Conjunction(
-                new Comparison("name", ComparisonOperator::EQ, "Guillaume"),
-                new Comparison("company", ComparisonOperator::NEQ, "FIC")
+                new Condition("name", Operator::EQ, "Guillaume"),
+                new Condition("company", Operator::NEQ, "FIC")
             )
         );
         $this->assertEquals($expected2, $filter2);
@@ -655,8 +651,8 @@ class FilterFactoryTest extends TestCase
         $filter3 = $this->factory->initFilter("(name = 'Guillaume') and company <> 'FIC'");
         $expected3 = new Filter(
             new Conjunction(
-                new Comparison("name", ComparisonOperator::EQ, "Guillaume"),
-                new Comparison("company", ComparisonOperator::NEQ, "FIC")
+                new Condition("name", Operator::EQ, "Guillaume"),
+                new Condition("company", Operator::NEQ, "FIC")
             )
         );
         $this->assertEquals($expected3, $filter3);
@@ -664,8 +660,8 @@ class FilterFactoryTest extends TestCase
         $filter4 = $this->factory->initFilter("name = 'Guillaume' and (company <> 'FIC')");
         $expected4 = new Filter(
             new Conjunction(
-                new Comparison("name", ComparisonOperator::EQ, "Guillaume"),
-                new Comparison("company", ComparisonOperator::NEQ, "FIC")
+                new Condition("name", Operator::EQ, "Guillaume"),
+                new Condition("company", Operator::NEQ, "FIC")
             )
         );
         $this->assertEquals($expected4, $filter4);
@@ -673,8 +669,8 @@ class FilterFactoryTest extends TestCase
         $filter5 = $this->factory->initFilter("(name = 'Guillaume' and company <> 'FIC')");
         $expected5 = new Filter(
             new Conjunction(
-                new Comparison("name", ComparisonOperator::EQ, "Guillaume"),
-                new Comparison("company", ComparisonOperator::NEQ, "FIC")
+                new Condition("name", Operator::EQ, "Guillaume"),
+                new Condition("company", Operator::NEQ, "FIC")
             )
         );
         $this->assertEquals($expected5, $filter5);
@@ -709,8 +705,8 @@ class FilterFactoryTest extends TestCase
         $filter1 = $this->factory->initFilter("name = 'Guillaume' or company <> 'FIC'");
         $expected1 = new Filter(
             new Disjunction(
-                new Comparison("name", ComparisonOperator::EQ, "Guillaume"),
-                new Comparison("company", ComparisonOperator::NEQ, "FIC")
+                new Condition("name", Operator::EQ, "Guillaume"),
+                new Condition("company", Operator::NEQ, "FIC")
             )
         );
         $this->assertEquals($expected1, $filter1);
@@ -718,8 +714,8 @@ class FilterFactoryTest extends TestCase
         $filter2 = $this->factory->initFilter("name = 'Guillaume' OR company <> 'FIC'");
         $expected2 = new Filter(
             new Disjunction(
-                new Comparison("name", ComparisonOperator::EQ, "Guillaume"),
-                new Comparison("company", ComparisonOperator::NEQ, "FIC")
+                new Condition("name", Operator::EQ, "Guillaume"),
+                new Condition("company", Operator::NEQ, "FIC")
             )
         );
         $this->assertEquals($expected2, $filter2);
@@ -727,8 +723,8 @@ class FilterFactoryTest extends TestCase
         $filter3 = $this->factory->initFilter("(name = 'Guillaume') or company <> 'FIC'");
         $expected3 = new Filter(
             new Disjunction(
-                new Comparison("name", ComparisonOperator::EQ, "Guillaume"),
-                new Comparison("company", ComparisonOperator::NEQ, "FIC")
+                new Condition("name", Operator::EQ, "Guillaume"),
+                new Condition("company", Operator::NEQ, "FIC")
             )
         );
         $this->assertEquals($expected3, $filter3);
@@ -736,8 +732,8 @@ class FilterFactoryTest extends TestCase
         $filter4 = $this->factory->initFilter("name = 'Guillaume' or (company <> 'FIC')");
         $expected4 = new Filter(
             new Disjunction(
-                new Comparison("name", ComparisonOperator::EQ, "Guillaume"),
-                new Comparison("company", ComparisonOperator::NEQ, "FIC")
+                new Condition("name", Operator::EQ, "Guillaume"),
+                new Condition("company", Operator::NEQ, "FIC")
             )
         );
         $this->assertEquals($expected4, $filter4);
@@ -745,8 +741,8 @@ class FilterFactoryTest extends TestCase
         $filter5 = $this->factory->initFilter("(name = 'Guillaume' or company <> 'FIC')");
         $expected5 = new Filter(
             new Disjunction(
-                new Comparison("name", ComparisonOperator::EQ, "Guillaume"),
-                new Comparison("company", ComparisonOperator::NEQ, "FIC")
+                new Condition("name", Operator::EQ, "Guillaume"),
+                new Condition("company", Operator::NEQ, "FIC")
             )
         );
         $this->assertEquals($expected5, $filter5);
@@ -781,10 +777,10 @@ class FilterFactoryTest extends TestCase
         $filter1 = $this->factory->initFilter("name = 'Guillaume' and (city = 'Bergamo' or company <> 'FIC')");
         $expected1 = new Filter(
             new Conjunction(
-                new Comparison("name", ComparisonOperator::EQ, "Guillaume"),
+                new Condition("name", Operator::EQ, "Guillaume"),
                 new Disjunction(
-                    new Comparison("city", ComparisonOperator::EQ, "Bergamo"),
-                    new Comparison("company", ComparisonOperator::NEQ, "FIC")
+                    new Condition("city", Operator::EQ, "Bergamo"),
+                    new Condition("company", Operator::NEQ, "FIC")
                 )
             )
         );
@@ -793,10 +789,10 @@ class FilterFactoryTest extends TestCase
         $filter2 = $this->factory->initFilter("name = 'Guillaume' and (city = 'Bergamo' or company is not null)");
         $expected2 = new Filter(
             new Conjunction(
-                new Comparison("name", ComparisonOperator::EQ, "Guillaume"),
+                new Condition("name", Operator::EQ, "Guillaume"),
                 new Disjunction(
-                    new Comparison("city", ComparisonOperator::EQ, "Bergamo"),
-                    new FilledField("company")
+                    new Condition("city", Operator::EQ, "Bergamo"),
+                    new Condition("company", Operator::NEQ, null)
                 )
             )
         );
@@ -806,10 +802,10 @@ class FilterFactoryTest extends TestCase
         $expected3 = new Filter(
             new Disjunction(
                 new Conjunction(
-                    new Comparison("name", ComparisonOperator::EQ, "Guillaume"),
-                    new Comparison("city", ComparisonOperator::EQ, "Bergamo")
+                    new Condition("name", Operator::EQ, "Guillaume"),
+                    new Condition("city", Operator::EQ, "Bergamo")
                 ),
-                new Comparison("company", ComparisonOperator::NEQ, "FIC")
+                new Condition("company", Operator::NEQ, "FIC")
             )
         );
         $this->assertEquals($expected3, $filter3);
@@ -818,10 +814,10 @@ class FilterFactoryTest extends TestCase
         $expected4 = new Filter(
             new Disjunction(
                 new Conjunction(
-                    new Comparison("name", ComparisonOperator::EQ, "Guillaume"),
-                    new Comparison("city", ComparisonOperator::EQ, "Bergamo")
+                    new Condition("name", Operator::EQ, "Guillaume"),
+                    new Condition("city", Operator::EQ, "Bergamo")
                 ),
-                new Comparison("company", ComparisonOperator::NEQ, "FIC")
+                new Condition("company", Operator::NEQ, "FIC")
             )
         );
         $this->assertEquals($expected4, $filter4);
@@ -830,10 +826,10 @@ class FilterFactoryTest extends TestCase
         $expected5 = new Filter(
             new Disjunction(
                 new Conjunction(
-                    new Comparison("name", ComparisonOperator::EQ, "Guillaume"),
-                    new Comparison("city", ComparisonOperator::EQ, "Bergamo")
+                    new Condition("name", Operator::EQ, "Guillaume"),
+                    new Condition("city", Operator::EQ, "Bergamo")
                 ),
-                new EmptyField("company")
+                new Condition("company", Operator::EQ, null)
             )
         );
         $this->assertEquals($expected5, $filter5);
@@ -842,10 +838,10 @@ class FilterFactoryTest extends TestCase
         $expected6 = new Filter(
             new Conjunction(
                 new Conjunction(
-                    new Comparison("name", ComparisonOperator::EQ, "Guillaume"),
-                    new Comparison("city", ComparisonOperator::EQ, "Bergamo")
+                    new Condition("name", Operator::EQ, "Guillaume"),
+                    new Condition("city", Operator::EQ, "Bergamo")
                 ),
-                new Comparison("company", ComparisonOperator::NEQ, "FIC")
+                new Condition("company", Operator::NEQ, "FIC")
             )
         );
         $this->assertEquals($expected6, $filter6);
@@ -854,10 +850,10 @@ class FilterFactoryTest extends TestCase
         $expected7 = new Filter(
             new Disjunction(
                 new Disjunction(
-                    new Comparison("name", ComparisonOperator::EQ, "Guillaume"),
-                    new Comparison("city", ComparisonOperator::EQ, "Bergamo")
+                    new Condition("name", Operator::EQ, "Guillaume"),
+                    new Condition("city", Operator::EQ, "Bergamo")
                 ),
-                new Comparison("company", ComparisonOperator::NEQ, "FIC")
+                new Condition("company", Operator::NEQ, "FIC")
             )
         );
         $this->assertEquals($expected7, $filter7);
@@ -865,18 +861,18 @@ class FilterFactoryTest extends TestCase
         $filter8 = $this->factory->initFilter("city = 'Bergamo' and (age < 30 or (dev = true and (name = 'Giorgio' and surname is not null) or employer starts with 'Fatture'))");
         $expected8 = new Filter(
             new Conjunction(
-                new Comparison("city", ComparisonOperator::EQ, "Bergamo"),
+                new Condition("city", Operator::EQ, "Bergamo"),
                 new Disjunction(
-                    new Comparison("age", ComparisonOperator::LT, 30),
+                    new Condition("age", Operator::LT, 30),
                     new Disjunction(
                         new Conjunction(
-                            new Comparison("dev", ComparisonOperator::EQ, true),
+                            new Condition("dev", Operator::EQ, true),
                             new Conjunction(
-                                new Comparison("name", ComparisonOperator::EQ, "Giorgio"),
-                                new FilledField("surname")
+                                new Condition("name", Operator::EQ, "Giorgio"),
+                                new Condition("surname", Operator::NEQ, null)
                             )
                         ),
-                        new Pattern("employer", PatternOperator::STARTS_WITH, "Fatture")
+                        new Condition("employer", Operator::STARTS_WITH, "Fatture")
                     )
                 )
             )
@@ -928,8 +924,8 @@ class FilterFactoryTest extends TestCase
         $filter = $this->factory->initFilter("name = 'Guillaume'\nand\ncity <> 'Bergamo'");
         $expected = new Filter(
             new Conjunction(
-                new Comparison("name", ComparisonOperator::EQ, "Guillaume"),
-                new Comparison("city", ComparisonOperator::NEQ, "Bergamo")
+                new Condition("name", Operator::EQ, "Guillaume"),
+                new Condition("city", Operator::NEQ, "Bergamo")
             )
         );
         $this->assertEquals($expected, $filter);
@@ -944,8 +940,8 @@ class FilterFactoryTest extends TestCase
         $filter1 = $this->factory->initFilter($str);
         $expected1 = new Filter(
             new Conjunction(
-                new Comparison("name", ComparisonOperator::EQ, "Guillaume"),
-                new Comparison("city", ComparisonOperator::NEQ, "Bergamo")
+                new Condition("name", Operator::EQ, "Guillaume"),
+                new Condition("city", Operator::NEQ, "Bergamo")
             )
         );
         $this->assertEquals($expected1, $filter1);

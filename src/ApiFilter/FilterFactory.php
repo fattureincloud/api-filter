@@ -6,17 +6,12 @@ use Antlr\Antlr4\Runtime\CommonTokenStream;
 use Antlr\Antlr4\Runtime\Error\BailErrorStrategy;
 use Antlr\Antlr4\Runtime\InputStream;
 use Antlr\Antlr4\Runtime\Tree\AbstractParseTreeVisitor;
-use FattureInCloud\ApiFilter\Filter\PatternOperator;
-use FattureInCloud\ApiFilter\Filter\Comparison;
 use FattureInCloud\ApiFilter\Filter\Condition;
 use FattureInCloud\ApiFilter\Filter\Conjunction;
 use FattureInCloud\ApiFilter\Filter\Disjunction;
-use FattureInCloud\ApiFilter\Filter\EmptyField;
 use FattureInCloud\ApiFilter\Filter\Expression;
-use FattureInCloud\ApiFilter\Filter\FilledField;
 use FattureInCloud\ApiFilter\Filter\Filter;
-use FattureInCloud\ApiFilter\Filter\ComparisonOperator;
-use FattureInCloud\ApiFilter\Filter\Pattern;
+use FattureInCloud\ApiFilter\Filter\Operator;
 use FattureInCloud\ApiFilter\Parser\ApiFilterLexer;
 use FattureInCloud\ApiFilter\Parser\ApiFilterParser;
 use FattureInCloud\ApiFilter\Parser\ApiFilterVisitor;
@@ -56,7 +51,7 @@ final class FilterFactory extends AbstractParseTreeVisitor implements ApiFilterV
         return $this->visit($context->condition());
     }
 
-    public function visitPatternExp(Context\PatternExpContext $context)
+    public function visitPatternExp(Context\PatternExpContext $context): Condition
     {
         return $this->visit($context->pattern());
     }
@@ -80,17 +75,17 @@ final class FilterFactory extends AbstractParseTreeVisitor implements ApiFilterV
         return new Disjunction($left, $right);
     }
 
-    public function visitComparisonCondition(Context\ComparisonConditionContext $context): Comparison
+    public function visitComparisonCondition(Context\ComparisonConditionContext $context): Condition
     {
         return $this->visit($context->comparison());
     }
 
-    public function visitComparison(Context\ComparisonContext $context): Comparison
+    public function visitComparison(Context\ComparisonContext $context): Condition
     {
         $field = $context->FIELD()->getText();
         $op = $this->visit($context->comparisonop());
         $value = $this->visit($context->value());
-        return new Comparison($field, $op, $value);
+        return new Condition($field, $op, $value);
     }
 
     public function visitValue(ValueContext $context)
@@ -122,62 +117,62 @@ final class FilterFactory extends AbstractParseTreeVisitor implements ApiFilterV
     {
         $operator = null;
         if ($context->EQ()) {
-            $operator = ComparisonOperator::EQ;
+            $operator = Operator::EQ;
         } elseif ($context->GT()) {
-            $operator = ComparisonOperator::GT;
+            $operator = Operator::GT;
         } elseif ($context->GTE()) {
-            $operator = ComparisonOperator::GTE;
+            $operator = Operator::GTE;
         } elseif ($context->LT()) {
-            $operator = ComparisonOperator::LT;
+            $operator = Operator::LT;
         } elseif ($context->LTE()) {
-            $operator = ComparisonOperator::LTE;
+            $operator = Operator::LTE;
         } elseif ($context->NEQ()) {
-            $operator = ComparisonOperator::NEQ;
+            $operator = Operator::NEQ;
         }
         return $operator;
     }
 
-    public function visitEmptyCondition(Context\EmptyConditionContext $context): EmptyField
+    public function visitEmptyCondition(Context\EmptyConditionContext $context): Condition
     {
         return $this->visit($context->emptyfield());
     }
 
-    public function visitEmptyfield(Context\EmptyfieldContext $context): EmptyField
+    public function visitEmptyfield(Context\EmptyfieldContext $context): Condition
     {
         $field = $context->FIELD()->getText();
-        return new EmptyField($field);
+        return new Condition($field, Operator::EQ, null);
     }
 
-    public function visitFilledCondition(Context\FilledConditionContext $context): FilledField
+    public function visitFilledCondition(Context\FilledConditionContext $context): Condition
     {
         return $this->visit($context->filledfield());
     }
 
-    public function visitFilledfield(Context\FilledfieldContext $context): FilledField
+    public function visitFilledfield(Context\FilledfieldContext $context): Condition
     {
         $field = $context->FIELD()->getText();
-        return new FilledField($field);
+        return new Condition($field, Operator::NEQ, null);
     }
 
-    public function visitPattern(Context\PatternContext $context)
+    public function visitPattern(Context\PatternContext $context): Condition
     {
         $field = $context->FIELD()->getText();
         $op = $this->visit($context->patternop());
         $value = substr($context->STRING()->getText(), 1, -1);
-        return new Pattern($field, $op, $value);
+        return new Condition($field, $op, $value);
     }
 
     public function visitPatternop(Context\PatternopContext $context)
     {
         $op = null;
         if ($context->LIKE()) {
-            $op = PatternOperator::LIKE;
+            $op = Operator::LIKE;
         } elseif ($context->CONTAINS()) {
-            $op = PatternOperator::CONTAINS;
+            $op = Operator::CONTAINS;
         } elseif ($context->STARTSWITH()) {
-            $op = PatternOperator::STARTS_WITH;
+            $op = Operator::STARTS_WITH;
         } elseif ($context->ENDSWITH()) {
-            $op = PatternOperator::ENDS_WITH;
+            $op = Operator::ENDS_WITH;
         }
         return $op;
     }
