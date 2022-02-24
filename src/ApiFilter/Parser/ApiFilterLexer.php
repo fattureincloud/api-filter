@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Generated from /grammar/ApiFilter.g4 by ANTLR 4.9.2
+ * Generated from /grammar/ApiFilter.g4 by ANTLR 4.9.3
  */
 
 namespace FattureInCloud\ApiFilter\Parser {
@@ -275,7 +275,7 @@ namespace FattureInCloud\ApiFilter\Parser {
 				return;
 			}
 
-			RuntimeMetaData::checkVersion('4.9.2', RuntimeMetaData::VERSION);
+			RuntimeMetaData::checkVersion('4.9.3', RuntimeMetaData::VERSION);
 
 			$atn = (new ATNDeserializer())->deserialize(self::SERIALIZED_ATN);
 
