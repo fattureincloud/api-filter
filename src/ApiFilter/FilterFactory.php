@@ -160,6 +160,7 @@ final class FilterFactory extends AbstractParseTreeVisitor implements ApiFilterV
         $field = $context->FIELD()->getText();
         $op = $this->visit($context->patternop());
         $value = substr($context->STRING()->getText(), 1, -1);
+        $value = str_replace("''", "'", $value);
         return new Condition($field, $op, $value);
     }
 
