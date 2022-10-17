@@ -47,6 +47,9 @@ The **value** can be one of:
 - _Int_: 46
 - _Double_: 12.34
 
+You can _escape the single quote_ in a string value by doubling it. The filter will take care of returning the expected string.
+
+
 It is also possible to **match a String against a Pattern** using one of those operators:
 - _Like_: 'like', 'LIKE'
 - _Contains_: 'contains', 'CONTAINS'

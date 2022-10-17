@@ -467,6 +467,23 @@ class FilterFactoryTest extends TestCase
         $filter12 = $this->factory->initFilter("name <> 'NULL'");
         $expected12 = new Filter(new Condition("name", Operator::NEQ, 'NULL'));
         $this->assertEquals($expected12, $filter12);
+
+        $filter13 = $this->factory->initFilter("show = 'Italia''s got talent'");
+        $expected13 = new Filter(new Condition("show", Operator::EQ, "Italia's got talent"));
+        $this->assertEquals($expected13, $filter13);
+
+        $filter14 = $this->factory->initFilter("name = 'Eustass ''Captain'' Kid'");
+        $expected14 = new Filter(new Condition("name", Operator::EQ, "Eustass 'Captain' Kid"));
+        $this->assertEquals($expected14, $filter14);
+    }
+
+    /**
+     * Test no single quote in string
+     */
+    public function testNoSingleQuoteInString()
+    {
+        $this->expectException(ParseCancellationException::class);
+        $this->factory->initFilter("name = 'Italia's got talent'");
     }
 
     /**

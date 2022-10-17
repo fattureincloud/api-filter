@@ -93,6 +93,7 @@ final class FilterFactory extends AbstractParseTreeVisitor implements ApiFilterV
         $value = null;
         if ($context->STRING()) {
             $value = substr($context->STRING()->getText(), 1, -1);
+            $value = str_replace("''", "'", $value);
         } elseif ($context->BOOL()) {
             $value = filter_var($context->BOOL()->getText(), FILTER_VALIDATE_BOOLEAN);
         } elseif ($context->integer()) {
