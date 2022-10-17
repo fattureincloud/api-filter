@@ -53,6 +53,10 @@ It is also possible to **match a String against a Pattern** using one of those o
 - _Starts With_: 'starts with', 'STARTS WITH'
 - _Ends With_: 'ends with', 'ENDS WITH'
 
+Like and Contains can also be negated:
+- _Not Like_: 'not like', 'NOT LIKE'
+- _Not Contains_: 'not contains', 'NOT CONTAINS'
+
 Additionally, it is possible to check if field has a value or not, using NULL:
 - _Null field_: 'IS NULL', 'is null', '= null', '= NULL'
 - _Not Null field_: 'IS NOT NULL', 'is not null', '<> null', '!= null', '<> NULL', '!= NULL'
