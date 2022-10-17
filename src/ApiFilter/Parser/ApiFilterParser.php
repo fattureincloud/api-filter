@@ -66,7 +66,7 @@ namespace FattureInCloud\ApiFilter\Parser {
 		 */
 		private const SERIALIZED_ATN =
 			"\u{3}\u{608B}\u{A72A}\u{8133}\u{B9ED}\u{417C}\u{3BE7}\u{7786}\u{5964}" .
-		    "\u{3}\u{1C}\u{5B}\u{4}\u{2}\u{9}\u{2}\u{4}\u{3}\u{9}\u{3}\u{4}\u{4}" .
+		    "\u{3}\u{1C}\u{63}\u{4}\u{2}\u{9}\u{2}\u{4}\u{3}\u{9}\u{3}\u{4}\u{4}" .
 		    "\u{9}\u{4}\u{4}\u{5}\u{9}\u{5}\u{4}\u{6}\u{9}\u{6}\u{4}\u{7}\u{9}" .
 		    "\u{7}\u{4}\u{8}\u{9}\u{8}\u{4}\u{9}\u{9}\u{9}\u{4}\u{A}\u{9}\u{A}" .
 		    "\u{4}\u{B}\u{9}\u{B}\u{4}\u{C}\u{9}\u{C}\u{4}\u{D}\u{9}\u{D}\u{3}" .
@@ -79,16 +79,17 @@ namespace FattureInCloud\ApiFilter\Parser {
 		    "\u{7}\u{3}\u{7}\u{3}\u{7}\u{5}\u{7}\u{43}\u{A}\u{7}\u{3}\u{7}\u{3}" .
 		    "\u{7}\u{3}\u{8}\u{3}\u{8}\u{3}\u{9}\u{3}\u{9}\u{3}\u{9}\u{3}\u{9}" .
 		    "\u{5}\u{9}\u{4D}\u{A}\u{9}\u{3}\u{A}\u{3}\u{A}\u{3}\u{A}\u{3}\u{A}" .
-		    "\u{3}\u{B}\u{3}\u{B}\u{3}\u{C}\u{3}\u{C}\u{3}\u{D}\u{3}\u{D}\u{3}" .
-		    "\u{D}\u{3}\u{D}\u{3}\u{D}\u{2}\u{3}\u{4}\u{E}\u{2}\u{4}\u{6}\u{8}" .
-		    "\u{A}\u{C}\u{E}\u{10}\u{12}\u{14}\u{16}\u{18}\u{2}\u{5}\u{4}\u{2}" .
-		    "\u{3}\u{3}\u{14}\u{14}\u{3}\u{2}\u{3}\u{8}\u{3}\u{2}\u{9}\u{C}\u{2}" .
-		    "\u{58}\u{2}\u{1A}\u{3}\u{2}\u{2}\u{2}\u{4}\u{24}\u{3}\u{2}\u{2}\u{2}" .
+		    "\u{3}\u{B}\u{3}\u{B}\u{3}\u{B}\u{3}\u{B}\u{3}\u{B}\u{3}\u{B}\u{3}" .
+		    "\u{B}\u{3}\u{B}\u{5}\u{B}\u{5B}\u{A}\u{B}\u{3}\u{C}\u{3}\u{C}\u{3}" .
+		    "\u{D}\u{3}\u{D}\u{3}\u{D}\u{3}\u{D}\u{3}\u{D}\u{2}\u{3}\u{4}\u{E}" .
+		    "\u{2}\u{4}\u{6}\u{8}\u{A}\u{C}\u{E}\u{10}\u{12}\u{14}\u{16}\u{18}" .
+		    "\u{2}\u{4}\u{4}\u{2}\u{3}\u{3}\u{14}\u{14}\u{3}\u{2}\u{3}\u{8}\u{2}" .
+		    "\u{65}\u{2}\u{1A}\u{3}\u{2}\u{2}\u{2}\u{4}\u{24}\u{3}\u{2}\u{2}\u{2}" .
 		    "\u{6}\u{34}\u{3}\u{2}\u{2}\u{2}\u{8}\u{36}\u{3}\u{2}\u{2}\u{2}\u{A}" .
 		    "\u{3A}\u{3}\u{2}\u{2}\u{2}\u{C}\u{3E}\u{3}\u{2}\u{2}\u{2}\u{E}\u{46}" .
 		    "\u{3}\u{2}\u{2}\u{2}\u{10}\u{4C}\u{3}\u{2}\u{2}\u{2}\u{12}\u{4E}\u{3}" .
-		    "\u{2}\u{2}\u{2}\u{14}\u{52}\u{3}\u{2}\u{2}\u{2}\u{16}\u{54}\u{3}\u{2}" .
-		    "\u{2}\u{2}\u{18}\u{56}\u{3}\u{2}\u{2}\u{2}\u{1A}\u{1B}\u{5}\u{4}\u{3}" .
+		    "\u{2}\u{2}\u{2}\u{14}\u{5A}\u{3}\u{2}\u{2}\u{2}\u{16}\u{5C}\u{3}\u{2}" .
+		    "\u{2}\u{2}\u{18}\u{5E}\u{3}\u{2}\u{2}\u{2}\u{1A}\u{1B}\u{5}\u{4}\u{3}" .
 		    "\u{2}\u{1B}\u{1C}\u{7}\u{2}\u{2}\u{3}\u{1C}\u{3}\u{3}\u{2}\u{2}\u{2}" .
 		    "\u{1D}\u{1E}\u{8}\u{3}\u{1}\u{2}\u{1E}\u{25}\u{5}\u{6}\u{4}\u{2}\u{1F}" .
 		    "\u{25}\u{5}\u{12}\u{A}\u{2}\u{20}\u{21}\u{7}\u{17}\u{2}\u{2}\u{21}" .
@@ -120,11 +121,17 @@ namespace FattureInCloud\ApiFilter\Parser {
 		    "\u{4C}\u{4B}\u{3}\u{2}\u{2}\u{2}\u{4D}\u{11}\u{3}\u{2}\u{2}\u{2}\u{4E}" .
 		    "\u{4F}\u{7}\u{1B}\u{2}\u{2}\u{4F}\u{50}\u{5}\u{14}\u{B}\u{2}\u{50}" .
 		    "\u{51}\u{7}\u{11}\u{2}\u{2}\u{51}\u{13}\u{3}\u{2}\u{2}\u{2}\u{52}" .
-		    "\u{53}\u{9}\u{4}\u{2}\u{2}\u{53}\u{15}\u{3}\u{2}\u{2}\u{2}\u{54}\u{55}" .
-		    "\u{7}\u{19}\u{2}\u{2}\u{55}\u{17}\u{3}\u{2}\u{2}\u{2}\u{56}\u{57}" .
-		    "\u{7}\u{19}\u{2}\u{2}\u{57}\u{58}\u{7}\u{1A}\u{2}\u{2}\u{58}\u{59}" .
-		    "\u{7}\u{19}\u{2}\u{2}\u{59}\u{19}\u{3}\u{2}\u{2}\u{2}\u{8}\u{24}\u{2C}" .
-		    "\u{2E}\u{34}\u{42}\u{4C}";
+		    "\u{5B}\u{7}\u{9}\u{2}\u{2}\u{53}\u{5B}\u{7}\u{A}\u{2}\u{2}\u{54}\u{55}" .
+		    "\u{7}\u{16}\u{2}\u{2}\u{55}\u{5B}\u{7}\u{9}\u{2}\u{2}\u{56}\u{57}" .
+		    "\u{7}\u{16}\u{2}\u{2}\u{57}\u{5B}\u{7}\u{A}\u{2}\u{2}\u{58}\u{5B}" .
+		    "\u{7}\u{B}\u{2}\u{2}\u{59}\u{5B}\u{7}\u{C}\u{2}\u{2}\u{5A}\u{52}\u{3}" .
+		    "\u{2}\u{2}\u{2}\u{5A}\u{53}\u{3}\u{2}\u{2}\u{2}\u{5A}\u{54}\u{3}\u{2}" .
+		    "\u{2}\u{2}\u{5A}\u{56}\u{3}\u{2}\u{2}\u{2}\u{5A}\u{58}\u{3}\u{2}\u{2}" .
+		    "\u{2}\u{5A}\u{59}\u{3}\u{2}\u{2}\u{2}\u{5B}\u{15}\u{3}\u{2}\u{2}\u{2}" .
+		    "\u{5C}\u{5D}\u{7}\u{19}\u{2}\u{2}\u{5D}\u{17}\u{3}\u{2}\u{2}\u{2}" .
+		    "\u{5E}\u{5F}\u{7}\u{19}\u{2}\u{2}\u{5F}\u{60}\u{7}\u{1A}\u{2}\u{2}" .
+		    "\u{60}\u{61}\u{7}\u{19}\u{2}\u{2}\u{61}\u{19}\u{3}\u{2}\u{2}\u{2}" .
+		    "\u{9}\u{24}\u{2C}\u{2E}\u{34}\u{42}\u{4C}\u{5A}";
 
 		protected static $atn;
 		protected static $decisionToDFA;
@@ -609,20 +616,49 @@ namespace FattureInCloud\ApiFilter\Parser {
 		    $this->enterRule($localContext, 18, self::RULE_patternop);
 
 		    try {
-		        $this->enterOuterAlt($localContext, 1);
-		        $this->setState(80);
+		        $this->setState(88);
+		        $this->errorHandler->sync($this);
 
-		        $_la = $this->input->LA(1);
+		        switch ($this->getInterpreter()->adaptivePredict($this->input, 6, $this->ctx)) {
+		        	case 1:
+		        	    $this->enterOuterAlt($localContext, 1);
+		        	    $this->setState(80);
+		        	    $this->match(self::LIKE);
+		        	break;
 
-		        if (!(((($_la) & ~0x3f) === 0 && ((1 << $_la) & ((1 << self::LIKE) | (1 << self::CONTAINS) | (1 << self::STARTSWITH) | (1 << self::ENDSWITH))) !== 0))) {
-		        $this->errorHandler->recoverInline($this);
-		        } else {
-		        	if ($this->input->LA(1) === Token::EOF) {
-		        	    $this->matchedEOF = true;
-		            }
+		        	case 2:
+		        	    $this->enterOuterAlt($localContext, 2);
+		        	    $this->setState(81);
+		        	    $this->match(self::CONTAINS);
+		        	break;
 
-		        	$this->errorHandler->reportMatch($this);
-		        	$this->consume();
+		        	case 3:
+		        	    $this->enterOuterAlt($localContext, 3);
+		        	    $this->setState(82);
+		        	    $this->match(self::NOT);
+		        	    $this->setState(83);
+		        	    $this->match(self::LIKE);
+		        	break;
+
+		        	case 4:
+		        	    $this->enterOuterAlt($localContext, 4);
+		        	    $this->setState(84);
+		        	    $this->match(self::NOT);
+		        	    $this->setState(85);
+		        	    $this->match(self::CONTAINS);
+		        	break;
+
+		        	case 5:
+		        	    $this->enterOuterAlt($localContext, 5);
+		        	    $this->setState(86);
+		        	    $this->match(self::STARTSWITH);
+		        	break;
+
+		        	case 6:
+		        	    $this->enterOuterAlt($localContext, 6);
+		        	    $this->setState(87);
+		        	    $this->match(self::ENDSWITH);
+		        	break;
 		        }
 		    } catch (RecognitionException $exception) {
 		        $localContext->exception = $exception;
@@ -646,7 +682,7 @@ namespace FattureInCloud\ApiFilter\Parser {
 
 		    try {
 		        $this->enterOuterAlt($localContext, 1);
-		        $this->setState(82);
+		        $this->setState(90);
 		        $this->match(self::INT);
 		    } catch (RecognitionException $exception) {
 		        $localContext->exception = $exception;
@@ -670,11 +706,11 @@ namespace FattureInCloud\ApiFilter\Parser {
 
 		    try {
 		        $this->enterOuterAlt($localContext, 1);
-		        $this->setState(84);
+		        $this->setState(92);
 		        $this->match(self::INT);
-		        $this->setState(85);
+		        $this->setState(93);
 		        $this->match(self::DOT);
-		        $this->setState(86);
+		        $this->setState(94);
 		        $this->match(self::INT);
 		    } catch (RecognitionException $exception) {
 		        $localContext->exception = $exception;
@@ -1295,6 +1331,11 @@ namespace FattureInCloud\ApiFilter\Parser\Context {
 	    public function CONTAINS() : ?TerminalNode
 	    {
 	        return $this->getToken(ApiFilterParser::CONTAINS, 0);
+	    }
+
+	    public function NOT() : ?TerminalNode
+	    {
+	        return $this->getToken(ApiFilterParser::NOT, 0);
 	    }
 
 	    public function STARTSWITH() : ?TerminalNode

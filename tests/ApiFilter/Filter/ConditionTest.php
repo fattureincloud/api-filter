@@ -96,6 +96,12 @@ class ConditionTest extends TestCase
         $condition->setOp(Operator::CONTAINS);
         $this->assertEquals(Operator::CONTAINS, $condition->getOp());
 
+        $condition->setOp(Operator::NOT_LIKE);
+        $this->assertEquals(Operator::NOT_LIKE, $condition->getOp());
+
+        $condition->setOp(Operator::NOT_CONTAINS);
+        $this->assertEquals(Operator::NOT_CONTAINS, $condition->getOp());
+
         $condition->setOp(Operator::STARTS_WITH);
         $this->assertEquals(Operator::STARTS_WITH, $condition->getOp());
 
@@ -116,5 +122,8 @@ class ConditionTest extends TestCase
 
         $condition = new Condition("city", Operator::LIKE, "%aco");
         $this->assertEquals("city like %aco", (string)$condition);
+
+        $condition = new Condition("city", Operator::NOT_LIKE, "%aco");
+        $this->assertEquals("city not like %aco", (string)$condition);
     }
 }
