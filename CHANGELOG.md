@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.0.6](https://github.com/fattureincloud/api-filter/compare/v1.0.5...v1.0.6) (2022-10-17)
+
+
+### Bug Fixes
+
+* fixed string quote escape ([#8](https://github.com/fattureincloud/api-filter/issues/8)) ([6041959](https://github.com/fattureincloud/api-filter/commit/6041959d9dbab867a5668907c95f2791c480d275))
+
 ### [1.0.5](https://github.com/fattureincloud/api-filter/compare/v1.0.4...v1.0.5) (2022-10-17)
 
 
