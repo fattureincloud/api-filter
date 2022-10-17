@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.0.4](https://github.com/fattureincloud/api-filter/compare/v1.0.3...v1.0.4) (2022-10-17)
+
+
+### Features
+
+* adds negated patterns ([#6](https://github.com/fattureincloud/api-filter/issues/6)) ([534f013](https://github.com/fattureincloud/api-filter/commit/534f0135332197e7896b7d64fab352059a5be90b))
+
 ### [1.0.3](https://github.com/fattureincloud/api-filter/compare/v1.0.2...v1.0.3) (2021-12-09)
 
 
