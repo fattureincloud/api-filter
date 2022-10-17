@@ -144,6 +144,34 @@ class FilterFactoryTest extends TestCase
     }
 
     /**
+     * Test 'not like' operator
+     */
+    public function testNotLikeOp()
+    {
+        $filter1 = $this->factory->initFilter("name not like '%ergam%'");
+        $expected1 = new Filter(new Condition("name", Operator::NOT_LIKE, "%ergam%"));
+        $this->assertEquals($expected1, $filter1);
+
+        $filter2 = $this->factory->initFilter("name NOT LIKE '%ergam%'");
+        $expected2 = new Filter(new Condition("name", Operator::NOT_LIKE, "%ergam%"));
+        $this->assertEquals($expected2, $filter2);
+    }
+
+    /**
+     * Test 'not contains' operator
+     */
+    public function testNotContainsOp()
+    {
+        $filter1 = $this->factory->initFilter("name not contains 'ergam'");
+        $expected1 = new Filter(new Condition("name", Operator::NOT_CONTAINS, "ergam"));
+        $this->assertEquals($expected1, $filter1);
+
+        $filter2 = $this->factory->initFilter("name NOT CONTAINS 'ergam'");
+        $expected2 = new Filter(new Condition("name", Operator::NOT_CONTAINS, "ergam"));
+        $this->assertEquals($expected2, $filter2);
+    }
+
+    /**
      * Test 'starts with' operator
      */
     public function testStartsWithOp()
@@ -201,6 +229,24 @@ class FilterFactoryTest extends TestCase
         $filter6 = $this->factory->initFilter("name ENDSWITH 'al Brembo'");
         $expected6 = new Filter(new Condition("name", Operator::ENDS_WITH, "al Brembo"));
         $this->assertEquals($expected6, $filter6);
+    }
+
+    /**
+     * Test no not starts with operator
+     */
+    public function testNoNotStartsWithOperator()
+    {
+        $this->expectException(ParseCancellationException::class);
+        $this->factory->initFilter("name not starts with 'Mariano'");
+    }
+
+    /**
+     * Test no not ends with operator
+     */
+    public function testNoNotEndsWithOperator()
+    {
+        $this->expectException(ParseCancellationException::class);
+        $this->factory->initFilter("name not ends with 'Mariano'");
     }
 
     /**

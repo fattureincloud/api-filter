@@ -26,7 +26,7 @@ comparisonop: EQ | GT | GTE | LT | LTE | NEQ;
 value: (BOOL | STRING | integer | decimal);
 
 pattern: FIELD patternop STRING;
-patternop: LIKE | CONTAINS | STARTSWITH | ENDSWITH;
+patternop: LIKE | CONTAINS | NOT LIKE | NOT CONTAINS | STARTSWITH | ENDSWITH;
 
 integer: INT;
 decimal: INT DOT INT;

@@ -165,7 +165,13 @@ final class FilterFactory extends AbstractParseTreeVisitor implements ApiFilterV
     public function visitPatternop(Context\PatternopContext $context)
     {
         $op = null;
-        if ($context->LIKE()) {
+        if ($context->NOT()) {
+            if ($context->LIKE()) {
+                $op = Operator::NOT_LIKE;
+            } elseif ($context->CONTAINS()) {
+                $op = Operator::NOT_CONTAINS;
+            }
+        } elseif ($context->LIKE()) {
             $op = Operator::LIKE;
         } elseif ($context->CONTAINS()) {
             $op = Operator::CONTAINS;
