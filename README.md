@@ -4,6 +4,11 @@ This PHP library makes possible to parse a string parameter and use it to initia
 
 The library returns a class-based representation of the filter, that can be used to generate the actual filter to apply to your API requests.
 
+## Disclaimer
+This library is currently focused on parsing and building the representation of the query, it does not validate the query itself. For example, it doesn't check if a field exists or if it is supported by your filters, and it doesn't enforce permissions checks on the query. You should take care of it on your own.
+
+Even if this filter uses a grammar that should reduce the risk of [SQL Injection](https://owasp.org/www-community/attacks/SQL_Injection), you should adopt some strategy to validate the filters and avoid executing unsafe queries.
+
 ## Install
 
 Via Composer
