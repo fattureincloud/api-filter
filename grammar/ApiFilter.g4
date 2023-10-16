@@ -52,7 +52,7 @@ ENDS: ('ends' | 'ENDS');
 WITH: ('with' | 'WITH');
 
 BOOL: ('true' | 'false');
-STRING: '\'' ( ~'\'' | '\'\'')+ '\'';
+STRING: '\'\'' | '\'' ( ~'\'' | '\'\'')+ '\'';
 
 AND: ('and' | 'AND');
 OR: ('or' | 'OR');

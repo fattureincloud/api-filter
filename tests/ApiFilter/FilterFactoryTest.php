@@ -479,6 +479,10 @@ class FilterFactoryTest extends TestCase
         $filter15 = $this->factory->initFilter("name contains 'Eustass ''Captain'' Kid'");
         $expected15 = new Filter(new Condition("name", Operator::CONTAINS, "Eustass 'Captain' Kid"));
         $this->assertEquals($expected15, $filter15);
+
+        $filter16 = $this->factory->initFilter("name contains ''");
+        $expected16 = new Filter(new Condition("name", Operator::CONTAINS, ""));
+        $this->assertEquals($expected16, $filter16);
     }
 
     /**
