@@ -1,4 +1,4 @@
-FROM openjdk:11
+FROM openjdk:22-slim
 
 COPY entrypoint.sh /script/entrypoint.sh
 
