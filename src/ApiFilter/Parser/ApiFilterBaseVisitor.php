@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Generated from /grammar/ApiFilter.g4 by ANTLR 4.9.2
+ * Generated from ./grammar/ApiFilter.g4 by ANTLR 4.13.2
  */
 
 namespace FattureInCloud\ApiFilter\Parser;

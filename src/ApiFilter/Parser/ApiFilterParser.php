@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Generated from /grammar/ApiFilter.g4 by ANTLR 4.9.2
+ * Generated from ./grammar/ApiFilter.g4 by ANTLR 4.13.2
  */
 
 namespace FattureInCloud\ApiFilter\Parser {
@@ -61,78 +61,49 @@ namespace FattureInCloud\ApiFilter\Parser {
 		    "WS"
 		];
 
-		/**
-		 * @var string
-		 */
 		private const SERIALIZED_ATN =
-			"\u{3}\u{608B}\u{A72A}\u{8133}\u{B9ED}\u{417C}\u{3BE7}\u{7786}\u{5964}" .
-		    "\u{3}\u{1C}\u{63}\u{4}\u{2}\u{9}\u{2}\u{4}\u{3}\u{9}\u{3}\u{4}\u{4}" .
-		    "\u{9}\u{4}\u{4}\u{5}\u{9}\u{5}\u{4}\u{6}\u{9}\u{6}\u{4}\u{7}\u{9}" .
-		    "\u{7}\u{4}\u{8}\u{9}\u{8}\u{4}\u{9}\u{9}\u{9}\u{4}\u{A}\u{9}\u{A}" .
-		    "\u{4}\u{B}\u{9}\u{B}\u{4}\u{C}\u{9}\u{C}\u{4}\u{D}\u{9}\u{D}\u{3}" .
-		    "\u{2}\u{3}\u{2}\u{3}\u{2}\u{3}\u{3}\u{3}\u{3}\u{3}\u{3}\u{3}\u{3}" .
-		    "\u{3}\u{3}\u{3}\u{3}\u{3}\u{3}\u{5}\u{3}\u{25}\u{A}\u{3}\u{3}\u{3}" .
-		    "\u{3}\u{3}\u{3}\u{3}\u{3}\u{3}\u{3}\u{3}\u{3}\u{3}\u{7}\u{3}\u{2D}" .
-		    "\u{A}\u{3}\u{C}\u{3}\u{E}\u{3}\u{30}\u{B}\u{3}\u{3}\u{4}\u{3}\u{4}" .
-		    "\u{3}\u{4}\u{5}\u{4}\u{35}\u{A}\u{4}\u{3}\u{5}\u{3}\u{5}\u{3}\u{5}" .
-		    "\u{3}\u{5}\u{3}\u{6}\u{3}\u{6}\u{3}\u{6}\u{3}\u{6}\u{3}\u{7}\u{3}" .
-		    "\u{7}\u{3}\u{7}\u{3}\u{7}\u{5}\u{7}\u{43}\u{A}\u{7}\u{3}\u{7}\u{3}" .
-		    "\u{7}\u{3}\u{8}\u{3}\u{8}\u{3}\u{9}\u{3}\u{9}\u{3}\u{9}\u{3}\u{9}" .
-		    "\u{5}\u{9}\u{4D}\u{A}\u{9}\u{3}\u{A}\u{3}\u{A}\u{3}\u{A}\u{3}\u{A}" .
-		    "\u{3}\u{B}\u{3}\u{B}\u{3}\u{B}\u{3}\u{B}\u{3}\u{B}\u{3}\u{B}\u{3}" .
-		    "\u{B}\u{3}\u{B}\u{5}\u{B}\u{5B}\u{A}\u{B}\u{3}\u{C}\u{3}\u{C}\u{3}" .
-		    "\u{D}\u{3}\u{D}\u{3}\u{D}\u{3}\u{D}\u{3}\u{D}\u{2}\u{3}\u{4}\u{E}" .
-		    "\u{2}\u{4}\u{6}\u{8}\u{A}\u{C}\u{E}\u{10}\u{12}\u{14}\u{16}\u{18}" .
-		    "\u{2}\u{4}\u{4}\u{2}\u{3}\u{3}\u{14}\u{14}\u{3}\u{2}\u{3}\u{8}\u{2}" .
-		    "\u{65}\u{2}\u{1A}\u{3}\u{2}\u{2}\u{2}\u{4}\u{24}\u{3}\u{2}\u{2}\u{2}" .
-		    "\u{6}\u{34}\u{3}\u{2}\u{2}\u{2}\u{8}\u{36}\u{3}\u{2}\u{2}\u{2}\u{A}" .
-		    "\u{3A}\u{3}\u{2}\u{2}\u{2}\u{C}\u{3E}\u{3}\u{2}\u{2}\u{2}\u{E}\u{46}" .
-		    "\u{3}\u{2}\u{2}\u{2}\u{10}\u{4C}\u{3}\u{2}\u{2}\u{2}\u{12}\u{4E}\u{3}" .
-		    "\u{2}\u{2}\u{2}\u{14}\u{5A}\u{3}\u{2}\u{2}\u{2}\u{16}\u{5C}\u{3}\u{2}" .
-		    "\u{2}\u{2}\u{18}\u{5E}\u{3}\u{2}\u{2}\u{2}\u{1A}\u{1B}\u{5}\u{4}\u{3}" .
-		    "\u{2}\u{1B}\u{1C}\u{7}\u{2}\u{2}\u{3}\u{1C}\u{3}\u{3}\u{2}\u{2}\u{2}" .
-		    "\u{1D}\u{1E}\u{8}\u{3}\u{1}\u{2}\u{1E}\u{25}\u{5}\u{6}\u{4}\u{2}\u{1F}" .
-		    "\u{25}\u{5}\u{12}\u{A}\u{2}\u{20}\u{21}\u{7}\u{17}\u{2}\u{2}\u{21}" .
-		    "\u{22}\u{5}\u{4}\u{3}\u{2}\u{22}\u{23}\u{7}\u{18}\u{2}\u{2}\u{23}" .
-		    "\u{25}\u{3}\u{2}\u{2}\u{2}\u{24}\u{1D}\u{3}\u{2}\u{2}\u{2}\u{24}\u{1F}" .
-		    "\u{3}\u{2}\u{2}\u{2}\u{24}\u{20}\u{3}\u{2}\u{2}\u{2}\u{25}\u{2E}\u{3}" .
-		    "\u{2}\u{2}\u{2}\u{26}\u{27}\u{C}\u{4}\u{2}\u{2}\u{27}\u{28}\u{7}\u{12}" .
-		    "\u{2}\u{2}\u{28}\u{2D}\u{5}\u{4}\u{3}\u{5}\u{29}\u{2A}\u{C}\u{3}\u{2}" .
-		    "\u{2}\u{2A}\u{2B}\u{7}\u{13}\u{2}\u{2}\u{2B}\u{2D}\u{5}\u{4}\u{3}" .
-		    "\u{4}\u{2C}\u{26}\u{3}\u{2}\u{2}\u{2}\u{2C}\u{29}\u{3}\u{2}\u{2}\u{2}" .
-		    "\u{2D}\u{30}\u{3}\u{2}\u{2}\u{2}\u{2E}\u{2C}\u{3}\u{2}\u{2}\u{2}\u{2E}" .
-		    "\u{2F}\u{3}\u{2}\u{2}\u{2}\u{2F}\u{5}\u{3}\u{2}\u{2}\u{2}\u{30}\u{2E}" .
-		    "\u{3}\u{2}\u{2}\u{2}\u{31}\u{35}\u{5}\u{8}\u{5}\u{2}\u{32}\u{35}\u{5}" .
-		    "\u{A}\u{6}\u{2}\u{33}\u{35}\u{5}\u{C}\u{7}\u{2}\u{34}\u{31}\u{3}\u{2}" .
-		    "\u{2}\u{2}\u{34}\u{32}\u{3}\u{2}\u{2}\u{2}\u{34}\u{33}\u{3}\u{2}\u{2}" .
-		    "\u{2}\u{35}\u{7}\u{3}\u{2}\u{2}\u{2}\u{36}\u{37}\u{7}\u{1B}\u{2}\u{2}" .
-		    "\u{37}\u{38}\u{5}\u{E}\u{8}\u{2}\u{38}\u{39}\u{5}\u{10}\u{9}\u{2}" .
-		    "\u{39}\u{9}\u{3}\u{2}\u{2}\u{2}\u{3A}\u{3B}\u{7}\u{1B}\u{2}\u{2}\u{3B}" .
-		    "\u{3C}\u{9}\u{2}\u{2}\u{2}\u{3C}\u{3D}\u{7}\u{15}\u{2}\u{2}\u{3D}" .
-		    "\u{B}\u{3}\u{2}\u{2}\u{2}\u{3E}\u{42}\u{7}\u{1B}\u{2}\u{2}\u{3F}\u{43}" .
-		    "\u{7}\u{8}\u{2}\u{2}\u{40}\u{41}\u{7}\u{14}\u{2}\u{2}\u{41}\u{43}" .
-		    "\u{7}\u{16}\u{2}\u{2}\u{42}\u{3F}\u{3}\u{2}\u{2}\u{2}\u{42}\u{40}" .
-		    "\u{3}\u{2}\u{2}\u{2}\u{43}\u{44}\u{3}\u{2}\u{2}\u{2}\u{44}\u{45}\u{7}" .
-		    "\u{15}\u{2}\u{2}\u{45}\u{D}\u{3}\u{2}\u{2}\u{2}\u{46}\u{47}\u{9}\u{3}" .
-		    "\u{2}\u{2}\u{47}\u{F}\u{3}\u{2}\u{2}\u{2}\u{48}\u{4D}\u{7}\u{10}\u{2}" .
-		    "\u{2}\u{49}\u{4D}\u{7}\u{11}\u{2}\u{2}\u{4A}\u{4D}\u{5}\u{16}\u{C}" .
-		    "\u{2}\u{4B}\u{4D}\u{5}\u{18}\u{D}\u{2}\u{4C}\u{48}\u{3}\u{2}\u{2}" .
-		    "\u{2}\u{4C}\u{49}\u{3}\u{2}\u{2}\u{2}\u{4C}\u{4A}\u{3}\u{2}\u{2}\u{2}" .
-		    "\u{4C}\u{4B}\u{3}\u{2}\u{2}\u{2}\u{4D}\u{11}\u{3}\u{2}\u{2}\u{2}\u{4E}" .
-		    "\u{4F}\u{7}\u{1B}\u{2}\u{2}\u{4F}\u{50}\u{5}\u{14}\u{B}\u{2}\u{50}" .
-		    "\u{51}\u{7}\u{11}\u{2}\u{2}\u{51}\u{13}\u{3}\u{2}\u{2}\u{2}\u{52}" .
-		    "\u{5B}\u{7}\u{9}\u{2}\u{2}\u{53}\u{5B}\u{7}\u{A}\u{2}\u{2}\u{54}\u{55}" .
-		    "\u{7}\u{16}\u{2}\u{2}\u{55}\u{5B}\u{7}\u{9}\u{2}\u{2}\u{56}\u{57}" .
-		    "\u{7}\u{16}\u{2}\u{2}\u{57}\u{5B}\u{7}\u{A}\u{2}\u{2}\u{58}\u{5B}" .
-		    "\u{7}\u{B}\u{2}\u{2}\u{59}\u{5B}\u{7}\u{C}\u{2}\u{2}\u{5A}\u{52}\u{3}" .
-		    "\u{2}\u{2}\u{2}\u{5A}\u{53}\u{3}\u{2}\u{2}\u{2}\u{5A}\u{54}\u{3}\u{2}" .
-		    "\u{2}\u{2}\u{5A}\u{56}\u{3}\u{2}\u{2}\u{2}\u{5A}\u{58}\u{3}\u{2}\u{2}" .
-		    "\u{2}\u{5A}\u{59}\u{3}\u{2}\u{2}\u{2}\u{5B}\u{15}\u{3}\u{2}\u{2}\u{2}" .
-		    "\u{5C}\u{5D}\u{7}\u{19}\u{2}\u{2}\u{5D}\u{17}\u{3}\u{2}\u{2}\u{2}" .
-		    "\u{5E}\u{5F}\u{7}\u{19}\u{2}\u{2}\u{5F}\u{60}\u{7}\u{1A}\u{2}\u{2}" .
-		    "\u{60}\u{61}\u{7}\u{19}\u{2}\u{2}\u{61}\u{19}\u{3}\u{2}\u{2}\u{2}" .
-		    "\u{9}\u{24}\u{2C}\u{2E}\u{34}\u{42}\u{4C}\u{5A}";
-
+			[4, 1, 26, 97, 2, 0, 7, 0, 2, 1, 7, 1, 2, 2, 7, 2, 2, 3, 7, 3, 2, 4, 
+		    7, 4, 2, 5, 7, 5, 2, 6, 7, 6, 2, 7, 7, 7, 2, 8, 7, 8, 2, 9, 7, 9, 
+		    2, 10, 7, 10, 2, 11, 7, 11, 1, 0, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 
+		    1, 1, 1, 1, 1, 1, 1, 3, 1, 35, 8, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 
+		    1, 1, 5, 1, 43, 8, 1, 10, 1, 12, 1, 46, 9, 1, 1, 2, 1, 2, 1, 2, 3, 
+		    2, 51, 8, 2, 1, 3, 1, 3, 1, 3, 1, 3, 1, 4, 1, 4, 1, 4, 1, 4, 1, 5, 
+		    1, 5, 1, 5, 1, 5, 3, 5, 65, 8, 5, 1, 5, 1, 5, 1, 6, 1, 6, 1, 7, 1, 
+		    7, 1, 7, 1, 7, 3, 7, 75, 8, 7, 1, 8, 1, 8, 1, 8, 1, 8, 1, 9, 1, 9, 
+		    1, 9, 1, 9, 1, 9, 1, 9, 1, 9, 1, 9, 3, 9, 89, 8, 9, 1, 10, 1, 10, 
+		    1, 11, 1, 11, 1, 11, 1, 11, 1, 11, 0, 1, 2, 12, 0, 2, 4, 6, 8, 10, 
+		    12, 14, 16, 18, 20, 22, 0, 2, 2, 0, 1, 1, 18, 18, 1, 0, 1, 6, 99, 
+		    0, 24, 1, 0, 0, 0, 2, 34, 1, 0, 0, 0, 4, 50, 1, 0, 0, 0, 6, 52, 1, 
+		    0, 0, 0, 8, 56, 1, 0, 0, 0, 10, 60, 1, 0, 0, 0, 12, 68, 1, 0, 0, 0, 
+		    14, 74, 1, 0, 0, 0, 16, 76, 1, 0, 0, 0, 18, 88, 1, 0, 0, 0, 20, 90, 
+		    1, 0, 0, 0, 22, 92, 1, 0, 0, 0, 24, 25, 3, 2, 1, 0, 25, 26, 5, 0, 
+		    0, 1, 26, 1, 1, 0, 0, 0, 27, 28, 6, 1, -1, 0, 28, 35, 3, 4, 2, 0, 
+		    29, 35, 3, 16, 8, 0, 30, 31, 5, 21, 0, 0, 31, 32, 3, 2, 1, 0, 32, 
+		    33, 5, 22, 0, 0, 33, 35, 1, 0, 0, 0, 34, 27, 1, 0, 0, 0, 34, 29, 1, 
+		    0, 0, 0, 34, 30, 1, 0, 0, 0, 35, 44, 1, 0, 0, 0, 36, 37, 10, 2, 0, 
+		    0, 37, 38, 5, 16, 0, 0, 38, 43, 3, 2, 1, 3, 39, 40, 10, 1, 0, 0, 40, 
+		    41, 5, 17, 0, 0, 41, 43, 3, 2, 1, 2, 42, 36, 1, 0, 0, 0, 42, 39, 1, 
+		    0, 0, 0, 43, 46, 1, 0, 0, 0, 44, 42, 1, 0, 0, 0, 44, 45, 1, 0, 0, 
+		    0, 45, 3, 1, 0, 0, 0, 46, 44, 1, 0, 0, 0, 47, 51, 3, 6, 3, 0, 48, 
+		    51, 3, 8, 4, 0, 49, 51, 3, 10, 5, 0, 50, 47, 1, 0, 0, 0, 50, 48, 1, 
+		    0, 0, 0, 50, 49, 1, 0, 0, 0, 51, 5, 1, 0, 0, 0, 52, 53, 5, 25, 0, 
+		    0, 53, 54, 3, 12, 6, 0, 54, 55, 3, 14, 7, 0, 55, 7, 1, 0, 0, 0, 56, 
+		    57, 5, 25, 0, 0, 57, 58, 7, 0, 0, 0, 58, 59, 5, 19, 0, 0, 59, 9, 1, 
+		    0, 0, 0, 60, 64, 5, 25, 0, 0, 61, 65, 5, 6, 0, 0, 62, 63, 5, 18, 0, 
+		    0, 63, 65, 5, 20, 0, 0, 64, 61, 1, 0, 0, 0, 64, 62, 1, 0, 0, 0, 65, 
+		    66, 1, 0, 0, 0, 66, 67, 5, 19, 0, 0, 67, 11, 1, 0, 0, 0, 68, 69, 7, 
+		    1, 0, 0, 69, 13, 1, 0, 0, 0, 70, 75, 5, 14, 0, 0, 71, 75, 5, 15, 0, 
+		    0, 72, 75, 3, 20, 10, 0, 73, 75, 3, 22, 11, 0, 74, 70, 1, 0, 0, 0, 
+		    74, 71, 1, 0, 0, 0, 74, 72, 1, 0, 0, 0, 74, 73, 1, 0, 0, 0, 75, 15, 
+		    1, 0, 0, 0, 76, 77, 5, 25, 0, 0, 77, 78, 3, 18, 9, 0, 78, 79, 5, 15, 
+		    0, 0, 79, 17, 1, 0, 0, 0, 80, 89, 5, 7, 0, 0, 81, 89, 5, 8, 0, 0, 
+		    82, 83, 5, 20, 0, 0, 83, 89, 5, 7, 0, 0, 84, 85, 5, 20, 0, 0, 85, 
+		    89, 5, 8, 0, 0, 86, 89, 5, 9, 0, 0, 87, 89, 5, 10, 0, 0, 88, 80, 1, 
+		    0, 0, 0, 88, 81, 1, 0, 0, 0, 88, 82, 1, 0, 0, 0, 88, 84, 1, 0, 0, 
+		    0, 88, 86, 1, 0, 0, 0, 88, 87, 1, 0, 0, 0, 89, 19, 1, 0, 0, 0, 90, 
+		    91, 5, 23, 0, 0, 91, 21, 1, 0, 0, 0, 92, 93, 5, 23, 0, 0, 93, 94, 
+		    5, 24, 0, 0, 94, 95, 5, 23, 0, 0, 95, 23, 1, 0, 0, 0, 7, 34, 42, 44, 
+		    50, 64, 74, 88];
 		protected static $atn;
 		protected static $decisionToDFA;
 		protected static $sharedContextCache;
@@ -146,13 +117,13 @@ namespace FattureInCloud\ApiFilter\Parser {
 			$this->interp = new ParserATNSimulator($this, self::$atn, self::$decisionToDFA, self::$sharedContextCache);
 		}
 
-		private static function initialize() : void
+		private static function initialize(): void
 		{
 			if (self::$atn !== null) {
 				return;
 			}
 
-			RuntimeMetaData::checkVersion('4.9.2', RuntimeMetaData::VERSION);
+			RuntimeMetaData::checkVersion('4.13.2', RuntimeMetaData::VERSION);
 
 			$atn = (new ATNDeserializer())->deserialize(self::SERIALIZED_ATN);
 
@@ -166,27 +137,27 @@ namespace FattureInCloud\ApiFilter\Parser {
 			self::$sharedContextCache = new PredictionContextCache();
 		}
 
-		public function getGrammarFileName() : string
+		public function getGrammarFileName(): string
 		{
 			return "ApiFilter.g4";
 		}
 
-		public function getRuleNames() : array
+		public function getRuleNames(): array
 		{
 			return self::RULE_NAMES;
 		}
 
-		public function getSerializedATN() : string
+		public function getSerializedATN(): array
 		{
 			return self::SERIALIZED_ATN;
 		}
 
-		public function getATN() : ATN
+		public function getATN(): ATN
 		{
 			return self::$atn;
 		}
 
-		public function getVocabulary() : Vocabulary
+		public function getVocabulary(): Vocabulary
         {
             static $vocabulary;
 
@@ -196,7 +167,7 @@ namespace FattureInCloud\ApiFilter\Parser {
 		/**
 		 * @throws RecognitionException
 		 */
-		public function filter() : Context\FilterContext
+		public function filter(): Context\FilterContext
 		{
 		    $localContext = new Context\FilterContext($this->ctx, $this->getState());
 
@@ -222,7 +193,7 @@ namespace FattureInCloud\ApiFilter\Parser {
 		/**
 		 * @throws RecognitionException
 		 */
-		public function expression() : Context\ExpressionContext
+		public function expression(): Context\ExpressionContext
 		{
 			return $this->recursiveExpression(0);
 		}
@@ -230,7 +201,7 @@ namespace FattureInCloud\ApiFilter\Parser {
 		/**
 		 * @throws RecognitionException
 		 */
-		private function recursiveExpression(int $precedence) : Context\ExpressionContext
+		private function recursiveExpression(int $precedence): Context\ExpressionContext
 		{
 			$parentContext = $this->ctx;
 			$parentState = $this->getState();
@@ -340,7 +311,7 @@ namespace FattureInCloud\ApiFilter\Parser {
 		/**
 		 * @throws RecognitionException
 		 */
-		public function condition() : Context\ConditionContext
+		public function condition(): Context\ConditionContext
 		{
 		    $localContext = new Context\ConditionContext($this->ctx, $this->getState());
 
@@ -386,7 +357,7 @@ namespace FattureInCloud\ApiFilter\Parser {
 		/**
 		 * @throws RecognitionException
 		 */
-		public function comparison() : Context\ComparisonContext
+		public function comparison(): Context\ComparisonContext
 		{
 		    $localContext = new Context\ComparisonContext($this->ctx, $this->getState());
 
@@ -414,7 +385,7 @@ namespace FattureInCloud\ApiFilter\Parser {
 		/**
 		 * @throws RecognitionException
 		 */
-		public function emptyfield() : Context\EmptyfieldContext
+		public function emptyfield(): Context\EmptyfieldContext
 		{
 		    $localContext = new Context\EmptyfieldContext($this->ctx, $this->getState());
 
@@ -454,7 +425,7 @@ namespace FattureInCloud\ApiFilter\Parser {
 		/**
 		 * @throws RecognitionException
 		 */
-		public function filledfield() : Context\FilledfieldContext
+		public function filledfield(): Context\FilledfieldContext
 		{
 		    $localContext = new Context\FilledfieldContext($this->ctx, $this->getState());
 
@@ -499,7 +470,7 @@ namespace FattureInCloud\ApiFilter\Parser {
 		/**
 		 * @throws RecognitionException
 		 */
-		public function comparisonop() : Context\ComparisonopContext
+		public function comparisonop(): Context\ComparisonopContext
 		{
 		    $localContext = new Context\ComparisonopContext($this->ctx, $this->getState());
 
@@ -511,7 +482,7 @@ namespace FattureInCloud\ApiFilter\Parser {
 
 		        $_la = $this->input->LA(1);
 
-		        if (!(((($_la) & ~0x3f) === 0 && ((1 << $_la) & ((1 << self::EQ) | (1 << self::GT) | (1 << self::GTE) | (1 << self::LT) | (1 << self::LTE) | (1 << self::NEQ))) !== 0))) {
+		        if (!(((($_la) & ~0x3f) === 0 && ((1 << $_la) & 126) !== 0))) {
 		        $this->errorHandler->recoverInline($this);
 		        } else {
 		        	if ($this->input->LA(1) === Token::EOF) {
@@ -535,7 +506,7 @@ namespace FattureInCloud\ApiFilter\Parser {
 		/**
 		 * @throws RecognitionException
 		 */
-		public function value() : Context\ValueContext
+		public function value(): Context\ValueContext
 		{
 		    $localContext = new Context\ValueContext($this->ctx, $this->getState());
 
@@ -581,7 +552,7 @@ namespace FattureInCloud\ApiFilter\Parser {
 		/**
 		 * @throws RecognitionException
 		 */
-		public function pattern() : Context\PatternContext
+		public function pattern(): Context\PatternContext
 		{
 		    $localContext = new Context\PatternContext($this->ctx, $this->getState());
 
@@ -609,7 +580,7 @@ namespace FattureInCloud\ApiFilter\Parser {
 		/**
 		 * @throws RecognitionException
 		 */
-		public function patternop() : Context\PatternopContext
+		public function patternop(): Context\PatternopContext
 		{
 		    $localContext = new Context\PatternopContext($this->ctx, $this->getState());
 
@@ -674,7 +645,7 @@ namespace FattureInCloud\ApiFilter\Parser {
 		/**
 		 * @throws RecognitionException
 		 */
-		public function integer() : Context\IntegerContext
+		public function integer(): Context\IntegerContext
 		{
 		    $localContext = new Context\IntegerContext($this->ctx, $this->getState());
 
@@ -698,7 +669,7 @@ namespace FattureInCloud\ApiFilter\Parser {
 		/**
 		 * @throws RecognitionException
 		 */
-		public function decimal() : Context\DecimalContext
+		public function decimal(): Context\DecimalContext
 		{
 		    $localContext = new Context\DecimalContext($this->ctx, $this->getState());
 
@@ -723,7 +694,7 @@ namespace FattureInCloud\ApiFilter\Parser {
 		    return $localContext;
 		}
 
-		public function sempred(?RuleContext $localContext, int $ruleIndex, int $predicateIndex) : bool
+		public function sempred(?RuleContext $localContext, int $ruleIndex, int $predicateIndex): bool
 		{
 			switch ($ruleIndex) {
 					case 1:
@@ -734,7 +705,7 @@ namespace FattureInCloud\ApiFilter\Parser {
 				}
 		}
 
-		private function sempredExpression(?Context\ExpressionContext $localContext, int $predicateIndex) : bool
+		private function sempredExpression(?Context\ExpressionContext $localContext, int $predicateIndex): bool
 		{
 			switch ($predicateIndex) {
 			    case 0:
@@ -765,22 +736,22 @@ namespace FattureInCloud\ApiFilter\Parser\Context {
 			parent::__construct($parent, $invokingState);
 		}
 
-		public function getRuleIndex() : int
+		public function getRuleIndex(): int
 		{
 		    return ApiFilterParser::RULE_filter;
 	    }
 
-	    public function expression() : ?ExpressionContext
+	    public function expression(): ?ExpressionContext
 	    {
 	    	return $this->getTypedRuleContext(ExpressionContext::class, 0);
 	    }
 
-	    public function EOF() : ?TerminalNode
+	    public function EOF(): ?TerminalNode
 	    {
 	        return $this->getToken(ApiFilterParser::EOF, 0);
 	    }
 
-		public function accept(ParseTreeVisitor $visitor)
+		public function accept(ParseTreeVisitor $visitor): mixed
 		{
 			if ($visitor instanceof ApiFilterVisitor) {
 			    return $visitor->visitFilter($this);
@@ -797,12 +768,12 @@ namespace FattureInCloud\ApiFilter\Parser\Context {
 			parent::__construct($parent, $invokingState);
 		}
 
-		public function getRuleIndex() : int
+		public function getRuleIndex(): int
 		{
 		    return ApiFilterParser::RULE_expression;
 	    }
 	 
-		public function copyFrom(ParserRuleContext $context) : void
+		public function copyFrom(ParserRuleContext $context): void
 		{
 			parent::copyFrom($context);
 
@@ -818,12 +789,12 @@ namespace FattureInCloud\ApiFilter\Parser\Context {
 		    $this->copyFrom($context);
 	    }
 
-	    public function pattern() : ?PatternContext
+	    public function pattern(): ?PatternContext
 	    {
 	    	return $this->getTypedRuleContext(PatternContext::class, 0);
 	    }
 
-		public function accept(ParseTreeVisitor $visitor)
+		public function accept(ParseTreeVisitor $visitor): mixed
 		{
 			if ($visitor instanceof ApiFilterVisitor) {
 			    return $visitor->visitPatternExp($this);
@@ -854,12 +825,12 @@ namespace FattureInCloud\ApiFilter\Parser\Context {
 	        return $this->getTypedRuleContext(ExpressionContext::class, $index);
 	    }
 
-	    public function AND() : ?TerminalNode
+	    public function AND(): ?TerminalNode
 	    {
 	        return $this->getToken(ApiFilterParser::AND, 0);
 	    }
 
-		public function accept(ParseTreeVisitor $visitor)
+		public function accept(ParseTreeVisitor $visitor): mixed
 		{
 			if ($visitor instanceof ApiFilterVisitor) {
 			    return $visitor->visitConjunctionExp($this);
@@ -890,12 +861,12 @@ namespace FattureInCloud\ApiFilter\Parser\Context {
 	        return $this->getTypedRuleContext(ExpressionContext::class, $index);
 	    }
 
-	    public function OR() : ?TerminalNode
+	    public function OR(): ?TerminalNode
 	    {
 	        return $this->getToken(ApiFilterParser::OR, 0);
 	    }
 
-		public function accept(ParseTreeVisitor $visitor)
+		public function accept(ParseTreeVisitor $visitor): mixed
 		{
 			if ($visitor instanceof ApiFilterVisitor) {
 			    return $visitor->visitDisjunctionExp($this);
@@ -914,12 +885,12 @@ namespace FattureInCloud\ApiFilter\Parser\Context {
 		    $this->copyFrom($context);
 	    }
 
-	    public function condition() : ?ConditionContext
+	    public function condition(): ?ConditionContext
 	    {
 	    	return $this->getTypedRuleContext(ConditionContext::class, 0);
 	    }
 
-		public function accept(ParseTreeVisitor $visitor)
+		public function accept(ParseTreeVisitor $visitor): mixed
 		{
 			if ($visitor instanceof ApiFilterVisitor) {
 			    return $visitor->visitConditionExp($this);
@@ -938,22 +909,22 @@ namespace FattureInCloud\ApiFilter\Parser\Context {
 		    $this->copyFrom($context);
 	    }
 
-	    public function OPEN_PAR() : ?TerminalNode
+	    public function OPEN_PAR(): ?TerminalNode
 	    {
 	        return $this->getToken(ApiFilterParser::OPEN_PAR, 0);
 	    }
 
-	    public function expression() : ?ExpressionContext
+	    public function expression(): ?ExpressionContext
 	    {
 	    	return $this->getTypedRuleContext(ExpressionContext::class, 0);
 	    }
 
-	    public function CLOSE_PAR() : ?TerminalNode
+	    public function CLOSE_PAR(): ?TerminalNode
 	    {
 	        return $this->getToken(ApiFilterParser::CLOSE_PAR, 0);
 	    }
 
-		public function accept(ParseTreeVisitor $visitor)
+		public function accept(ParseTreeVisitor $visitor): mixed
 		{
 			if ($visitor instanceof ApiFilterVisitor) {
 			    return $visitor->visitParenthesisExp($this);
@@ -970,12 +941,12 @@ namespace FattureInCloud\ApiFilter\Parser\Context {
 			parent::__construct($parent, $invokingState);
 		}
 
-		public function getRuleIndex() : int
+		public function getRuleIndex(): int
 		{
 		    return ApiFilterParser::RULE_condition;
 	    }
 	 
-		public function copyFrom(ParserRuleContext $context) : void
+		public function copyFrom(ParserRuleContext $context): void
 		{
 			parent::copyFrom($context);
 
@@ -991,12 +962,12 @@ namespace FattureInCloud\ApiFilter\Parser\Context {
 		    $this->copyFrom($context);
 	    }
 
-	    public function emptyfield() : ?EmptyfieldContext
+	    public function emptyfield(): ?EmptyfieldContext
 	    {
 	    	return $this->getTypedRuleContext(EmptyfieldContext::class, 0);
 	    }
 
-		public function accept(ParseTreeVisitor $visitor)
+		public function accept(ParseTreeVisitor $visitor): mixed
 		{
 			if ($visitor instanceof ApiFilterVisitor) {
 			    return $visitor->visitEmptyCondition($this);
@@ -1015,12 +986,12 @@ namespace FattureInCloud\ApiFilter\Parser\Context {
 		    $this->copyFrom($context);
 	    }
 
-	    public function filledfield() : ?FilledfieldContext
+	    public function filledfield(): ?FilledfieldContext
 	    {
 	    	return $this->getTypedRuleContext(FilledfieldContext::class, 0);
 	    }
 
-		public function accept(ParseTreeVisitor $visitor)
+		public function accept(ParseTreeVisitor $visitor): mixed
 		{
 			if ($visitor instanceof ApiFilterVisitor) {
 			    return $visitor->visitFilledCondition($this);
@@ -1039,12 +1010,12 @@ namespace FattureInCloud\ApiFilter\Parser\Context {
 		    $this->copyFrom($context);
 	    }
 
-	    public function comparison() : ?ComparisonContext
+	    public function comparison(): ?ComparisonContext
 	    {
 	    	return $this->getTypedRuleContext(ComparisonContext::class, 0);
 	    }
 
-		public function accept(ParseTreeVisitor $visitor)
+		public function accept(ParseTreeVisitor $visitor): mixed
 		{
 			if ($visitor instanceof ApiFilterVisitor) {
 			    return $visitor->visitComparisonCondition($this);
@@ -1061,27 +1032,27 @@ namespace FattureInCloud\ApiFilter\Parser\Context {
 			parent::__construct($parent, $invokingState);
 		}
 
-		public function getRuleIndex() : int
+		public function getRuleIndex(): int
 		{
 		    return ApiFilterParser::RULE_comparison;
 	    }
 
-	    public function FIELD() : ?TerminalNode
+	    public function FIELD(): ?TerminalNode
 	    {
 	        return $this->getToken(ApiFilterParser::FIELD, 0);
 	    }
 
-	    public function comparisonop() : ?ComparisonopContext
+	    public function comparisonop(): ?ComparisonopContext
 	    {
 	    	return $this->getTypedRuleContext(ComparisonopContext::class, 0);
 	    }
 
-	    public function value() : ?ValueContext
+	    public function value(): ?ValueContext
 	    {
 	    	return $this->getTypedRuleContext(ValueContext::class, 0);
 	    }
 
-		public function accept(ParseTreeVisitor $visitor)
+		public function accept(ParseTreeVisitor $visitor): mixed
 		{
 			if ($visitor instanceof ApiFilterVisitor) {
 			    return $visitor->visitComparison($this);
@@ -1098,32 +1069,32 @@ namespace FattureInCloud\ApiFilter\Parser\Context {
 			parent::__construct($parent, $invokingState);
 		}
 
-		public function getRuleIndex() : int
+		public function getRuleIndex(): int
 		{
 		    return ApiFilterParser::RULE_emptyfield;
 	    }
 
-	    public function FIELD() : ?TerminalNode
+	    public function FIELD(): ?TerminalNode
 	    {
 	        return $this->getToken(ApiFilterParser::FIELD, 0);
 	    }
 
-	    public function NULL() : ?TerminalNode
+	    public function NULL(): ?TerminalNode
 	    {
 	        return $this->getToken(ApiFilterParser::NULL, 0);
 	    }
 
-	    public function EQ() : ?TerminalNode
+	    public function EQ(): ?TerminalNode
 	    {
 	        return $this->getToken(ApiFilterParser::EQ, 0);
 	    }
 
-	    public function IS() : ?TerminalNode
+	    public function IS(): ?TerminalNode
 	    {
 	        return $this->getToken(ApiFilterParser::IS, 0);
 	    }
 
-		public function accept(ParseTreeVisitor $visitor)
+		public function accept(ParseTreeVisitor $visitor): mixed
 		{
 			if ($visitor instanceof ApiFilterVisitor) {
 			    return $visitor->visitEmptyfield($this);
@@ -1140,37 +1111,37 @@ namespace FattureInCloud\ApiFilter\Parser\Context {
 			parent::__construct($parent, $invokingState);
 		}
 
-		public function getRuleIndex() : int
+		public function getRuleIndex(): int
 		{
 		    return ApiFilterParser::RULE_filledfield;
 	    }
 
-	    public function FIELD() : ?TerminalNode
+	    public function FIELD(): ?TerminalNode
 	    {
 	        return $this->getToken(ApiFilterParser::FIELD, 0);
 	    }
 
-	    public function NULL() : ?TerminalNode
+	    public function NULL(): ?TerminalNode
 	    {
 	        return $this->getToken(ApiFilterParser::NULL, 0);
 	    }
 
-	    public function NEQ() : ?TerminalNode
+	    public function NEQ(): ?TerminalNode
 	    {
 	        return $this->getToken(ApiFilterParser::NEQ, 0);
 	    }
 
-	    public function IS() : ?TerminalNode
+	    public function IS(): ?TerminalNode
 	    {
 	        return $this->getToken(ApiFilterParser::IS, 0);
 	    }
 
-	    public function NOT() : ?TerminalNode
+	    public function NOT(): ?TerminalNode
 	    {
 	        return $this->getToken(ApiFilterParser::NOT, 0);
 	    }
 
-		public function accept(ParseTreeVisitor $visitor)
+		public function accept(ParseTreeVisitor $visitor): mixed
 		{
 			if ($visitor instanceof ApiFilterVisitor) {
 			    return $visitor->visitFilledfield($this);
@@ -1187,42 +1158,42 @@ namespace FattureInCloud\ApiFilter\Parser\Context {
 			parent::__construct($parent, $invokingState);
 		}
 
-		public function getRuleIndex() : int
+		public function getRuleIndex(): int
 		{
 		    return ApiFilterParser::RULE_comparisonop;
 	    }
 
-	    public function EQ() : ?TerminalNode
+	    public function EQ(): ?TerminalNode
 	    {
 	        return $this->getToken(ApiFilterParser::EQ, 0);
 	    }
 
-	    public function GT() : ?TerminalNode
+	    public function GT(): ?TerminalNode
 	    {
 	        return $this->getToken(ApiFilterParser::GT, 0);
 	    }
 
-	    public function GTE() : ?TerminalNode
+	    public function GTE(): ?TerminalNode
 	    {
 	        return $this->getToken(ApiFilterParser::GTE, 0);
 	    }
 
-	    public function LT() : ?TerminalNode
+	    public function LT(): ?TerminalNode
 	    {
 	        return $this->getToken(ApiFilterParser::LT, 0);
 	    }
 
-	    public function LTE() : ?TerminalNode
+	    public function LTE(): ?TerminalNode
 	    {
 	        return $this->getToken(ApiFilterParser::LTE, 0);
 	    }
 
-	    public function NEQ() : ?TerminalNode
+	    public function NEQ(): ?TerminalNode
 	    {
 	        return $this->getToken(ApiFilterParser::NEQ, 0);
 	    }
 
-		public function accept(ParseTreeVisitor $visitor)
+		public function accept(ParseTreeVisitor $visitor): mixed
 		{
 			if ($visitor instanceof ApiFilterVisitor) {
 			    return $visitor->visitComparisonop($this);
@@ -1239,32 +1210,32 @@ namespace FattureInCloud\ApiFilter\Parser\Context {
 			parent::__construct($parent, $invokingState);
 		}
 
-		public function getRuleIndex() : int
+		public function getRuleIndex(): int
 		{
 		    return ApiFilterParser::RULE_value;
 	    }
 
-	    public function BOOL() : ?TerminalNode
+	    public function BOOL(): ?TerminalNode
 	    {
 	        return $this->getToken(ApiFilterParser::BOOL, 0);
 	    }
 
-	    public function STRING() : ?TerminalNode
+	    public function STRING(): ?TerminalNode
 	    {
 	        return $this->getToken(ApiFilterParser::STRING, 0);
 	    }
 
-	    public function integer() : ?IntegerContext
+	    public function integer(): ?IntegerContext
 	    {
 	    	return $this->getTypedRuleContext(IntegerContext::class, 0);
 	    }
 
-	    public function decimal() : ?DecimalContext
+	    public function decimal(): ?DecimalContext
 	    {
 	    	return $this->getTypedRuleContext(DecimalContext::class, 0);
 	    }
 
-		public function accept(ParseTreeVisitor $visitor)
+		public function accept(ParseTreeVisitor $visitor): mixed
 		{
 			if ($visitor instanceof ApiFilterVisitor) {
 			    return $visitor->visitValue($this);
@@ -1281,27 +1252,27 @@ namespace FattureInCloud\ApiFilter\Parser\Context {
 			parent::__construct($parent, $invokingState);
 		}
 
-		public function getRuleIndex() : int
+		public function getRuleIndex(): int
 		{
 		    return ApiFilterParser::RULE_pattern;
 	    }
 
-	    public function FIELD() : ?TerminalNode
+	    public function FIELD(): ?TerminalNode
 	    {
 	        return $this->getToken(ApiFilterParser::FIELD, 0);
 	    }
 
-	    public function patternop() : ?PatternopContext
+	    public function patternop(): ?PatternopContext
 	    {
 	    	return $this->getTypedRuleContext(PatternopContext::class, 0);
 	    }
 
-	    public function STRING() : ?TerminalNode
+	    public function STRING(): ?TerminalNode
 	    {
 	        return $this->getToken(ApiFilterParser::STRING, 0);
 	    }
 
-		public function accept(ParseTreeVisitor $visitor)
+		public function accept(ParseTreeVisitor $visitor): mixed
 		{
 			if ($visitor instanceof ApiFilterVisitor) {
 			    return $visitor->visitPattern($this);
@@ -1318,37 +1289,37 @@ namespace FattureInCloud\ApiFilter\Parser\Context {
 			parent::__construct($parent, $invokingState);
 		}
 
-		public function getRuleIndex() : int
+		public function getRuleIndex(): int
 		{
 		    return ApiFilterParser::RULE_patternop;
 	    }
 
-	    public function LIKE() : ?TerminalNode
+	    public function LIKE(): ?TerminalNode
 	    {
 	        return $this->getToken(ApiFilterParser::LIKE, 0);
 	    }
 
-	    public function CONTAINS() : ?TerminalNode
+	    public function CONTAINS(): ?TerminalNode
 	    {
 	        return $this->getToken(ApiFilterParser::CONTAINS, 0);
 	    }
 
-	    public function NOT() : ?TerminalNode
+	    public function NOT(): ?TerminalNode
 	    {
 	        return $this->getToken(ApiFilterParser::NOT, 0);
 	    }
 
-	    public function STARTSWITH() : ?TerminalNode
+	    public function STARTSWITH(): ?TerminalNode
 	    {
 	        return $this->getToken(ApiFilterParser::STARTSWITH, 0);
 	    }
 
-	    public function ENDSWITH() : ?TerminalNode
+	    public function ENDSWITH(): ?TerminalNode
 	    {
 	        return $this->getToken(ApiFilterParser::ENDSWITH, 0);
 	    }
 
-		public function accept(ParseTreeVisitor $visitor)
+		public function accept(ParseTreeVisitor $visitor): mixed
 		{
 			if ($visitor instanceof ApiFilterVisitor) {
 			    return $visitor->visitPatternop($this);
@@ -1365,17 +1336,17 @@ namespace FattureInCloud\ApiFilter\Parser\Context {
 			parent::__construct($parent, $invokingState);
 		}
 
-		public function getRuleIndex() : int
+		public function getRuleIndex(): int
 		{
 		    return ApiFilterParser::RULE_integer;
 	    }
 
-	    public function INT() : ?TerminalNode
+	    public function INT(): ?TerminalNode
 	    {
 	        return $this->getToken(ApiFilterParser::INT, 0);
 	    }
 
-		public function accept(ParseTreeVisitor $visitor)
+		public function accept(ParseTreeVisitor $visitor): mixed
 		{
 			if ($visitor instanceof ApiFilterVisitor) {
 			    return $visitor->visitInteger($this);
@@ -1392,7 +1363,7 @@ namespace FattureInCloud\ApiFilter\Parser\Context {
 			parent::__construct($parent, $invokingState);
 		}
 
-		public function getRuleIndex() : int
+		public function getRuleIndex(): int
 		{
 		    return ApiFilterParser::RULE_decimal;
 	    }
@@ -1409,12 +1380,12 @@ namespace FattureInCloud\ApiFilter\Parser\Context {
 	        return $this->getToken(ApiFilterParser::INT, $index);
 	    }
 
-	    public function DOT() : ?TerminalNode
+	    public function DOT(): ?TerminalNode
 	    {
 	        return $this->getToken(ApiFilterParser::DOT, 0);
 	    }
 
-		public function accept(ParseTreeVisitor $visitor)
+		public function accept(ParseTreeVisitor $visitor): mixed
 		{
 			if ($visitor instanceof ApiFilterVisitor) {
 			    return $visitor->visitDecimal($this);
